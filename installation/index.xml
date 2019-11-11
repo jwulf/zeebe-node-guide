@@ -17,7 +17,8 @@
       <pubDate>Thu, 07 Nov 2019 01:44:25 +1000</pubDate>
       
       <guid>http://example.org/installation/install/install/</guid>
-      <description> Add to an existing project  npm i zeebe-node    Create a new Node.js project </description>
+      <description> The Zeebe Node client is available via npm.
+Add to an existing project  npm i zeebe-node    Create a new Node.js project  mkdir myproject cd myproject npm init -y npm i zeebe-node    </description>
     </item>
     
   </channel>
