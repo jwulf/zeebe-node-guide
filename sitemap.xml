@@ -23,6 +23,11 @@
   </url>
   
   <url>
+    <loc>http://example.org/zbclient/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://example.org/installation/install/install/</loc>
     <lastmod>2019-11-07T01:44:25+10:00</lastmod>
   </url>
@@ -35,6 +40,11 @@
   <url>
     <loc>http://example.org/introduction/prerequisites/</loc>
     <lastmod>2019-11-06T21:52:52+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/zbclient/quickstart/</loc>
+    <lastmod>2019-10-28T16:59:15+10:00</lastmod>
   </url>
   
   <url>

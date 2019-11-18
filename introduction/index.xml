@@ -17,7 +17,9 @@
       <pubDate>Tue, 05 Nov 2019 01:52:19 +1000</pubDate>
       
       <guid>http://example.org/introduction/zeebe-node/</guid>
-      <description>The zeebe-node npm package is an open-source library for creating Node.js Zeebe client applications.</description>
+      <description>The zeebe-node npm package is an open-source library for creating Node.js Zeebe client applications.
+It was developed internally at an early-adopter of Zeebe - Credit Sense in Australia - by Josh Wulf. Credit Sense contributed it to the community by making it open-source, and it has gone on to become a popular way to write Zeebe applications.
+It is written in TypeScript, and can be used with TypeScript or JavaScript.</description>
     </item>
     
     <item>
