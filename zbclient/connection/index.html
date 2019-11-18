@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Zeebe Node.js Client Guide :: Zeebe Node.js Client Guide</title>
+    <title>Connection to the Zeebe broker :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574083688" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/">
+  <body class="" data-url="/zbclient/connection/">
     <nav id="sidebar" class="">
 
 
@@ -285,7 +285,7 @@
   
     
     <li data-nav-id="/zbclient/" title="ZBClient" class="dd-item 
-        
+        parent
         
         
         ">
@@ -309,7 +309,7 @@
  
   
     
-      <li data-nav-id="/zbclient/connection/" title="Connection to the Zeebe broker" class="dd-item ">
+      <li data-nav-id="/zbclient/connection/" title="Connection to the Zeebe broker" class="dd-item active">
         <a href="/zbclient/connection/">
         Connection to the Zeebe broker
         
@@ -351,28 +351,220 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/zbclient/'>ZBClient</a> > Connection to the Zeebe broker
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#zero-conf-constructor-vs-explicit-gateway-address">Zero-conf constructor vs explicit gateway address</a></li>
+<li><a href="#environmentalizing-the-connection">Environmentalizing the connection</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              Connection to the Zeebe broker
+            </h1>
+          
 
         
 
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="zeebe-node-js-client-guide">Zeebe Node.js Client Guide</h1>
 
-<p><img src="/img/Zeebe-Node Thumbnail.png"/></p>
+<p>The <code>ZBClient</code> class establishes a connection to a Zeebe broker cluster, and is used to send commands to the broker.</p>
+
+<p>Conceptually, the ZBClient &ldquo;talks to a broker&rdquo;. In practice, the ZBClient talks to a gateway, which handles routing and load-balancing in the broker cluster. This means that you provide a gateway address to the ZBClient. In a development setup, you may have a single broker node with the embedded gateway enabled. In this case you can use the simplest constructor:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
 	
-  
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
+
+
+<h2 id="zero-conf-constructor-vs-explicit-gateway-address">Zero-conf constructor vs explicit gateway address</h2>
+
+<p>In the absence of any other arguments or environment variables, the ZBClient will communicate with a gateway at 127.0.0.1 on port 26500.</p>
+
+<p>You can explicitly provide an address to the constructor if you want. The following examples are functionally equivalent:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;127.0.0.1&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;127.0.0.1:26500&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;localhost&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;localhost:26500&#39;</span>)</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;127.0.0.1&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;127.0.0.1:26500&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;localhost&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#e6db74">&#39;localhost:26500&#39;</span>)
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
+
+
+<p>We recommend, however, that you use the zero-conf constructor, with no gateway address. This allows you to environmentalize your configuration. When you deploy your application to production (or a test or staging environment), no changes are required in your code.</p>
+
+<h2 id="environmentalizing-the-connection">Environmentalizing the connection</h2>
+
+<p>The ZBClient constructor examines the environment for the variable <code>ZEEBE_ADDRESS</code>. By setting this variable in your various environments (for example via <code>docker-compose.yml</code> or a K8s config map), and using the zero-conf constructor, your code is portable.</p>
+
+<p>For example, given an <code>index.js|ts</code> file like this:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
+
+
+<p>You can run against a local broker simply with:</p>
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+<div class="tab-pane" title="Bash">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">node index.js</code></pre></div>
+
+</div>
+
+</div>
+</div>
+
+
+<p>And run the same code against a remote server running on port 80 on zeebe.test.mydomain.com with:</p>
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+<div class="tab-pane" title="Bash">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ZEEBE_ADDRESS<span style="color:#f92672">=</span>zeebe.test.mydomain.com:80 node index.js</code></pre></div>
+
+</div>
+
+</div>
+</div>
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
         
         </div> 
         
@@ -535,6 +727,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -548,6 +741,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -570,6 +764,8 @@
 
 	 
 	 
+		
+			<a class="nav nav-prev" href="/zbclient/" title="ZBClient"> <i class="fa fa-chevron-left"></i></a>
 		
 		
 			<a class="nav nav-next" href="/introduction/" title="Introduction" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>

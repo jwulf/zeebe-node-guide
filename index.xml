@@ -46,13 +46,12 @@ What this guide covers This guide walks you through using the JavaScript client 
     
     <item>
       <title>Connection to the Zeebe broker</title>
-      <link>http://example.org/zbclient/quickstart/</link>
+      <link>http://example.org/zbclient/connection/</link>
       <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
       
-      <guid>http://example.org/zbclient/quickstart/</guid>
-      <description>Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker documentation).  Import the Zeebe Node library Create an index.js file (or index.ts for TypeScript).
-Edit the file, and import the Zeebe Node library:
- import { ZBClient } from &amp;#39;zeebe-node&amp;#39;   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;)     Create a ZBClient  import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient()   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient()     This establishes a connection to a Zeebe broker running on localhost:26500.</description>
+      <guid>http://example.org/zbclient/connection/</guid>
+      <description>The ZBClient class establishes a connection to a Zeebe broker cluster, and is used to send commands to the broker.
+Conceptually, the ZBClient &amp;ldquo;talks to a broker&amp;rdquo;. In practice, the ZBClient talks to a gateway, which handles routing and load-balancing in the broker cluster. This means that you provide a gateway address to the ZBClient. In a development setup, you may have a single broker node with the embedded gateway enabled.</description>
     </item>
     
     <item>
@@ -63,7 +62,7 @@ Edit the file, and import the Zeebe Node library:
       <guid>http://example.org/quickstart/quickstart/</guid>
       <description>Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker documentation).  Import the Zeebe Node library Create an index.js file (or index.ts for TypeScript).
 Edit the file, and import the Zeebe Node library:
- import { ZBClient } from &amp;#39;zeebe-node&amp;#39;   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;)     Create a ZBClient  import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient()   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient()     This establishes a connection to a Zeebe broker running on localhost:26500.</description>
+ import { ZBClient } from &amp;#39;zeebe-node&amp;#39;   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;)     Create a ZBClient  import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient()  const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient()     This establishes a connection to a Zeebe broker running on localhost:26500.</description>
     </item>
     
     <item>

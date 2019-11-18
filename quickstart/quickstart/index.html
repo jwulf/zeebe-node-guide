@@ -12,20 +12,20 @@
     <title>Zeebe Node Quickstart :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574080925" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574080925" rel="stylesheet">
-    <link href="/css/hybrid.css?1574080925" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574080925" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574080925" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574080925" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574080925" rel="stylesheet">
-    <link href="/css/theme.css?1574080925" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574080925" rel="stylesheet">
-    <link href="/css/tabs.css?1574080925" rel="stylesheet">
+    <link href="/css/nucleus.css?1574083688" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1574083688" rel="stylesheet">
+    <link href="/css/hybrid.css?1574083688" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1574083688" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1574083688" rel="stylesheet">
+    <link href="/css/auto-complete.css?1574083688" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1574083688" rel="stylesheet">
+    <link href="/css/theme.css?1574083688" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1574083688" rel="stylesheet">
+    <link href="/css/tabs.css?1574083688" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574080925"></script>
+    <script src="/js/jquery-3.3.1.min.js?1574083688"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574080925"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574080925"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1574083688"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1574083688"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574080925"></script>
+<script type="text/javascript" src="/js/search.js?1574083688"></script>
 
     
   </div>
@@ -309,8 +309,8 @@
  
   
     
-      <li data-nav-id="/zbclient/quickstart/" title="Connection to the Zeebe broker" class="dd-item ">
-        <a href="/zbclient/quickstart/">
+      <li data-nav-id="/zbclient/connection/" title="Connection to the Zeebe broker" class="dd-item ">
+        <a href="/zbclient/connection/">
         Connection to the Zeebe broker
         
         </a>
@@ -487,19 +487,17 @@
 	
     <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
-    </code></pre></div>
-  
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
-    
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -530,24 +528,22 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">topology</span>()
-  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>)
-  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>)))
-    </code></pre></div>
-  
+.<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>)
+.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>)))</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">topology</span>()
-  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>)
-  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>)))
-    
+.<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>)
+.<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>)))
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -570,38 +566,36 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main() {</span>
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">topology</span>()
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">topology</span>()
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
-<span style="color:#a6e22e">main</span>()
-    </code></pre></div>
-  
+<span style="color:#a6e22e">main</span>()</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">topology</span>()
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">topology</span>()
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
 <span style="color:#a6e22e">main</span>()
-    
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -732,38 +726,36 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main() {</span>
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
-<span style="color:#a6e22e">main</span>()
-    </code></pre></div>
-  
+<span style="color:#a6e22e">main</span>()</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
 <span style="color:#a6e22e">main</span>()
-    
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -807,40 +799,38 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main() {</span>
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstance</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {});
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstance</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
-<span style="color:#a6e22e">main</span>()
-    </code></pre></div>
-  
+<span style="color:#a6e22e">main</span>()</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstance</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {});
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstance</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
 <span style="color:#a6e22e">main</span>()
-    
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -883,28 +873,26 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>();
 
 <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorker</span>(<span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;sample-task&#34;</span>, (<span style="color:#a6e22e">job</span>, <span style="color:#a6e22e">complete</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
-  <span style="color:#75715e">// Business logic
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>();
-});
-    </code></pre></div>
-  
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
+<span style="color:#75715e">// Business logic
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>();
+});</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>();
 
 <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorker</span>(<span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;sample-task&#34;</span>, (<span style="color:#a6e22e">job</span>, <span style="color:#a6e22e">complete</span>) =&gt; {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
-  <span style="color:#75715e">// Business logic
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>();
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
+<span style="color:#75715e">// Business logic
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>();
 });
-    
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -956,32 +944,30 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>();
 
 <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorker</span>(<span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;sample-task&#34;</span>, (<span style="color:#a6e22e">job</span>, <span style="color:#a6e22e">complete</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
-  <span style="color:#75715e">// Business logic
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>({
-    <span style="color:#a6e22e">updateId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;some-uuid&#39;</span>
-  });
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
+<span style="color:#75715e">// Business logic
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>({
+<span style="color:#a6e22e">updateId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;some-uuid&#39;</span>
 });
-    </code></pre></div>
-  
+});</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>();
 
 <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorker</span>(<span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;sample-task&#34;</span>, (<span style="color:#a6e22e">job</span>, <span style="color:#a6e22e">complete</span>) =&gt; {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
-  <span style="color:#75715e">// Business logic
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>({
-    <span style="color:#a6e22e">updateId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;some-uuid&#39;</span>
-  });
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">job</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>));
+<span style="color:#75715e">// Business logic
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">complete</span>.<span style="color:#a6e22e">success</span>({
+<span style="color:#a6e22e">updateId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;some-uuid&#39;</span>
 });
-    
+});
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -1004,44 +990,42 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main() {</span>
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstanceWithResult</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {
-      <span style="color:#a6e22e">requestId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;someRequestId&#39;</span>
-    });
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstanceWithResult</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {
+<span style="color:#a6e22e">requestId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;someRequestId&#39;</span>
+});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
-<span style="color:#a6e22e">main</span>()
-    </code></pre></div>
-  
+<span style="color:#a6e22e">main</span>()</code></pre></div>
+
 </div>
 
-  <div class="tab-pane" title="JavaScript (ES6)">
+<div class="tab-pane" title="JavaScript (ES6)">
 	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
 <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">main</span>() {
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstanceWithResult</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {
-      <span style="color:#a6e22e">requestId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;someRequestId&#39;</span>
-    });
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
-  }
+<span style="color:#66d9ef">try</span> {
+<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#e6db74">&#39;./sample.bpmn&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorkflowInstanceWithResult</span>(<span style="color:#e6db74">&#39;sample-process&#39;</span>, {
+<span style="color:#a6e22e">requestId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;someRequestId&#39;</span>
+});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">res</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">2</span>))
+} <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">e</span>)
+}
 }
 
 <span style="color:#a6e22e">main</span>()
-    
 </code></pre></div>
-  
+
 </div>
 
 </div>
@@ -1319,21 +1303,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574080925"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574080925"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574080925"></script>
-    <script src="/js/jquery.sticky.js?1574080925"></script>
-    <script src="/js/featherlight.min.js?1574080925"></script>
-    <script src="/js/highlight.pack.js?1574080925"></script>
+    <script src="/js/clipboard.min.js?1574083688"></script>
+    <script src="/js/perfect-scrollbar.min.js?1574083688"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1574083688"></script>
+    <script src="/js/jquery.sticky.js?1574083688"></script>
+    <script src="/js/featherlight.min.js?1574083688"></script>
+    <script src="/js/highlight.pack.js?1574083688"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574080925"></script>
-    <script src="/js/learn.js?1574080925"></script>
-    <script src="/js/hugo-learn.js?1574080925"></script>
-    <script src="/js/code-lang.js?1574080925"></script>
-    <script src="/js/tabs.js?1574080925"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1574083688"></script>
+    <script src="/js/learn.js?1574083688"></script>
+    <script src="/js/hugo-learn.js?1574083688"></script>
+    <script src="/js/code-lang.js?1574083688"></script>
+    <script src="/js/tabs.js?1574083688"></script>
 
-    <link href="/mermaid/mermaid.css?1574080925" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574080925"></script>
+    <link href="/mermaid/mermaid.css?1574083688" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1574083688"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

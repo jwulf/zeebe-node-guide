@@ -19,7 +19,7 @@
       <guid>http://example.org/quickstart/quickstart/</guid>
       <description>Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker documentation).  Import the Zeebe Node library Create an index.js file (or index.ts for TypeScript).
 Edit the file, and import the Zeebe Node library:
- import { ZBClient } from &amp;#39;zeebe-node&amp;#39;   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;)     Create a ZBClient  import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient()   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient()     This establishes a connection to a Zeebe broker running on localhost:26500.</description>
+ import { ZBClient } from &amp;#39;zeebe-node&amp;#39;   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;)     Create a ZBClient  import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient()  const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient()     This establishes a connection to a Zeebe broker running on localhost:26500.</description>
     </item>
     
   </channel>
