@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Zeebe client applications :: Zeebe Node.js Client Guide</title>
+    <title>OAuth :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574280957" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/introduction/not-rest/">
+  <body class="" data-url="/zbclient-connection/oauth/">
     <nav id="sidebar" class="">
 
 
@@ -94,7 +94,7 @@
   
     
     <li data-nav-id="/introduction/" title="Introduction" class="dd-item 
-        parent
+        
         
         
         ">
@@ -156,7 +156,7 @@
  
   
     
-      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item active">
+      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item ">
         <a href="/introduction/not-rest/">
         Zeebe client applications
         
@@ -355,7 +355,7 @@
   
     
     <li data-nav-id="/zbclient-connection/" title="ZBClient - Connection" class="dd-item 
-        
+        parent
         
         
         ">
@@ -436,7 +436,7 @@
  
   
     
-      <li data-nav-id="/zbclient-connection/oauth/" title="OAuth" class="dd-item ">
+      <li data-nav-id="/zbclient-connection/oauth/" title="OAuth" class="dd-item active">
         <a href="/zbclient-connection/oauth/">
         OAuth
         
@@ -664,7 +664,7 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/introduction/'>Introduction</a> > Zeebe client applications
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/zbclient-connection/'>ZBClient - Connection</a> > OAuth
           
          
           
@@ -681,7 +681,12 @@
 <ul>
 <li>
 <ul>
-<li><a href="#polling-model">Polling model</a></li>
+<li><a href="#connect-to-a-broker-with-oauth">Connect to a broker with OAuth</a>
+<ul>
+<li><a href="#environmentalizing-oauth-configuration">Environmentalizing OAuth configuration</a></li>
+<li><a href="#oauth-jwt-caching">OAuth JWT caching</a></li>
+<li><a href="#environmentalizing-jwt-cache">Environmentalizing JWT cache</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -700,7 +705,7 @@
           
             <h1>
               
-              Zeebe client applications
+              OAuth
             </h1>
           
 
@@ -710,21 +715,136 @@
 
 
 
-<p>Zeebe is a highly-scalable, cloud-native microservices orchestration engine that uses BPMN to orchestrate microservices.</p>
+<h2 id="connect-to-a-broker-with-oauth">Connect to a broker with OAuth</h2>
 
-<h2 id="polling-model">Polling model</h2>
+<p>You can secure a Zeebe cluster with OAuth using a proxy. In this case, the Node client can retrieve a JWT (JSON Web Token) from a token endpoint to use to authorize requests to the broker.</p>
 
-<p>Zeebe clients communicate with a Zeebe broker cluster through a gateway. Communication between the JavaScript client code and the gateway is over gRPC. That means that <em>your client applications poll the gateway for available tasks</em>. The Zeebe broker does not invoke your microservices over REST. If you come from a REST architecture background, or have an existing REST microservices architecture that you want to orchestrate, you should take the time to understand the Zeebe model as it is, <em>before</em> trying to figure out how to use it with RESTful services. It is definitely possible, but you need to wire it up to work.</p>
+<p>If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&rsquo;m kidding - this is for a development POC &hellip;right??).</p>
 
-<p>Think of it like this: your Zeebe worker, written in JavaScript, subscribes to a task type on the gateway. It then runs in a loop, polling the gateway for that task type. When jobs of that task type are available, the gateway returns them to the worker. If you have an existing RESTful microservice that you want to invoke for jobs of that task type, then your Zeebe worker can invoke it. And that&rsquo;s how you wire up Zeebe with existing RESTful microservices.</p>
+<p>In the following example, we enable OAuth:</p>
 
-<p>You could do something like create a worker that subscribes to many task types and has a map for the task type to the REST endpoint that should be invoked for it.</p>
+<!-- prettier-ignore -->
 
-<p>The important thing to understand is that workers subscribe to a task type, and poll for jobs of that task type. So it is a pull model, rather than the push model of REST, where the broker would invoke a REST service.</p>
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<p>The pull model means that you can scale the workers without configuring routing or load-balancing, as you would need to do if it were a push model.</p>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-oAuth-endpoint.com&#39;</span>,
+    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;token-audience&#39;</span>,
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-id&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-secret&#39;</span>,
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">443</span>
+})
+    </code></pre></div>
+  
+</div>
 
-<p>If you are writing a system from scratch, then you can put your business logic directly in a polling worker - or you can put the business logic in a REST endpoint if you need to reuse it from other places, and wrap the REST call in a Zeebe worker.</p>
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-oAuth-endpoint.com&#39;</span>,
+    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;token-audience&#39;</span>,
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-id&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-secret&#39;</span>,
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">443</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
+
+
+<h3 id="environmentalizing-oauth-configuration">Environmentalizing OAuth configuration</h3>
+
+<p>The following environment variables control OAuth configuration:</p>
+
+<pre><code class="language-bash">ZEEBE_TOKEN_AUDIENCE
+ZEEBE_AUTHORIZATION_SERVER_URL
+ZEEBE_CLIENT_ID
+ZEEBE_CLIENT_SECRET
+</code></pre>
+
+<h3 id="oauth-jwt-caching">OAuth JWT caching</h3>
+
+<p>The Node client caches the JWT in-memory, and only requests a new token when the current token expires. This is important for performance, as the client doesn&rsquo;t need to request a token for each request. This speeds up network requests to the gateway and reduces calls to your token-issuing endpoint.</p>
+
+<p>The Node client also caches the token on disk. This is important in development when you are restarting your application frequently, and also when running in a stateless environment like AWS Lambda.</p>
+
+<p>By default, the JWT is cached in the directory <code>~/.camunda</code>. In some environments (such as AWS Lambda) this directory is not writable. To avoid unbounded token requests, the ZBClient will throw in its constructor if it cannot write to the token cache directory.</p>
+
+<p>You can configure a token cache directory in the oAuth configuration using the optional <code>cacheDir</code> parameter, like this:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">useTLS</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-oAuth-endpoint.com&#39;</span>,
+    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;token-audience&#39;</span>,
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-id&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-secret&#39;</span>,
+    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/cache&#39;</span>
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">443</span>
+})
+    </code></pre></div>
+  
+</div>
+
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">useTLS</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-oAuth-endpoint.com&#39;</span>,
+    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;token-audience&#39;</span>,
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-id&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;oAuth-client-secret&#39;</span>,
+    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/cache&#39;</span>
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">443</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
+
+
+<h3 id="environmentalizing-jwt-cache">Environmentalizing JWT cache</h3>
+
+<p>The following environment variable overrides the JWT cache directory:</p>
+
+<pre><code class="language-bash">ZEEBE_TOKEN_CACHE_DIR
+</code></pre>
 
 
 <footer class=" footline" >
@@ -763,20 +883,6 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
                         
                         
                     
@@ -787,9 +893,6 @@
                     
                     
 
-                    
-            
-        
                     
                         
             
@@ -812,7 +915,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -823,25 +925,6 @@
                     
             
         
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -923,22 +1006,6 @@
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
                     
@@ -987,10 +1054,30 @@
             
         
                     
+            
+        
+                    
                         
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1023,6 +1110,42 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1143,10 +1266,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/introduction/prerequisites/" title="Prerequisites"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/zbclient-connection/basic-auth/" title="Basic Auth"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/installation/" title="Installation" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/zbclient-connection/camunda-cloud/" title="Camunda Cloud" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

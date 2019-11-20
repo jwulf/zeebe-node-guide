@@ -18,7 +18,7 @@
       
       <guid>http://example.org/installation/install/install/</guid>
       <description> The Zeebe Node client is available via npm.
-Add to an existing project  npm i zeebe-node    Create a new Node.js project  mkdir myproject cd myproject npm init -y npm i zeebe-node    Make it a TypeScript project  npm i -g typescript tsc --init    </description>
+Add to an existing project npm i zeebe-node  Create a new Node.js project mkdir myproject cd myproject npm init -y npm i zeebe-node  Make it a TypeScript project npm i -g typescript tsc --init  </description>
     </item>
     
   </channel>

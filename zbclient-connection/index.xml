@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ZBClient - Connection on Zeebe Node.js Client Guide</title>
+    <link>http://example.org/zbclient-connection/</link>
+    <description>Recent content in ZBClient - Connection on Zeebe Node.js Client Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Oct 2019 16:49:55 +1000</lastBuildDate>
+    
+	<atom:link href="http://example.org/zbclient-connection/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Connection to the Zeebe broker</title>
+      <link>http://example.org/zbclient-connection/connection/</link>
+      <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient-connection/connection/</guid>
+      <description>Broker Gateway address The ZBClient class establishes a connection to a Zeebe broker cluster, and is used to send commands to the broker.
+Conceptually, the ZBClient &amp;ldquo;talks to a broker&amp;rdquo;. In practice, the ZBClient talks to a gateway, which handles routing and load-balancing in the broker cluster. This means that you provide a gateway address to the ZBClient. In a development setup, you may have a single broker node with the embedded gateway enabled.</description>
+    </item>
+    
+    <item>
+      <title>TLS</title>
+      <link>http://example.org/zbclient-connection/tls/</link>
+      <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient-connection/tls/</guid>
+      <description>Connect to a broker with TLS You can secure communication between your client applications and the Zeebe broker cluster using TLS (Transport Layer Security). This needs to be enabled in the broker, or in an reverse proxy, to use.
+By default, the broker does not secure the client connections with TLS, and the Node client does not use TLS for the connection.
+To enable TLS with the Node client and connect to a broker secured with TLS, set the option useTLS to true:</description>
+    </item>
+    
+    <item>
+      <title>Basic Auth</title>
+      <link>http://example.org/zbclient-connection/basic-auth/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient-connection/basic-auth/</guid>
+      <description>You can secure a Zeebe cluster with Basic Auth using an reverse proxy. In this case you can use a username / password pair as effectively an API key for your client applications.
+Basic Auth without TLS To enable Basic Auth without TLS:
+ import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient({ basicAuth: { username: &amp;#39;basicAuth-username&amp;#39;, password: &amp;#39;basicAuth-password&amp;#39;, }, hostname: &amp;#39;my-secure-zeebe-gateway.com&amp;#39;, port: 80 })   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient({ basicAuth: { username: &amp;#39;basicAuth-username&amp;#39;, password: &amp;#39;basicAuth-password&amp;#39;, }, hostname: &amp;#39;my-secure-zeebe-gateway.</description>
+    </item>
+    
+    <item>
+      <title>OAuth</title>
+      <link>http://example.org/zbclient-connection/oauth/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient-connection/oauth/</guid>
+      <description>Connect to a broker with OAuth You can secure a Zeebe cluster with OAuth using a proxy. In this case, the Node client can retrieve a JWT (JSON Web Token) from a token endpoint to use to authorize requests to the broker.
+If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&amp;rsquo;m kidding - this is for a development POC &amp;hellip;right?</description>
+    </item>
+    
+    <item>
+      <title>Camunda Cloud</title>
+      <link>http://example.org/zbclient-connection/camunda-cloud/</link>
+      <pubDate>Sat, 26 Oct 2019 16:59:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient-connection/camunda-cloud/</guid>
+      <description>Connect to Camunda Cloud Camunda Cloud provides a fully managed Zeebe service with TLS and OAuth.
+Client version 0.22 and above The Zeebe Node client version 0.22 and above provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.
+To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~ is not writable in your runtime environment.</description>
+    </item>
+    
+  </channel>
+</rss>

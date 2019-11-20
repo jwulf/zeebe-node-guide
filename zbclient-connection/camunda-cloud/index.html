@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Zeebe client applications :: Zeebe Node.js Client Guide</title>
+    <title>Camunda Cloud :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574280957" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/introduction/not-rest/">
+  <body class="" data-url="/zbclient-connection/camunda-cloud/">
     <nav id="sidebar" class="">
 
 
@@ -94,7 +94,7 @@
   
     
     <li data-nav-id="/introduction/" title="Introduction" class="dd-item 
-        parent
+        
         
         
         ">
@@ -156,7 +156,7 @@
  
   
     
-      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item active">
+      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item ">
         <a href="/introduction/not-rest/">
         Zeebe client applications
         
@@ -355,7 +355,7 @@
   
     
     <li data-nav-id="/zbclient-connection/" title="ZBClient - Connection" class="dd-item 
-        
+        parent
         
         
         ">
@@ -455,7 +455,7 @@
  
   
     
-      <li data-nav-id="/zbclient-connection/camunda-cloud/" title="Camunda Cloud" class="dd-item ">
+      <li data-nav-id="/zbclient-connection/camunda-cloud/" title="Camunda Cloud" class="dd-item active">
         <a href="/zbclient-connection/camunda-cloud/">
         Camunda Cloud
         
@@ -664,7 +664,7 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/introduction/'>Introduction</a> > Zeebe client applications
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/zbclient-connection/'>ZBClient - Connection</a> > Camunda Cloud
           
          
           
@@ -681,7 +681,13 @@
 <ul>
 <li>
 <ul>
-<li><a href="#polling-model">Polling model</a></li>
+<li><a href="#connect-to-camunda-cloud">Connect to Camunda Cloud</a>
+<ul>
+<li><a href="#client-version-0-22-and-above">Client version 0.22 and above</a></li>
+<li><a href="#environmentalizing-camunda-cloud-client-version-0-22">Environmentalizing Camunda Cloud (client version &gt;= 0.22)</a></li>
+<li><a href="#client-version-prior-to-0-22">Client version prior to 0.22</a></li>
+<li><a href="#environmentalizing-camunda-cloud-client-version-0-22-1">Environmentalizing Camunda Cloud (client version &lt; 0.22)</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -700,7 +706,7 @@
           
             <h1>
               
-              Zeebe client applications
+              Camunda Cloud
             </h1>
           
 
@@ -710,21 +716,150 @@
 
 
 
-<p>Zeebe is a highly-scalable, cloud-native microservices orchestration engine that uses BPMN to orchestrate microservices.</p>
+<h2 id="connect-to-camunda-cloud">Connect to Camunda Cloud</h2>
 
-<h2 id="polling-model">Polling model</h2>
+<p><a href="https://zeebe.io/cloud/">Camunda Cloud</a> provides a fully managed Zeebe service with TLS and OAuth.</p>
 
-<p>Zeebe clients communicate with a Zeebe broker cluster through a gateway. Communication between the JavaScript client code and the gateway is over gRPC. That means that <em>your client applications poll the gateway for available tasks</em>. The Zeebe broker does not invoke your microservices over REST. If you come from a REST architecture background, or have an existing REST microservices architecture that you want to orchestrate, you should take the time to understand the Zeebe model as it is, <em>before</em> trying to figure out how to use it with RESTful services. It is definitely possible, but you need to wire it up to work.</p>
+<h3 id="client-version-0-22-and-above">Client version 0.22 and above</h3>
 
-<p>Think of it like this: your Zeebe worker, written in JavaScript, subscribes to a task type on the gateway. It then runs in a loop, polling the gateway for that task type. When jobs of that task type are available, the gateway returns them to the worker. If you have an existing RESTful microservice that you want to invoke for jobs of that task type, then your Zeebe worker can invoke it. And that&rsquo;s how you wire up Zeebe with existing RESTful microservices.</p>
+<p>The Zeebe Node client version 0.22 and above provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.</p>
 
-<p>You could do something like create a worker that subscribes to many task types and has a map for the task type to the REST endpoint that should be invoked for it.</p>
+<p>To use with Camunda Cloud, set these values in code. Note that <code>cacheDir</code> is optional, and should be used when the directory <code>~</code> is not writable in your runtime environment.</p>
 
-<p>The important thing to understand is that workers subscribe to a task type, and poll for jobs of that task type. So it is a pull model, rather than the push model of REST, where the broker would invoke a REST service.</p>
+<!-- prettier-ignore -->
 
-<p>The pull model means that you can scale the workers without configuring routing or load-balancing, as you would need to do if it were a push model.</p>
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<p>If you are writing a system from scratch, then you can put your business logic directly in a polling worker - or you can put the business logic in a REST endpoint if you need to reuse it from other places, and wrap the REST call in a Zeebe worker.</p>
+<span style="color:#75715e">// cacheDir is optional - see OAuth JWT caching
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">camundaCloud</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;yStuGvJ6a1RQhy8DQpeXJ80yEpar3pXh&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;WZahIGHjyj0-oQ7DZ_aH2wwNuZt5O8Sq0ZJTz0OaxfO7D6jaDBZxM_Q-BHRsiGO_&#39;</span>,
+    <span style="color:#a6e22e">clusterId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040&#39;</span>,
+    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./tokens&#39;</span>
+  }
+})
+    </code></pre></div>
+  
+</div>
+
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+  <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#75715e">// cacheDir is optional - see OAuth JWT caching
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">camundaCloud</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;yStuGvJ6a1RQhy8DQpeXJ80yEpar3pXh&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;WZahIGHjyj0-oQ7DZ_aH2wwNuZt5O8Sq0ZJTz0OaxfO7D6jaDBZxM_Q-BHRsiGO_&#39;</span>,
+    <span style="color:#a6e22e">clusterId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040&#39;</span>,
+    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./tokens&#39;</span>
+	}
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
+
+
+<h3 id="environmentalizing-camunda-cloud-client-version-0-22">Environmentalizing Camunda Cloud (client version &gt;= 0.22)</h3>
+
+<p>To use Camunda Cloud with clients version 0.22 and above, set the environment variables:</p>
+
+<pre><code class="language-bash">ZEEBE_ADDRESS  # Set with &quot;Zeebe Cluster Id&quot; value
+ZEEBE_CLIENT_ID # Set with &quot;clientId&quot; value
+ZEEBE_CLIENT_SECRET # Set with &quot;clientSecret&quot; value
+</code></pre>
+
+<p>Setting only these three OAuth values is interpreted by the client as necessary and sufficient for Camunda Cloud, and it will enable TLS and correctly set the OAuth token audience and Authorization URL.</p>
+
+<p>Optionally, set a custom token cache directory:</p>
+
+<pre><code class="language-bash">ZEEBE_TOKEN_CACHE_DIR
+</code></pre>
+
+<h3 id="client-version-prior-to-0-22">Client version prior to 0.22</h3>
+
+<p>The OAuth authorization endpoint changed in November 2019. Client versions prior to 0.22 are hard-coded to use the previous authorization endpoint, so the convenience configuration will not work. You will need to provide all the configuration details.</p>
+
+<p>The <code>oAuth.url</code> is a constant - it&rsquo;s the Camunda Cloud token endpoint. The other values depend on your cluster, and come from your Camunda Cloud account. The <code>oAuth.audience</code> needs to be set to your cluster Id with the <code>.zeebe.camunda.io</code> domain added to it.</p>
+
+<p>The <code>oAuth.cacheDir</code> setting is optional, and should be set if the directory <code>~</code> is not writable in your run-time environment - for example, AWS Lambda with the default mounts.</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">useTLS</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;@TODO my-oAuth-endpoint.com&#39;</span>,
+    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;yStuGvJ6a1RQhy8DQpeXJ80yEpar3pXh&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;WZahIGHjyj0-oQ7DZ_aH2wwNuZt5O8Sq0ZJTz0OaxfO7D6jaDBZxM_Q-BHRsiGO_&#39;</span>,
+    <span style="color:#a6e22e">clusterId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040&#39;</span>,
+    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/cache&#39;</span>
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
+  <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">443</span>
+})
+    </code></pre></div>
+  
+</div>
+
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">useTLS</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;@TODO my-oAuth-endpoint.com&#39;</span>,
+    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
+    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;yStuGvJ6a1RQhy8DQpeXJ80yEpar3pXh&#39;</span>,
+    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;WZahIGHjyj0-oQ7DZ_aH2wwNuZt5O8Sq0ZJTz0OaxfO7D6jaDBZxM_Q-BHRsiGO_&#39;</span>,
+    <span style="color:#a6e22e">clusterId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040&#39;</span>,
+    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/cache&#39;</span>
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
+  <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">443</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
+
+
+<h3 id="environmentalizing-camunda-cloud-client-version-0-22-1">Environmentalizing Camunda Cloud (client version &lt; 0.22)</h3>
+
+<p>For clients prior to 0.22, you need to set all the environment variables for oAuth, using the appropriate values for Camunda Cloud and your cluster. See above for how you get those.</p>
+
+<pre><code class="language-bash">ZEEBE_TOKEN_AUDIENCE
+ZEEBE_AUTHORIZATION_SERVER_URL=@TODO
+ZEEBE_CLIENT_ID
+ZEEBE_CLIENT_SECRET
+</code></pre>
+
+<p>Optionally, set a custom token cache directory:</p>
+
+<pre><code class="language-bash">ZEEBE_TOKEN_CACHE_DIR
+</code></pre>
 
 
 <footer class=" footline" >
@@ -763,20 +898,6 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
                         
                         
                     
@@ -787,9 +908,6 @@
                     
                     
 
-                    
-            
-        
                     
                         
             
@@ -812,7 +930,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -823,25 +940,6 @@
                     
             
         
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -923,22 +1021,6 @@
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
                     
@@ -987,10 +1069,30 @@
             
         
                     
+            
+        
+                    
                         
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1035,6 +1137,19 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
             
         
                     
@@ -1042,6 +1157,29 @@
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1143,10 +1281,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/introduction/prerequisites/" title="Prerequisites"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/zbclient-connection/oauth/" title="OAuth"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/installation/" title="Installation" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/zbclient-logging/" title="ZBClient - Logging" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

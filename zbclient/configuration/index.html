@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Zeebe client applications :: Zeebe Node.js Client Guide</title>
+    <title>Configuration Strategies :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574280957" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/introduction/not-rest/">
+  <body class="" data-url="/zbclient/configuration/">
     <nav id="sidebar" class="">
 
 
@@ -94,7 +94,7 @@
   
     
     <li data-nav-id="/introduction/" title="Introduction" class="dd-item 
-        parent
+        
         
         
         ">
@@ -156,7 +156,7 @@
  
   
     
-      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item active">
+      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item ">
         <a href="/introduction/not-rest/">
         Zeebe client applications
         
@@ -285,7 +285,7 @@
   
     
     <li data-nav-id="/zbclient/" title="ZBClient" class="dd-item 
-        
+        parent
         
         
         ">
@@ -328,7 +328,7 @@
  
   
     
-      <li data-nav-id="/zbclient/configuration/" title="Configuration Strategies" class="dd-item ">
+      <li data-nav-id="/zbclient/configuration/" title="Configuration Strategies" class="dd-item active">
         <a href="/zbclient/configuration/">
         Configuration Strategies
         
@@ -664,7 +664,7 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/introduction/'>Introduction</a> > Zeebe client applications
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/zbclient/'>ZBClient</a> > Configuration Strategies
           
          
           
@@ -681,7 +681,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#polling-model">Polling model</a></li>
+<li><a href="#zero-conf-constructor-vs-configuration-in-code">Zero-conf constructor vs configuration in code</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -700,7 +700,7 @@
           
             <h1>
               
-              Zeebe client applications
+              Configuration Strategies
             </h1>
           
 
@@ -710,21 +710,17 @@
 
 
 
-<p>Zeebe is a highly-scalable, cloud-native microservices orchestration engine that uses BPMN to orchestrate microservices.</p>
+<h2 id="zero-conf-constructor-vs-configuration-in-code">Zero-conf constructor vs configuration in code</h2>
 
-<h2 id="polling-model">Polling model</h2>
+<p>You can provide configuration to the ZBClient explicitly in your code - via the constructor - or via environment variables.</p>
 
-<p>Zeebe clients communicate with a Zeebe broker cluster through a gateway. Communication between the JavaScript client code and the gateway is over gRPC. That means that <em>your client applications poll the gateway for available tasks</em>. The Zeebe broker does not invoke your microservices over REST. If you come from a REST architecture background, or have an existing REST microservices architecture that you want to orchestrate, you should take the time to understand the Zeebe model as it is, <em>before</em> trying to figure out how to use it with RESTful services. It is definitely possible, but you need to wire it up to work.</p>
+<p>Explicit configuration in code is quick and easy, and makes sense when you are first experimenting with Zeebe.</p>
 
-<p>Think of it like this: your Zeebe worker, written in JavaScript, subscribes to a task type on the gateway. It then runs in a loop, polling the gateway for that task type. When jobs of that task type are available, the gateway returns them to the worker. If you have an existing RESTful microservice that you want to invoke for jobs of that task type, then your Zeebe worker can invoke it. And that&rsquo;s how you wire up Zeebe with existing RESTful microservices.</p>
+<p>We recommend, however, that ultimately you use the zero-conf constructor, and provide all the configuration via environment variables, <code>docker-compose.yml</code>, or a K8s config map. This environmentalizes your configuration, making your code portable.</p>
 
-<p>You could do something like create a worker that subscribes to many task types and has a map for the task type to the REST endpoint that should be invoked for it.</p>
+<p>When you deploy your application to a test, staging, or production environment, no changes are required in your code: you will be testing the exact code you run in production, and you can use configuration management tools to handle the different environments.</p>
 
-<p>The important thing to understand is that workers subscribe to a task type, and poll for jobs of that task type. So it is a pull model, rather than the push model of REST, where the broker would invoke a REST service.</p>
-
-<p>The pull model means that you can scale the workers without configuring routing or load-balancing, as you would need to do if it were a push model.</p>
-
-<p>If you are writing a system from scratch, then you can put your business logic directly in a polling worker - or you can put the business logic in a REST endpoint if you need to reuse it from other places, and wrap the REST call in a Zeebe worker.</p>
+<p>Note that any explicit configuration in code overrides configuration from the environment - with one exception: the log level can be overridden from the environment.</p>
 
 
 <footer class=" footline" >
@@ -763,6 +759,8 @@
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -777,8 +775,21 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -807,23 +818,6 @@
             
         
                     
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
                     
@@ -831,9 +825,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -899,6 +890,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -911,6 +903,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -928,6 +923,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -946,6 +942,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1143,10 +1142,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/introduction/prerequisites/" title="Prerequisites"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/zbclient/zbclient/" title="ZBClient class"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/installation/" title="Installation" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/zbclient-connection/" title="ZBClient - Connection" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

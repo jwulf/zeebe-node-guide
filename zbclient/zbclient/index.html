@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Zeebe client applications :: Zeebe Node.js Client Guide</title>
+    <title>ZBClient class :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574280957" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/introduction/not-rest/">
+  <body class="" data-url="/zbclient/zbclient/">
     <nav id="sidebar" class="">
 
 
@@ -94,7 +94,7 @@
   
     
     <li data-nav-id="/introduction/" title="Introduction" class="dd-item 
-        parent
+        
         
         
         ">
@@ -156,7 +156,7 @@
  
   
     
-      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item active">
+      <li data-nav-id="/introduction/not-rest/" title="Zeebe client applications" class="dd-item ">
         <a href="/introduction/not-rest/">
         Zeebe client applications
         
@@ -285,7 +285,7 @@
   
     
     <li data-nav-id="/zbclient/" title="ZBClient" class="dd-item 
-        
+        parent
         
         
         ">
@@ -309,7 +309,7 @@
  
   
     
-      <li data-nav-id="/zbclient/zbclient/" title="ZBClient class" class="dd-item ">
+      <li data-nav-id="/zbclient/zbclient/" title="ZBClient class" class="dd-item active">
         <a href="/zbclient/zbclient/">
         ZBClient class
         
@@ -664,7 +664,7 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/introduction/'>Introduction</a> > Zeebe client applications
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/zbclient/'>ZBClient</a> > ZBClient class
           
          
           
@@ -677,14 +677,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#polling-model">Polling model</a></li>
-</ul></li>
-</ul>
-</nav>
+
     </div>
 </div>
 
@@ -700,7 +693,7 @@
           
             <h1>
               
-              Zeebe client applications
+              ZBClient class
             </h1>
           
 
@@ -708,23 +701,9 @@
 
 
 
+<p>The ZBClient is the main class in the Node client. It is used to connect to the broker, deploy workflow definitions, start workflow instances, publish messages, and to create workers (ZBWorker) that will service Zeebe tasks.</p>
 
-
-<p>Zeebe is a highly-scalable, cloud-native microservices orchestration engine that uses BPMN to orchestrate microservices.</p>
-
-<h2 id="polling-model">Polling model</h2>
-
-<p>Zeebe clients communicate with a Zeebe broker cluster through a gateway. Communication between the JavaScript client code and the gateway is over gRPC. That means that <em>your client applications poll the gateway for available tasks</em>. The Zeebe broker does not invoke your microservices over REST. If you come from a REST architecture background, or have an existing REST microservices architecture that you want to orchestrate, you should take the time to understand the Zeebe model as it is, <em>before</em> trying to figure out how to use it with RESTful services. It is definitely possible, but you need to wire it up to work.</p>
-
-<p>Think of it like this: your Zeebe worker, written in JavaScript, subscribes to a task type on the gateway. It then runs in a loop, polling the gateway for that task type. When jobs of that task type are available, the gateway returns them to the worker. If you have an existing RESTful microservice that you want to invoke for jobs of that task type, then your Zeebe worker can invoke it. And that&rsquo;s how you wire up Zeebe with existing RESTful microservices.</p>
-
-<p>You could do something like create a worker that subscribes to many task types and has a map for the task type to the REST endpoint that should be invoked for it.</p>
-
-<p>The important thing to understand is that workers subscribe to a task type, and poll for jobs of that task type. So it is a pull model, rather than the push model of REST, where the broker would invoke a REST service.</p>
-
-<p>The pull model means that you can scale the workers without configuring routing or load-balancing, as you would need to do if it were a push model.</p>
-
-<p>If you are writing a system from scratch, then you can put your business logic directly in a polling worker - or you can put the business logic in a REST endpoint if you need to reuse it from other places, and wrap the REST call in a Zeebe worker.</p>
+<p>The workers created from the Zeebe client inherit the client&rsquo;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.</p>
 
 
 <footer class=" footline" >
@@ -763,20 +742,6 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
                         
                         
                     
@@ -787,9 +752,6 @@
                     
                     
 
-                    
-            
-        
                     
                         
             
@@ -812,7 +774,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -823,25 +784,6 @@
                     
             
         
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -923,10 +865,47 @@
             
         
                     
+            
+        
+                    
                         
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1143,10 +1122,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/introduction/prerequisites/" title="Prerequisites"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/zbclient/" title="ZBClient"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/installation/" title="Installation" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/zbclient/configuration/" title="Configuration Strategies" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
