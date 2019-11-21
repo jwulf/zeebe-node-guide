@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>Basic Auth :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/connection/basic-auth/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -406,7 +406,7 @@
   
     
     <li data-nav-id="/connection/" title="Connection" class="dd-item 
-        
+        parent
         
         
         ">
@@ -468,7 +468,7 @@
  
   
     
-      <li data-nav-id="/connection/basic-auth/" title="Basic Auth" class="dd-item ">
+      <li data-nav-id="/connection/basic-auth/" title="Basic Auth" class="dd-item active">
         <a href="/connection/basic-auth/">
         Basic Auth
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/connection/'>Connection</a> > Basic Auth
+          
+         
           
          
           
@@ -769,6 +777,25 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#connect-to-a-broker-with-basic-auth">Connect to a broker with Basic Auth</a></li>
+<li><a href="#basic-auth-without-tls">Basic Auth without TLS</a></li>
+<li><a href="#basic-auth-with-tls">Basic Auth with TLS</a>
+<ul>
+<li><a href="#environmentalizing-basic-auth-configuration">Environmentalizing Basic Auth configuration</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,9 +803,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              Basic Auth
+            </h1>
           
 
         
@@ -786,24 +816,124 @@
 
 
 
+
+<h2 id="connect-to-a-broker-with-basic-auth">Connect to a broker with Basic Auth</h2>
+
+<p>You can secure a Zeebe cluster with Basic Auth using an reverse proxy. In this case you can use a username / password pair as effectively an API key for your client applications.</p>
+
+<h2 id="basic-auth-without-tls">Basic Auth without TLS</h2>
+
+<p>To enable Basic Auth without TLS:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
 	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<h3 id="chapter-2">Chapter 2</h3>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">basicAuth</span><span style="color:#f92672">:</span> {    
+    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-username&#39;</span>,
+    <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-password&#39;</span>,
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">80</span>
+})
+    </code></pre></div>
+  
+</div>
 
-<h1 id="quick-start">Quick Start</h1>
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
-<p>Get a basic Zeebe application running in next to no time.</p>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">basicAuth</span><span style="color:#f92672">:</span> {    
+    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-username&#39;</span>,
+    <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-password&#39;</span>,
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">80</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
 
 
+<h2 id="basic-auth-with-tls">Basic Auth with TLS</h2>
 
+<p>To enable Basic Auth with TLS:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">basicAuth</span><span style="color:#f92672">:</span> {    
+    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-username&#39;</span>,
+    <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-password&#39;</span>,
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">443</span>,
+  <span style="color:#a6e22e">useTLS</span>: <span style="color:#66d9ef">true</span>
+})
+    </code></pre></div>
+  
+</div>
+
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">basicAuth</span><span style="color:#f92672">:</span> {    
+    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-username&#39;</span>,
+    <span style="color:#a6e22e">password</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;basicAuth-password&#39;</span>,
+  },
+  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
+  <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">443</span>,
+  <span style="color:#a6e22e">useTLS</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
+
+
+<h3 id="environmentalizing-basic-auth-configuration">Environmentalizing Basic Auth configuration</h3>
+
+<p>The following environment variables control Basic Auth configuration:</p>
+
+<pre><code class="language-bash">ZEEBE_BASIC_AUTH_USERNAME
+ZEEBE_BASIC_AUTH_PASSWORD
+</code></pre>
+
+<p>To enable TLS on the connection:</p>
+
+<pre><code class="language-bash">ZEEBE_SECURE_CONNECTION=true
+</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +1064,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +1076,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1050,6 +1176,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1062,6 +1189,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1095,6 +1225,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1110,6 +1241,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,10 +1412,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/connection/tls/" title="TLS"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/connection/oauth/" title="OAuth" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1447,4 @@
 
   </body>
 </html>
+

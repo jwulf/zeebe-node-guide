@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>ZBClient gRPC retries :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/grpc/grpc-config/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -584,7 +584,7 @@
   
     
     <li data-nav-id="/grpc/" title="gRPC Configuration" class="dd-item 
-        
+        parent
         
         
         ">
@@ -627,7 +627,7 @@
  
   
     
-      <li data-nav-id="/grpc/grpc-config/" title="ZBClient gRPC retries" class="dd-item ">
+      <li data-nav-id="/grpc/grpc-config/" title="ZBClient gRPC retries" class="dd-item active">
         <a href="/grpc/grpc-config/">
         ZBClient gRPC retries
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/grpc/'>gRPC Configuration</a> > ZBClient gRPC retries
+          
+         
           
          
           
@@ -769,6 +777,24 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#failure-part-of-success">Failure - part of success</a></li>
+<li><a href="#automatic-retry-on-network-errors">Automatic retry on network errors</a></li>
+<li><a href="#disable-automatic-retries">Disable automatic retries</a></li>
+<li><a href="#configure-retries">Configure retries</a></li>
+<li><a href="#broker-backpressure">Broker backpressure</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,9 +802,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              ZBClient gRPC retries
+            </h1>
           
 
         
@@ -786,24 +815,132 @@
 
 
 
+
+<h2 id="failure-part-of-success">Failure - part of success</h2>
+
+<p>All ZBClient methods that involve sending a gRPC command to the broker may fail.</p>
+
+<p>If you are using async/await that means they will throw. If you are using Promises, they will reject and take the <code>.catch</code> path.</p>
+
+<p>We divide failures into two categories:</p>
+
+<ul>
+<li>&ldquo;Business logic errors&rdquo; - for example, trying to create an instance of a workflow for which no workflow definition is deployed on the broker.</li>
+<li>&ldquo;Network errors&rdquo; - for example, the gRPC connection to the gateway is in a failed state while the gateway is being rescheduled by Kubernetes.</li>
+</ul>
+
+<p>Business errors will always throw / reject.</p>
+
+<p>The Node client can automatically retry on network errors, and does this by default.</p>
+
+<h2 id="automatic-retry-on-network-errors">Automatic retry on network errors</h2>
+
+<p>Network errors return <a href="https://github.com/grpc/grpc/blob/master/doc/statuscodes.md">gRPC error code 14</a>.</p>
+
+<p>According to the spec:</p>
+
+<blockquote>
+<p>The service is currently unavailable. This is most likely a transient condition, which can be corrected by retrying with a backoff. Note that it is not always safe to retry non-idempotent operations.</p>
+</blockquote>
+
+<p>To help you write robust applications that continue to operate around transient network failures and recover automatically as the network recovers, the Node client is configured by default to automatically retry operations on network failures, with a back-off.</p>
+
+<h2 id="disable-automatic-retries">Disable automatic retries</h2>
+
+<p>You can configure this, or disable it entirely if you want to code some other strategy. If you need your application to page you immediately on a network error, and <em>definitely do not try that again</em> (or some other custom handling), pass <code>retry: false</code> to the ZBClient constructor:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
 	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<h3 id="chapter-2">Chapter 2</h3>
+<span style="color:#75715e">// Don&#39;t retry. I will handle all errors.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">retry</span>: <span style="color:#66d9ef">false</span>
+})
+    </code></pre></div>
+  
+</div>
 
-<h1 id="quick-start">Quick Start</h1>
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
-<p>Get a basic Zeebe application running in next to no time.</p>
+<span style="color:#75715e">// Don&#39;t retry. I will handle all errors.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">retry</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
 
 
+<p>Note that you can create more than one ZBClient in an application, each with its own retry configuration, and then use the retry strategy that makes sense for each operation.</p>
 
+<h2 id="configure-retries">Configure retries</h2>
+
+<p>If you have retries enabled, you can set the maximum number of retries that are attempted before an exception is thrown, and the maximum time between retries.</p>
+
+<p>The retry mechanism is implemented using the <a href="https://www.npmjs.com/package/promise-retry">promise-retry</a> module. The backoff is exponential by a factor of 2, and by default it retries 50 times, with a maximum of 5 seconds between retries.</p>
+
+<p>To change this, pass in values for <code>maxRetries</code> and <code>maxRetryTimeout</code> to the ZBClient constructor:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#75715e">// These are the default settings.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+	<span style="color:#a6e22e">maxRetries</span>: <span style="color:#66d9ef">50</span>
+	<span style="color:#a6e22e">maxRetryTimeout</span>: <span style="color:#66d9ef">5000</span>
+})
+    </code></pre></div>
+  
+</div>
+
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#75715e">// These are the default settings.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+	<span style="color:#a6e22e">maxRetries</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">50</span>
+	<span style="color:#a6e22e">maxRetryTimeout</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">5000</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
+
+
+<h2 id="broker-backpressure">Broker backpressure</h2>
+
+<p>There is a third category of response that can be handled with automated retries. The Zeebe broker has an adaptive algorithm that detects growing latency in the system due to load, and produces backpressure. When the broker detects this, it responds to commands (other than completeJob) with gRPC error code <code>8 - RESOURCE EXHAUSTED</code>.</p>
+
+<p>If retries are enabled, in this situation the Node client applies the same retry strategy that is configured for transient network failures.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +1071,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +1083,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1178,6 +1311,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1190,6 +1324,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1207,6 +1344,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1222,6 +1360,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,10 +1419,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/grpc/grpc/" title="gRPC"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/grpc/grpc-events/" title="ZBClient gRPC channel events" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1454,4 @@
 
   </body>
 </html>
+

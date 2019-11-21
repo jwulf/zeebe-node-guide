@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>gRPC :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/grpc/grpc/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -584,7 +584,7 @@
   
     
     <li data-nav-id="/grpc/" title="gRPC Configuration" class="dd-item 
-        
+        parent
         
         
         ">
@@ -608,7 +608,7 @@
  
   
     
-      <li data-nav-id="/grpc/grpc/" title="gRPC" class="dd-item ">
+      <li data-nav-id="/grpc/grpc/" title="gRPC" class="dd-item active">
         <a href="/grpc/grpc/">
         gRPC
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/grpc/'>gRPC Configuration</a> > gRPC
+          
+         
           
          
           
@@ -769,6 +777,21 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#grpc">gRPC</a></li>
+<li><a href="#the-grpc-module">The gRPC module</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,9 +799,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              gRPC
+            </h1>
           
 
         
@@ -786,24 +812,40 @@
 
 
 
-	
 
-<h3 id="chapter-2">Chapter 2</h3>
+<h2 id="grpc">gRPC</h2>
 
-<h1 id="quick-start">Quick Start</h1>
+<p>Communication between your application and the Zeebe broker gateway uses <a href="https://grpc.io/">gRPC</a>, a Remote Procedure Call framework that uses a highly efficient binary protocol that multiplexes requests over a persistent HTTP/2 connection.</p>
 
-<p>Get a basic Zeebe application running in next to no time.</p>
+<p>gRPC was originally developed at Google for use in their data centers, and is growing in popularity. Its main attractive features are its strong type safety and explicit interface definition through the <code>.proto</code> file, efficiency, and language agnosticism - an important factor in a large polyglot environment like Google, where services written in Go, Java, and C++ all need to talk to each other.</p>
 
+<p>Zeebe was designed to be language agnostic, so gRPC was chosen as the protocol.</p>
 
+<p>JavaScript doesn&rsquo;t have the same JSON-serialization penalty that these other languages do, so most JavaScript client applications talk JSON over REST, and you may be encountering gRPC for the first time with Zeebe.</p>
 
+<p>Most of the gRPC nature of the communication with the broker is abstracted away in the Node client, and you will be interacting with idiomatic JavaScript objects.</p>
+
+<p>Where the gRPC implementation detail leaks, in our experience, is when the transport layer fails. Using the Node client directly against the broker, this is not noticeable - but in production environments with proxies and load-balancers, you are more likely to become aware that gRPC is the medium.</p>
+
+<p>For example: your reverse proxy in production may terminate &ldquo;idle&rdquo; connections at a limit that is shorter than your application&rsquo;s configured polling interval - in which case you will see errors in production that never show up when running directly against an unproxied broker in development.</p>
+
+<p>The best advice we can give you is to configure your development environment as close as possible to your production environment - including any reverse proxy configuration - and surface these issues as far forward as you can.</p>
+
+<h2 id="the-grpc-module">The gRPC module</h2>
+
+<p>The Node client uses the C-based <a href="https://www.npmjs.com/package/grpc">grpc</a> module. There is a pure JavaScript module that we may switch to in the future, but what this means for now is that your <code>node_modules</code> need to be installed in or rebuilt for your run-time environment.</p>
+
+<p>For example: you cannot install the Node client on a Windows machine, then mount your working directory into an Ubuntu-based Docker container to run it. The grpc module will need to be rebuilt for Ubuntu in the container using:</p>
+
+<pre><code class="language-bash">npm rebuild
+</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +976,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +988,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1178,6 +1216,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1190,6 +1229,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1206,6 +1246,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,10 +1321,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/grpc/" title="gRPC Configuration"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/grpc/grpc-config/" title="ZBClient gRPC retries" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1356,4 @@
 
   </body>
 </html>
+

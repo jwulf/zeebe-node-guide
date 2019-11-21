@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>Deploy Workflow Definitions :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/deploywf/deploy/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -673,7 +673,7 @@
   
     
     <li data-nav-id="/deploywf/" title="Deploy Workflow Definitions" class="dd-item 
-        
+        parent
         
         
         ">
@@ -697,7 +697,7 @@
  
   
     
-      <li data-nav-id="/deploywf/deploy/" title="Deploy Workflow Definitions" class="dd-item ">
+      <li data-nav-id="/deploywf/deploy/" title="Deploy Workflow Definitions" class="dd-item active">
         <a href="/deploywf/deploy/">
         Deploy Workflow Definitions
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/deploywf/'>Deploy Workflow Definitions</a> > Deploy Workflow Definitions
+          
+         
           
          
           
@@ -769,6 +777,22 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#workflow-definitions">Workflow Definitions</a></li>
+<li><a href="#deploy-workflow-definition-files">Deploy workflow definition files</a></li>
+<li><a href="#deploy-a-workflow-definition-from-an-in-memory-buffer">Deploy a workflow definition from an in-memory buffer</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,9 +800,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              Deploy Workflow Definitions
+            </h1>
           
 
         
@@ -786,15 +813,155 @@
 
 
 
+
+<h2 id="workflow-definitions">Workflow Definitions</h2>
+
+<p><em>Workflow definitions</em> are XML files that specify a process using the BPMN (<a href="https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation">Business Process Model and Notation</a>) schema with Zeebe extensions.</p>
+
+<p><img src="/img/ecommerce.png"/></p>
+
+<p>You can create and edit these files using the graphical <a href="https://github.com/zeebe-io/zeebe-modeler">Zeebe modeler</a>.</p>
+
+<h2 id="deploy-workflow-definition-files">Deploy workflow definition files</h2>
+
+<p>The method <code>ZBClient.deployWorkflow</code> can take a string or an array of strings, where each string is a file path to a BPMN file containing a workflow definition to deploy:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
 	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">path</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;path&#39;</span>
 
-<h3 id="chapter-2">Chapter 2</h3>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
-<h1 id="quick-start">Quick Start</h1>
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepaths</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">string</span>[]) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#a6e22e">filepaths</span>)
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>)
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>
+}
 
-<p>Get a basic Zeebe application running in next to no time.</p>
+<span style="color:#a6e22e">deployMyWorkflowDefinition</span>(
+  <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(
+    <span style="color:#a6e22e">__dirname</span>, 
+    <span style="color:#e6db74">&#39;..&#39;</span>, 
+    <span style="color:#e6db74">&#39;bpmn&#39;</span>, 
+    <span style="color:#e6db74">&#39;my-workflow.bpmn&#39;</span>
+))</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepaths</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#a6e22e">filepaths</span>)
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>)
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>
+}
+
+<span style="color:#a6e22e">deployMyWorkflowDefinition</span>(
+  <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(
+    <span style="color:#a6e22e">__dirname</span>, 
+    <span style="color:#e6db74">&#39;..&#39;</span>, 
+    <span style="color:#e6db74">&#39;bpmn&#39;</span>, 
+    <span style="color:#e6db74">&#39;my-workflow.bpmn&#39;</span>
+))
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
 
 
+<p>The deployWorkflow command returns a <code>DeployWorkflowResponse</code>. This has an array of <code>WorkflowMetadata</code>, containing information about the workflow definitions deployed.</p>
+
+<p>The method will throw if any of the workflow definitions are malformed - in this case none are deployed. @TODO - verify</p>
+
+<p><strong>Note on versioning:</strong> Re-deploying a workflow definition does not create a new version of that workflow definition in the broker cluster, unless the definition has been modified - in which case a new version is created.</p>
+
+<h2 id="deploy-a-workflow-definition-from-an-in-memory-buffer">Deploy a workflow definition from an in-memory buffer</h2>
+
+<p><code>ZBClient.deployWorkflow</code> can also deploy a workflow definition from an in-memory buffer.</p>
+
+<p>This is useful if, for example, you perform template processing on a workflow definition after loading it from a file, before deploying it. See <a href="https://github.com/jwulf/zeebe-cloud-canary/blob/master/src/ZeebeCanary.ts#L58">here</a> for an example of doing that with micromustache.</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">transformWfd</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./my-workflow-transformer&#39;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">fs</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;fs&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">path</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;path&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepath</span>: <span style="color:#66d9ef">string</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">workflow</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">filepath</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>)
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xFormedWfd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">transformWfd</span>(<span style="color:#a6e22e">workflow</span>)
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>({
+    <span style="color:#a6e22e">definition</span>: <span style="color:#66d9ef">Buffer.from</span>(<span style="color:#a6e22e">xFormedWfd</span>),
+    <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">path.basename</span>(<span style="color:#a6e22e">filepath</span>)
+  })
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>)
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>
+}
+
+<span style="color:#a6e22e">deployMyWorkflowDefinition</span>(
+  <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(
+    <span style="color:#a6e22e">__dirname</span>, 
+    <span style="color:#e6db74">&#39;..&#39;</span>, 
+    <span style="color:#e6db74">&#39;bpmn&#39;</span>, 
+    <span style="color:#e6db74">&#39;my-workflow.bpmn&#39;</span>
+))</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">transformWfd</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./my-workflow-transformer&#39;</span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">fs</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;fs&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepath</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">workflow</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">filepath</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>)
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xFormedWfd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">transformWfd</span>(<span style="color:#a6e22e">workflow</span>)
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>({
+    <span style="color:#a6e22e">definition</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">xFormedWfd</span>),
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">basename</span>(<span style="color:#a6e22e">filepath</span>)
+  })
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>)
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>
+}
+
+<span style="color:#a6e22e">deployMyWorkflowDefinition</span>(
+  <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(
+    <span style="color:#a6e22e">__dirname</span>, 
+    <span style="color:#e6db74">&#39;..&#39;</span>, 
+    <span style="color:#e6db74">&#39;bpmn&#39;</span>, 
+    <span style="color:#e6db74">&#39;my-workflow.bpmn&#39;</span>
+))
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
 
 
 
@@ -802,8 +969,7 @@
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +1100,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +1112,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1242,6 +1404,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1254,6 +1417,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1278,10 +1442,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/deploywf/" title="Deploy Workflow Definitions"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/introduction/" title="Introduction" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1477,4 @@
 
   </body>
 </html>
+

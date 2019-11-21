@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>ZBWorker class :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/zbworker/zbworker/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -355,7 +355,7 @@
   
     
     <li data-nav-id="/zbworker/" title="ZBWorker" class="dd-item 
-        
+        parent
         
         
         ">
@@ -379,7 +379,7 @@
  
   
     
-      <li data-nav-id="/zbworker/zbworker/" title="ZBWorker class" class="dd-item ">
+      <li data-nav-id="/zbworker/zbworker/" title="ZBWorker class" class="dd-item active">
         <a href="/zbworker/zbworker/">
         ZBWorker class
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/zbworker/'>ZBWorker</a> > ZBWorker class
+          
+         
           
          
           
@@ -769,6 +777,13 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,34 +791,32 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              ZBWorker class
+            </h1>
           
 
         
 
 
 
+<p>The ZBWorker is the class used to create Zeebe Job workers.</p>
 
-	
+<p>Your Workflow Definitions contain <em>tasks</em>. A task has a <em>task type</em>.</p>
 
-<h3 id="chapter-2">Chapter 2</h3>
+<p>When you create a workflow instance, the broker will create a <em>job</em> for a task. A job is a specific concrete instance of a task.</p>
 
-<h1 id="quick-start">Quick Start</h1>
-
-<p>Get a basic Zeebe application running in next to no time.</p>
-
-
-
+<p>An ZBWorker instance subscribes to the gateway for jobs of a specific task type, and continually polls the gateway for available jobs. When there is work for the worker to do, the gateway responds to the poll with a stream of jobs, and the worker&rsquo;s job handler is invoked for each job.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +947,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +959,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1018,6 +1027,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1030,6 +1040,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1049,6 +1060,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,10 +1292,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/zbworker/" title="ZBWorker"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/connection/" title="Connection" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1327,4 @@
 
   </body>
 </html>
+

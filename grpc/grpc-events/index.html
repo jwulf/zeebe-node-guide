@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>ZBClient gRPC channel events :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/grpc/grpc-events/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -584,7 +584,7 @@
   
     
     <li data-nav-id="/grpc/" title="gRPC Configuration" class="dd-item 
-        
+        parent
         
         
         ">
@@ -646,7 +646,7 @@
  
   
     
-      <li data-nav-id="/grpc/grpc-events/" title="ZBClient gRPC channel events" class="dd-item ">
+      <li data-nav-id="/grpc/grpc-events/" title="ZBClient gRPC channel events" class="dd-item active">
         <a href="/grpc/grpc-events/">
         ZBClient gRPC channel events
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/grpc/'>gRPC Configuration</a> > ZBClient gRPC channel events
+          
+         
           
          
           
@@ -769,6 +777,23 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#zbclient-grpc-channel-events">ZBClient gRPC channel events</a></li>
+<li><a href="#onready-and-onconnectionerror-callbacks">onReady and onConnectionError callbacks</a></li>
+<li><a href="#ready-and-connectionerror-events">&lsquo;ready&rsquo; and &lsquo;connectionError&rsquo; events</a></li>
+<li><a href="#grpc-status-jitter-and-connectiontolerance">gRPC status jitter and connectionTolerance</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,9 +801,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              ZBClient gRPC channel events
+            </h1>
           
 
         
@@ -786,15 +814,103 @@
 
 
 
+
+<h2 id="zbclient-grpc-channel-events">ZBClient gRPC channel events</h2>
+
+<p>The ZBClient notifies on gRPC channel connection failure and reconnection. In addition to wrapping every single operation, you can use this feature to write alerting or custom behavior based on the underlying connection status.</p>
+
+<p>One thing to bear in mind is that ZBClient operations will throw if they encounter an error. However, there is no opportunity to be alerted to a network failure until you try an operation.</p>
+
+<p>The ZBClient gRPC channel events allow you to detect and react to network disruption independent of operations.</p>
+
+<p>There are two interfaces to the ZBClient gRPC events: callbacks and events.</p>
+
+<h2 id="onready-and-onconnectionerror-callbacks">onReady and onConnectionError callbacks</h2>
+
+<p>The <code>onReady</code> callback is called when the ZBClient gRPC connection is initially established, and every time it is re-established after it is disconnected.</p>
+
+<p>Note that the ZBClient constructor immediately issues a <code>topology</code> command to the broker to provoke an error or prove the connection. Without this, the channel status is unknown until the first command is issued.</p>
+
+<p>The <code>onConnectionError</code> callback is called when the gRPC channel is disconnected.</p>
+
+<p>Pass in callbacks to the ZBClient constructor to react on these events:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
 	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<h3 id="chapter-2">Chapter 2</h3>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">onReady</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Ready for action!&#39;</span>),
+  <span style="color:#a6e22e">onConnectionError</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Boo! The gRPC connection failed!&#39;</span>)
+})
+    </code></pre></div>
+  
+</div>
 
-<h1 id="quick-start">Quick Start</h1>
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
 
-<p>Get a basic Zeebe application running in next to no time.</p>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">onReady</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Ready for action!&#39;</span>),
+  <span style="color:#a6e22e">onConnectionError</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Boo! The gRPC connection failed!&#39;</span>)
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
 
 
+<h2 id="ready-and-connectionerror-events">&lsquo;ready&rsquo; and &lsquo;connectionError&rsquo; events</h2>
+
+<p>The ZBClient class extends <a href="https://nodejs.org/docs/latest-v12.x/api/events.html#events_class_eventemitter"><code>EventEmitter</code></a>. As well as invoking any callback handlers passed to the constructor, the ZBClient emits the <code>ready</code> and <code>connectionError</code> events.</p>
+
+<p>This means that you can do things like attach <a href="https://nodejs.org/docs/latest-v12.x/api/events.html#events_emitter_once_eventname_listener">one-time listeners</a>, or write a module that contains reusable connection logic and wraps a ZBClient instance. For an example of this, see the <a href="https://www.npmjs.com/package/zeebe-canaryize">zeebe-canaryize</a> package.</p>
+
+<h2 id="grpc-status-jitter-and-connectiontolerance">gRPC status jitter and connectionTolerance</h2>
+
+<p>When the gRPC connection fails, as the gRPC channel tries to reconnect, it rapidly cycles between connected / disconnected before settling on disconnected. To avoid calling the onReady and onConnectionError callbacks rapidly in multiple succession and emitting a stream of events, the client debounces the channel status transitions, and requires the channel to be in the new state for 3 seconds before calling it.</p>
+
+<p>The default window of three seconds is based on observation of production systems using specific proxies. You might find that you need a different window for connection tolerance, in which case you can pass in another value for <code>connectionTolerance</code> in the ZBClient constructor:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">connectionTolerance</span>: <span style="color:#66d9ef">3000</span>
+})
+    </code></pre></div>
+  
+</div>
+
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">connectionTolerance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3000</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
 
 
 
@@ -802,8 +918,7 @@
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +1049,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +1061,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1178,6 +1289,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1190,6 +1302,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1223,6 +1338,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1241,6 +1357,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,10 +1397,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/grpc/grpc-config/" title="ZBClient gRPC retries"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/deploywf/" title="Deploy Workflow Definitions" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1432,4 @@
 
   </body>
 </html>
+

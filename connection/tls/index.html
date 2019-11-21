@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>TLS :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/connection/tls/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -406,7 +406,7 @@
   
     
     <li data-nav-id="/connection/" title="Connection" class="dd-item 
-        
+        parent
         
         
         ">
@@ -449,7 +449,7 @@
  
   
     
-      <li data-nav-id="/connection/tls/" title="TLS" class="dd-item ">
+      <li data-nav-id="/connection/tls/" title="TLS" class="dd-item active">
         <a href="/connection/tls/">
         TLS
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/connection/'>Connection</a> > TLS
+          
+         
           
          
           
@@ -769,6 +777,23 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#connect-to-a-broker-with-tls">Connect to a broker with TLS</a>
+<ul>
+<li><a href="#environmentalizing-tls">Environmentalizing TLS</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,9 +801,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              TLS
+            </h1>
           
 
         
@@ -786,24 +814,72 @@
 
 
 
+
+<h2 id="connect-to-a-broker-with-tls">Connect to a broker with TLS</h2>
+
+<p>You can secure communication between your client applications and the Zeebe broker cluster using <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS (Transport Layer Security)</a>. This needs to be enabled in the broker, or in an reverse proxy, to use.</p>
+
+<p>By default, the broker does not secure the client connections with TLS, and the Node client does not use TLS for the connection.</p>
+
+<p>To enable TLS with the Node client and connect to a broker secured with TLS, set the option <code>useTLS</code> to <code>true</code>:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
 	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<h3 id="chapter-2">Chapter 2</h3>
+<span style="color:#75715e">// With the default, or a gateway address from the environment
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">useTLS</span>: <span style="color:#66d9ef">true</span>
+})
 
-<h1 id="quick-start">Quick Start</h1>
+<span style="color:#75715e">// With a gateway address provided in the code
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#a6e22e">gatewayAddress</span>, {
+  <span style="color:#a6e22e">useTLS</span>: <span style="color:#66d9ef">true</span>
+})
+    </code></pre></div>
+  
+</div>
 
-<p>Get a basic Zeebe application running in next to no time.</p>
+  <div class="tab-pane" title="JavaScript (ES6)">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#75715e">// With the default, or a gateway address from the environment
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">useTLS</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+})
+
+<span style="color:#75715e">// With a gateway address provided in the code
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>(<span style="color:#a6e22e">gatewayAddress</span>, {
+  <span style="color:#a6e22e">useTLS</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+})
+    
+</code></pre></div>
+  
+</div>
+
+</div>
+</div>
 
 
+<h3 id="environmentalizing-tls">Environmentalizing TLS</h3>
 
+<p>To enable TLS with the Node client and connect to a broker secured with TLS, set the environment variable <code>ZEEBE_SECURE_CONNECTION</code>:</p>
+
+<pre><code class="language-bash">ZEEBE_SECURE_CONNECTION=true
+</code></pre>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +1010,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +1022,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1050,6 +1122,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1062,6 +1135,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1079,6 +1155,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1094,6 +1171,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,10 +1358,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/connection/connection/" title="Connection to the Zeebe broker"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/connection/basic-auth/" title="Basic Auth" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1393,4 @@
 
   </body>
 </html>
+

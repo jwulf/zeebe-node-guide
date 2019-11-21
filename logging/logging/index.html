@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Quick Start :: Zeebe Node.js Client Guide</title>
+    <title>Logging :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574338573" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/quickstart/">
+  <body class="" data-url="/logging/logging/">
     <nav id="sidebar" class="">
 
 
@@ -234,8 +234,8 @@
   
     
     <li data-nav-id="/quickstart/" title="Quick Start" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/quickstart/">
@@ -533,7 +533,7 @@
   
     
     <li data-nav-id="/logging/" title="Logging" class="dd-item 
-        
+        parent
         
         
         ">
@@ -557,7 +557,7 @@
  
   
     
-      <li data-nav-id="/logging/logging/" title="Logging" class="dd-item ">
+      <li data-nav-id="/logging/logging/" title="Logging" class="dd-item active">
         <a href="/logging/logging/">
         Logging
         
@@ -750,6 +750,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -760,7 +762,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > Quick Start
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/logging/'>Logging</a> > Logging
+          
+         
           
          
           
@@ -769,6 +777,24 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#log-format">Log format</a></li>
+<li><a href="#log-message-levels">Log message levels</a></li>
+<li><a href="#set-the-logging-level">Set the logging level</a></li>
+<li><a href="#set-a-custom-log-namespace">Set a custom log namespace</a></li>
+<li><a href="#log-to-a-custom-stdout">Log to a custom stdout</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -776,9 +802,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              Logging
+            </h1>
           
 
         
@@ -786,15 +815,172 @@
 
 
 
+
+<h2 id="log-format">Log format</h2>
+
+<p>The Node client logs its messages using a structured JSON format - <a href="http://ndjson.org/">ndjson</a>. These messages are designed to be easily parsed by scripts.</p>
+
+<p>The messages are output to the console by default, and look like this:</p>
+
+<pre><code>{&quot;timestamp&quot;:&quot;2019-11-21T11:37:37.939Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;14 UNAVAILABLE: failed to connect to all addresses&quot;,&quot;time&quot;:&quot;2019 Nov-21 21:37:37PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
+{&quot;timestamp&quot;:&quot;2019-11-21T11:37:37.940Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;gRPC connection is in failed state. Attempt 2. Retrying in 5s...&quot;,&quot;time&quot;:&quot;2019 Nov-21 21:37:37PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
+</code></pre>
+
+<p>To view log messages in a human-readable format, you can pipe your program&rsquo;s output through <a href="https://www.npmjs.com/package/pino-pretty"><code>pino-pretty</code></a>. This results in output like this:</p>
+
+<pre><code>[2019 Nov-21 21:38:22PM] ERROR:
+    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;
+    message: &quot;14 UNAVAILABLE: failed to connect to all addresses&quot;
+    pollInterval: 30000
+    namespace: &quot;ZBClient&quot;
+[2019 Nov-21 21:38:23PM] ERROR:
+    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;
+    message: &quot;gRPC connection is in failed state. Attempt 2. Retrying in 5s...&quot;
+    pollInterval: 30000
+    namespace: &quot;ZBClient&quot;
+</code></pre>
+
+<h2 id="log-message-levels">Log message levels</h2>
+
+<p>There are three levels of log messages:</p>
+
+<ul>
+<li>20 - DEBUG</li>
+<li>30 - INFO</li>
+<li>50 - ERROR</li>
+</ul>
+
+<h2 id="set-the-logging-level">Set the logging level</h2>
+
+<p>By default, the client logs at <code>INFO</code> level.</p>
+
+<p>Set the log level of the ZBClient to one of the log levels - <code>DEBUG</code>, <code>INFO</code>, <code>ERROR</code>; or to <code>NONE</code> to suppress all logging.</p>
+
+<p>You can set the logging level of the ZBClient via the ZBClient constructor:</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
 	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<h3 id="chapter-2">Chapter 2</h3>
+<span style="color:#75715e">// Suppress all log messages except errors
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">loglevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>
+})</code></pre></div>
 
-<h1 id="quick-start">Quick Start</h1>
+</div>
 
-<p>Get a basic Zeebe application running in next to no time.</p>
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#75715e">// Suppress all log messages except errors
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">loglevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>
+})
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
 
 
+<p>And via the environment:</p>
+
+<pre><code class="language-bash">ZEEBE_NODE_LOG_LEVEL
+</code></pre>
+
+<p>Any environment setting will override the constructor setting. This is the only setting with this precedence.</p>
+
+<h2 id="set-a-custom-log-namespace">Set a custom log namespace</h2>
+
+<p>By default, the ZBClient logs with namespace &ldquo;ZBClient&rdquo;. If you have more than one ZBClient instance in your application, you can distinguish between them by setting a custom log namespace. Pass a string or array of strings to the ZBClient constructor as the <code>logNamespace</code> parameter.</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;zbc&#39;</span>
+})
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;zbc1&#39;</span>
+})</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;zbc&#39;</span>
+})
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;zbc1&#39;</span>
+})
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
+
+
+<h2 id="log-to-a-custom-stdout">Log to a custom stdout</h2>
+
+<p>You can redirect the log output to somewhere other than the console by passing in an object with an <code>info</code> method that takes a string parameter.</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">postMessage</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./my-http-log-sink&#39;</span>
+
+<span style="color:#75715e">// Use a custom log sink
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">loglevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
+  <span style="color:#a6e22e">stdio</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">info</span>: <span style="color:#66d9ef">msg</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">msg</span>)
+  }
+})</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">postMessage</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./my-http-log-sink&#39;</span>)
+
+<span style="color:#75715e">// Use a custom log sink
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">loglevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
+  <span style="color:#a6e22e">stdio</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">info</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">msg</span> =&gt; <span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">msg</span>)
+  }
+})
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
 
 
 
@@ -802,8 +988,7 @@
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -934,7 +1119,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -947,9 +1131,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1146,6 +1327,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1158,6 +1340,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1177,6 +1360,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,10 +1464,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/installation/install/install/" title="Install"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/logging/" title="Logging"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/quickstart/quickstart/" title="Zeebe Node Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/grpc/" title="gRPC Configuration" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1313,3 +1499,4 @@
 
   </body>
 </html>
+
