@@ -12,20 +12,20 @@
     <title>Zeebe Node Quickstart :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574338573" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574338573" rel="stylesheet">
-    <link href="/css/hybrid.css?1574338573" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574338573" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574338573" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574338573" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574338573" rel="stylesheet">
-    <link href="/css/theme.css?1574338573" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574338573" rel="stylesheet">
-    <link href="/css/tabs.css?1574338573" rel="stylesheet">
+    <link href="/css/nucleus.css?1574403680" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1574403680" rel="stylesheet">
+    <link href="/css/hybrid.css?1574403680" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1574403680" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1574403680" rel="stylesheet">
+    <link href="/css/auto-complete.css?1574403680" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1574403680" rel="stylesheet">
+    <link href="/css/theme.css?1574403680" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1574403680" rel="stylesheet">
+    <link href="/css/tabs.css?1574403680" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574338573"></script>
+    <script src="/js/jquery-3.3.1.min.js?1574403680"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574338573"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574338573"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1574403680"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1574403680"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574338573"></script>
+<script type="text/javascript" src="/js/search.js?1574403680"></script>
 
     
   </div>
@@ -569,6 +569,25 @@
 
             
           
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/logging/zblogger/" title="ZBLogger" class="dd-item ">
+        <a href="/logging/zblogger/">
+        ZBLogger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
         
         </ul>
               
@@ -783,6 +802,7 @@
 <ul>
 <li>
 <ul>
+<li><a href="#what-you-will-do-in-this-quickstart">What you will do in this Quickstart</a></li>
 <li><a href="#prerequisites">Prerequisites</a></li>
 <li><a href="#import-the-zeebe-node-library">Import the Zeebe Node library</a></li>
 <li><a href="#create-a-zbclient">Create a ZBClient</a></li>
@@ -790,8 +810,8 @@
 <li><a href="#output-query-the-broker-topology">Output: Query the broker topology</a></li>
 <li><a href="#network-errors-and-automatic-retries">Network errors and automatic retries</a></li>
 <li><a href="#logs">Logs</a></li>
-<li><a href="#deploy-a-workflow">Deploy a Workflow</a></li>
-<li><a href="#output-deploy-a-workflow">Output: Deploy a Workflow</a></li>
+<li><a href="#deploy-a-workflow-definition">Deploy a Workflow Definition</a></li>
+<li><a href="#output-deploy-a-workflow-definition">Output: Deploy a Workflow Definition</a></li>
 <li><a href="#create-a-workflow-instance">Create a Workflow Instance</a></li>
 <li><a href="#output-create-a-workflow-instance">Output: Create a Workflow Instance</a></li>
 <li><a href="#create-a-worker">Create a Worker</a></li>
@@ -826,6 +846,10 @@
 
 
 
+
+<h2 id="what-you-will-do-in-this-quickstart">What you will do in this Quickstart</h2>
+
+<p>In this Quickstart you will establish a connection to a Zeebe broker cluster, deploy a workflow definition, create instances of that workflow, create a worker to service a task in the workflow, update the workflow variables via a worker, and await a workflow&rsquo;s outcome.</p>
 
 <h2 id="prerequisites">Prerequisites</h2>
 
@@ -1022,13 +1046,13 @@
 
 <p>If the broker is not started, or is not accessible to your client, you will see a stream of errors - similar to the one below - that slow down over time.</p>
 
-<pre><code>{&quot;timestamp&quot;:&quot;2019-11-21T11:37:37.939Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;14 UNAVAILABLE: failed to connect to all addresses&quot;,&quot;time&quot;:&quot;2019 Nov-21 21:37:37PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
-{&quot;timestamp&quot;:&quot;2019-11-21T11:37:37.940Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;gRPC connection is in failed state. Attempt 2. Retrying in 5s...&quot;,&quot;time&quot;:&quot;2019 Nov-21 21:37:37PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
+<pre><code>{&quot;timestamp&quot;:&quot;2019-11-21T13:52:00.961Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;[topology]: Attempt 5 (max: 50).&quot;,&quot;time&quot;:&quot;2019 Nov-21 23:52:00PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
+{&quot;timestamp&quot;:&quot;2019-11-21T13:52:00.962Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&quot;,&quot;time&quot;:&quot;2019 Nov-21 23:52:00PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
 </code></pre>
 
 <p>These are due to the Zeebe Node client&rsquo;s built-in backoff-retry logic for network-related errors. The client automatically retries to establish the connection until it connects, or retries are exhausted.</p>
 
-<p>You can disable automatic retries if you want network errors to bubble up immediately to your code, and write your own logic to handle them. See the later section on the ZBClient for more details.</p>
+<p>You can disable automatic retries if you want network errors to bubble up immediately to your code, and write your own logic to handle them. See the later section on gRPC configuration for more details.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -1072,25 +1096,25 @@
 
 <p>Log messages will now be formatted for your viewing pleasure:</p>
 
-<pre><code>[2019 Nov-21 21:38:22PM] ERROR:
-    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;
-    message: &quot;14 UNAVAILABLE: failed to connect to all addresses&quot;
+<pre><code>[2019 Nov-21 23:52:54PM] ERROR:
+    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;
+    message: &quot;[topology]: Attempt 5 (max: 50).&quot;
     pollInterval: 30000
     namespace: &quot;ZBClient&quot;
-[2019 Nov-21 21:38:23PM] ERROR:
-    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;
-    message: &quot;gRPC connection is in failed state. Attempt 2. Retrying in 5s...&quot;
+[2019 Nov-21 23:52:54PM] ERROR:
+    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;
+    message: &quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&quot;
     pollInterval: 30000
     namespace: &quot;ZBClient&quot;
 </code></pre>
 
-<h2 id="deploy-a-workflow">Deploy a Workflow</h2>
+<h2 id="deploy-a-workflow-definition">Deploy a Workflow Definition</h2>
 
-<p>The next task is to deploy a workflow to the broker.</p>
+<p>The next task is to deploy a workflow definition to the broker.</p>
 
 <p>The method <code>ZBClient.deployWorkflow()</code> takes a path to a .bpmn file, and deploys that BPMN file to the broker, returning a Promise of a broker response - a <code>DeployWorkflowResponse</code>.</p>
 
-<p>Here is the sample workflow that we will be using:</p>
+<p>Here is the sample workflow definition that we will be using:</p>
 
 <p><img src="/img/sample-workflow.png"/></p>
 
@@ -1150,7 +1174,7 @@
 </div>
 
 
-<h2 id="output-deploy-a-workflow">Output: Deploy a Workflow</h2>
+<h2 id="output-deploy-a-workflow-definition">Output: Deploy a Workflow Definition</h2>
 
 <p>You will see output similar to the following:</p>
 
@@ -1463,7 +1487,7 @@
 
 <h2 id="summary">Summary</h2>
 
-<p>In this Quickstart you deployed a workflow, created instances of that workflow, created a worker to service the single task in the workflow, updated job variables, and awaited a workflow&rsquo;s outcome.</p>
+<p>In this Quickstart you deployed a workflow definition, created instances of that workflow, created a worker to service the single task in the workflow, updated job variables, and awaited a workflow&rsquo;s outcome.</p>
 
 <p>This is 80% of what you&rsquo;ll be doing with the Zeebe Node client in your application.</p>
 
@@ -1842,6 +1866,22 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -1963,21 +2003,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574338573"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574338573"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574338573"></script>
-    <script src="/js/jquery.sticky.js?1574338573"></script>
-    <script src="/js/featherlight.min.js?1574338573"></script>
-    <script src="/js/highlight.pack.js?1574338573"></script>
+    <script src="/js/clipboard.min.js?1574403680"></script>
+    <script src="/js/perfect-scrollbar.min.js?1574403680"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1574403680"></script>
+    <script src="/js/jquery.sticky.js?1574403680"></script>
+    <script src="/js/featherlight.min.js?1574403680"></script>
+    <script src="/js/highlight.pack.js?1574403680"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574338573"></script>
-    <script src="/js/learn.js?1574338573"></script>
-    <script src="/js/hugo-learn.js?1574338573"></script>
-    <script src="/js/code-lang.js?1574338573"></script>
-    <script src="/js/tabs.js?1574338573"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1574403680"></script>
+    <script src="/js/learn.js?1574403680"></script>
+    <script src="/js/hugo-learn.js?1574403680"></script>
+    <script src="/js/code-lang.js?1574403680"></script>
+    <script src="/js/tabs.js?1574403680"></script>
 
-    <link href="/mermaid/mermaid.css?1574338573" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574338573"></script>
+    <link href="/mermaid/mermaid.css?1574403680" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1574403680"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

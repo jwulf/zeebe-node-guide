@@ -12,20 +12,20 @@
     <title>Logging :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574338573" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574338573" rel="stylesheet">
-    <link href="/css/hybrid.css?1574338573" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574338573" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574338573" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574338573" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574338573" rel="stylesheet">
-    <link href="/css/theme.css?1574338573" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574338573" rel="stylesheet">
-    <link href="/css/tabs.css?1574338573" rel="stylesheet">
+    <link href="/css/nucleus.css?1574403680" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1574403680" rel="stylesheet">
+    <link href="/css/hybrid.css?1574403680" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1574403680" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1574403680" rel="stylesheet">
+    <link href="/css/auto-complete.css?1574403680" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1574403680" rel="stylesheet">
+    <link href="/css/theme.css?1574403680" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1574403680" rel="stylesheet">
+    <link href="/css/tabs.css?1574403680" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574338573"></script>
+    <script src="/js/jquery-3.3.1.min.js?1574403680"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574338573"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574338573"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1574403680"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1574403680"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574338573"></script>
+<script type="text/javascript" src="/js/search.js?1574403680"></script>
 
     
   </div>
@@ -569,6 +569,25 @@
 
             
           
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/logging/zblogger/" title="ZBLogger" class="dd-item ">
+        <a href="/logging/zblogger/">
+        ZBLogger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
         
         </ul>
               
@@ -788,6 +807,7 @@
 <li><a href="#set-the-logging-level">Set the logging level</a></li>
 <li><a href="#set-a-custom-log-namespace">Set a custom log namespace</a></li>
 <li><a href="#log-to-a-custom-stdout">Log to a custom stdout</a></li>
+<li><a href="#logging-in-zbworker">Logging in ZBWorker</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -822,20 +842,20 @@
 
 <p>The messages are output to the console by default, and look like this:</p>
 
-<pre><code>{&quot;timestamp&quot;:&quot;2019-11-21T11:37:37.939Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;14 UNAVAILABLE: failed to connect to all addresses&quot;,&quot;time&quot;:&quot;2019 Nov-21 21:37:37PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
-{&quot;timestamp&quot;:&quot;2019-11-21T11:37:37.940Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;gRPC connection is in failed state. Attempt 2. Retrying in 5s...&quot;,&quot;time&quot;:&quot;2019 Nov-21 21:37:37PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
+<pre><code>{&quot;timestamp&quot;:&quot;2019-11-21T13:52:00.961Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;[topology]: Attempt 5 (max: 50).&quot;,&quot;time&quot;:&quot;2019 Nov-21 23:52:00PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
+{&quot;timestamp&quot;:&quot;2019-11-21T13:52:00.962Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&quot;,&quot;time&quot;:&quot;2019 Nov-21 23:52:00PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
 </code></pre>
 
 <p>To view log messages in a human-readable format, you can pipe your program&rsquo;s output through <a href="https://www.npmjs.com/package/pino-pretty"><code>pino-pretty</code></a>. This results in output like this:</p>
 
-<pre><code>[2019 Nov-21 21:38:22PM] ERROR:
-    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;
-    message: &quot;14 UNAVAILABLE: failed to connect to all addresses&quot;
+<pre><code>[2019 Nov-21 23:52:54PM] ERROR:
+    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;
+    message: &quot;[topology]: Attempt 5 (max: 50).&quot;
     pollInterval: 30000
     namespace: &quot;ZBClient&quot;
-[2019 Nov-21 21:38:23PM] ERROR:
-    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;
-    message: &quot;gRPC connection is in failed state. Attempt 2. Retrying in 5s...&quot;
+[2019 Nov-21 23:52:54PM] ERROR:
+    context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;
+    message: &quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&quot;
     pollInterval: 30000
     namespace: &quot;ZBClient&quot;
 </code></pre>
@@ -974,6 +994,56 @@
   <span style="color:#a6e22e">stdio</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">info</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">msg</span> =&gt; <span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">msg</span>)
   }
+})
+</code></pre></div>
+
+</div>
+
+</div>
+</div>
+
+
+<p>For an example of a custom logger, see the implementation in the <a href="https://github.com/pedesen/node-red-contrib-zeebe/blob/master/src/util/logger.js">Node-RED Zeebe package</a>.</p>
+
+<h2 id="logging-in-zbworker">Logging in ZBWorker</h2>
+
+<p>The ZBWorker inherits its log settings from the ZBClient that creates it. You can also override any of the settings in the <code>createWorker</code> method call.</p>
+
+<p>By default the ZBWorker logs with the namespace &ldquo;ZBWorker&rdquo;. If a custom namespace has been set for the ZBClient, the ZBWorker inherits it and prepends &ldquo;ZBWorker&rdquo; to it. If you override this with an explicit namespace, &ldquo;ZBWorker&rdquo; is prepended to that.</p>
+
+<!-- prettier-ignore -->
+
+<div class="code-tabs">
+	<ul class="nav nav-tabs"></ul>
+	<div class="tab-content">
+  <div class="tab-pane" title="TypeScript">
+	
+    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">jobhandler</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./jobhandler&#39;</span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Main ZBClient&#39;</span>,
+})
+
+<span style="color:#75715e">// Logs with namespace &#34;ZBWorker override-namespace&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worker</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorker</span>(<span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#39;get-user&#39;</span>, <span style="color:#a6e22e">jobhandler</span>, {
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;override-namespace&#39;</span>
+})</code></pre></div>
+
+</div>
+
+<div class="tab-pane" title="JavaScript (ES6)">
+	
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">jobhandler</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./jobhandler&#39;</span>)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Main ZBClient&#39;</span>,
+})
+
+<span style="color:#75715e">// Logs with namespace &#34;ZBWorker override-namespace&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worker</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorker</span>(<span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#39;get-user&#39;</span>, <span style="color:#a6e22e">jobhandler</span>, {
+  <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;override-namespace&#39;</span>
 })
 </code></pre></div>
 
@@ -1353,9 +1423,6 @@
             
         
                     
-            
-        
-                    
                         
             
             
@@ -1363,6 +1430,25 @@
                     
                         
                         
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1467,7 +1553,7 @@
 			<a class="nav nav-prev" href="/logging/" title="Logging"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/grpc/" title="gRPC Configuration" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/logging/zblogger/" title="ZBLogger" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1477,21 +1563,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574338573"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574338573"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574338573"></script>
-    <script src="/js/jquery.sticky.js?1574338573"></script>
-    <script src="/js/featherlight.min.js?1574338573"></script>
-    <script src="/js/highlight.pack.js?1574338573"></script>
+    <script src="/js/clipboard.min.js?1574403680"></script>
+    <script src="/js/perfect-scrollbar.min.js?1574403680"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1574403680"></script>
+    <script src="/js/jquery.sticky.js?1574403680"></script>
+    <script src="/js/featherlight.min.js?1574403680"></script>
+    <script src="/js/highlight.pack.js?1574403680"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574338573"></script>
-    <script src="/js/learn.js?1574338573"></script>
-    <script src="/js/hugo-learn.js?1574338573"></script>
-    <script src="/js/code-lang.js?1574338573"></script>
-    <script src="/js/tabs.js?1574338573"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1574403680"></script>
+    <script src="/js/learn.js?1574403680"></script>
+    <script src="/js/hugo-learn.js?1574403680"></script>
+    <script src="/js/code-lang.js?1574403680"></script>
+    <script src="/js/tabs.js?1574403680"></script>
 
-    <link href="/mermaid/mermaid.css?1574338573" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574338573"></script>
+    <link href="/mermaid/mermaid.css?1574403680" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1574403680"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

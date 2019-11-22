@@ -123,6 +123,11 @@
   </url>
   
   <url>
+    <loc>http://example.org/logging/zblogger/</loc>
+    <lastmod>2019-10-27T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://example.org/zbworker/zbworker/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>

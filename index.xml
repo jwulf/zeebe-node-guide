@@ -81,9 +81,8 @@ To enable TLS with the Node client and connect to a broker secured with TLS, set
       <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
       
       <guid>http://example.org/quickstart/quickstart/</guid>
-      <description>Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker documentation).  Import the Zeebe Node library Create an index.js file (or index.ts for TypeScript).
-Edit the file, and import the Zeebe Node library:
- import { ZBClient } from &amp;#39;zeebe-node&amp;#39;   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;)     Create a ZBClient  import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient()  const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient()     This establishes a connection to a Zeebe broker running on localhost:26500.</description>
+      <description>What you will do in this Quickstart In this Quickstart you will establish a connection to a Zeebe broker cluster, deploy a workflow definition, create instances of that workflow, create a worker to service a task in the workflow, update the workflow variables via a worker, and await a workflow&amp;rsquo;s outcome.
+Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker documentation).  Import the Zeebe Node library Create an index.</description>
     </item>
     
     <item>
@@ -127,7 +126,7 @@ Deploy workflow definition files The method ZBClient.deployWorkflow can take a s
       <guid>http://example.org/logging/logging/</guid>
       <description>Log format The Node client logs its messages using a structured JSON format - ndjson. These messages are designed to be easily parsed by scripts.
 The messages are output to the console by default, and look like this:
-{&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T11:37:37.939Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;14 UNAVAILABLE: failed to connect to all addresses&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 21:37:37PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T11:37:37.940Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;gRPC connection is in failed state. Attempt 2. Retrying in 5s...&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 21:37:37PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;}  To view log messages in a human-readable format, you can pipe your program&amp;rsquo;s output through pino-pretty.</description>
+{&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.961Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: Attempt 5 (max: 50).&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.962Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;}  To view log messages in a human-readable format, you can pipe your program&amp;rsquo;s output through pino-pretty.</description>
     </item>
     
     <item>
@@ -163,6 +162,16 @@ We divide failures into two categories:
     </item>
     
     <item>
+      <title>ZBLogger</title>
+      <link>http://example.org/logging/zblogger/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/logging/zblogger/</guid>
+      <description>The ZBLogger class is available for you to use for logging in your application.
+ import { ZBLogger } from &amp;#39;zeebe-node&amp;#39; const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)  const { ZBLogger } = require(&amp;#39;zeebe-node&amp;#39;) const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)     </description>
+    </item>
+    
+    <item>
       <title>ZBWorker class</title>
       <link>http://example.org/zbworker/zbworker/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
@@ -182,7 +191,7 @@ An ZBWorker instance subscribes to the gateway for jobs of a specific task type,
       <guid>http://example.org/connection/camunda-cloud/</guid>
       <description>Connect to Camunda Cloud Camunda Cloud provides a fully managed Zeebe service with TLS and OAuth.
 Client version 0.22 and above The Zeebe Node client version 0.22 and above provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.
-To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~ is not writable in your runtime environment.</description>
+To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~ is not writable in your runtime environment, to set a custom token cache directory.</description>
     </item>
     
     <item>
