@@ -74,7 +74,7 @@
 	"title": "Install",
 	"tags": [],
 	"description": "",
-	"content": " The Zeebe Node client is available via npm.\nAdd to an existing project npm i zeebe-node  Create a new Node.js project mkdir myproject cd myproject npm init -y npm i zeebe-node  Make it a TypeScript project npm i -g typescript tsc --init  zbctl The zbctl binary is a command-line client that you use to send commands to a Zeebe broker cluster.\nTo install zbctl:\nnpm i -g zbctl  After installation, you can run zbctl and see the available options with:\nzbctl  "
+	"content": " The Zeebe Node client is available via npm.\nAdd to an existing project npm i zeebe-node  Create a new Node.js project mkdir myproject cd myproject npm init -y npm i zeebe-node  Make it a TypeScript project npm i -g typescript tsc --init  Optional: zbctl The zbctl binary is a command-line client that you can use to send commands to a Zeebe broker cluster. It is useful for debugging and testing.\nTo install zbctl:\nnpm i -g zbctl  After installation, you can run zbctl and see the available options with:\nzbctl  "
 },
 {
 	"uri": "http://example.org/",
