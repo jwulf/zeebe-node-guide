@@ -60,8 +60,8 @@ If you are using OAuth, you are probably using TLS as well, so TLS is automatica
       
       <guid>http://example.org/connection/camunda-cloud/</guid>
       <description>Connect to Camunda Cloud Camunda Cloud provides a fully managed Zeebe service with TLS and OAuth.
-Client version 0.22 and above The Zeebe Node client version 0.22 and above provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.
-To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~ is not writable in your runtime environment, to set a custom token cache directory.</description>
+The Zeebe Node client provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.
+To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~/.camunda is not writable in your runtime environment, to set a custom token cache directory (see the section on OAuth JWT caching).</description>
     </item>
     
   </channel>

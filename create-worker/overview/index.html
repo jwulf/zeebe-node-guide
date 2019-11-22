@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>ZBWorker :: Zeebe Node.js Client Guide</title>
+    <title>Worker Overview :: Zeebe Node.js Client Guide</title>
 
     
     <link href="/css/nucleus.css?1574430666" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/zbworker/">
+  <body class="" data-url="/create-worker/overview/">
     <nav id="sidebar" class="">
 
 
@@ -355,8 +355,8 @@
   
     
     <li data-nav-id="/zbworker/" title="ZBWorker" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/zbworker/">
@@ -765,7 +765,7 @@
   
     
     <li data-nav-id="/create-worker/" title="Create a ZBWorker" class="dd-item 
-        
+        parent
         
         
         ">
@@ -789,7 +789,7 @@
  
   
     
-      <li data-nav-id="/create-worker/overview/" title="Worker Overview" class="dd-item ">
+      <li data-nav-id="/create-worker/overview/" title="Worker Overview" class="dd-item active">
         <a href="/create-worker/overview/">
         Worker Overview
         
@@ -864,6 +864,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
                   <span class="links">
                  
                  
@@ -874,7 +876,13 @@
             
           
           
-            <a href='/'>Zeebe Node.js Client Guide</a> > ZBWorker
+            
+            
+          
+          
+            <a href='/'>Zeebe Node.js Client Guide</a> > <a href='/create-worker/'>Create a ZBWorker</a> > Worker Overview
+          
+         
           
          
           
@@ -883,6 +891,25 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#long-polling">Long polling</a></li>
+<li><a href="#maximum-concurrent-active-jobs">Maximum (Concurrent) Active Jobs</a></li>
+<li><a href="#job-timeout">Job Timeout</a></li>
+<li><a href="#completing-a-job-after-the-activation-timeout-expires">Completing a job after the activation timeout expires</a></li>
+<li><a href="#eventual-consistency-and-idempotency">Eventual consistency and idempotency</a></li>
+<li><a href="#failing-a-job-after-the-activation-timeout-expires">Failing a job after the activation timeout expires</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
@@ -890,9 +917,12 @@
         
         </div>
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>
+              
+              Worker Overview
+            </h1>
           
 
         
@@ -900,24 +930,63 @@
 
 
 
-	
 
-<h3 id="chapter-4">Chapter 4</h3>
+<p><em>This section contains conceptual background and reference material that may be overwhelming initially. Feel free to continually refer back to this section as you need to.</em></p>
 
-<h1 id="zbworker">ZBWorker</h1>
+<p>The ZBClient method <code>createWorker</code> creates a new ZBWorker to service jobs.</p>
 
-<p>The ZBWorker class.</p>
+<p>A <em>job</em> is a specific, concrete instance of a task from a running workflow.</p>
 
+<p>A ZBWorker is created for a specific task type, and continuously polls the broker for jobs of that task type.</p>
 
+<p>It does this, under the hood, by sending an <code>ActivateJobs</code> gRPC command to the gateway.</p>
 
+<p>If jobs of the worker&rsquo;s task type are available in the cluster, the gateway streams them back to the worker. If no jobs are available, the poll is held open - it is a long poll. If jobs appear at any time during the life-time of the poll, the gateway sends them back. The worker repolls when the current poll expires, or as soon as it has capacity for more work.</p>
+
+<h2 id="long-polling">Long polling</h2>
+
+<p>The lifetime of the worker&rsquo;s long poll is configurable, and you would configure this to be as long as possible, to reduce the load on the gateway (see this <a href="https://zeebe.io/blog/2019/08/long-polling/">blog post</a>). At the same time, you will need to make it as short as it needs to be - we&rsquo;ve seen 10-minute long polling perform flawlessly in development environments, and anything over 60 seconds throw errors in environments where an intermediate proxy terminated &ldquo;idle&rdquo; connections at that time limit. By default, the client sets this to 30 seconds.</p>
+
+<h2 id="maximum-concurrent-active-jobs">Maximum (Concurrent) Active Jobs</h2>
+
+<p>The maximum number of jobs that the worker can handle concurrently is configurable. By default, this is 32. Depending on the resource intensity of the actual execution of the job, you can configure the worker capacity to be more or less.</p>
+
+<h2 id="job-timeout">Job Timeout</h2>
+
+<p>When the worker requests jobs, it lets the gateway know the duration of time that the job should be allocated to the worker. During that time, the job is marked active, and will not be allocated to any other worker. By default, in the Node client this is 60 seconds. You should be aware that the task that checks for worker job timeouts on the broker runs every 30 seconds, so if you configure a job timeout of <em>n</em> seconds, the effective timeout will be somewhere in the range of <em>n</em> to (<em>n</em> + 29s).</p>
+
+<h2 id="completing-a-job-after-the-activation-timeout-expires">Completing a job after the activation timeout expires</h2>
+
+<p>The Node client does no management of the job timeout.</p>
+
+<p>If a worker completes a job after the timeout, as long as no other worker has completed the job already, the job will be successfully completed by the gateway. If it has already been completed, the attempt to complete it will throw. This means that your worker can receive a job, and then throw when it tries to complete it because another worker (&lsquo;worker 1&rsquo;) previously activated it, the activation timed out and the job was streamed to worker 2, then worker 1 came through and completed it before worker 2 did.</p>
+
+<p>If this seems a little chaotic to you, I&rsquo;m not surprised!</p>
+
+<p>Here is why it works this way - imagine that your worker activates a job and specifies a 60s timeout (which gives it 60s - 89s to complete it). Now imagine that it actually takes 95s to complete the job due to computational complexity, dependent services, or anything else you want to make up.</p>
+
+<p>Now, no worker will ever be able to complete the job in time - even though any of them could&hellip;eventually.</p>
+
+<p>This way, another worker can start work on it, but the first worker can still complete it.</p>
+
+<p>So the job activation timeout is more a statement of &ldquo;<em>how long should we wait before deciding &lsquo;this worker may have died, better try another one&rsquo;</em>&rdquo; than a statement of &ldquo;<em>this is how long I think this job will take</em>&rdquo;.</p>
+
+<h2 id="eventual-consistency-and-idempotency">Eventual consistency and idempotency</h2>
+
+<p>The system is eventually consistent. That&rsquo;s the nature of a distributed system - the broker doesn&rsquo;t know what is happening in the worker until it reports back.</p>
+
+<p>Since multiple workers may receive the same job (it is <em>at-least-once</em>), you should make sure the side-effects of your workers are idempotent - for example, upserting records instead of inserting them.</p>
+
+<h2 id="failing-a-job-after-the-activation-timeout-expires">Failing a job after the activation timeout expires</h2>
+
+<p>Although workers can complete jobs after the activation timeout, they cannot fail them after the activation timeout has expired. This will throw.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -1128,7 +1197,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -1141,9 +1209,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -1420,6 +1485,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1432,6 +1498,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1451,6 +1518,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1472,10 +1542,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/zbclient/configuration/" title="Configuration Strategies"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/create-worker/" title="Create a ZBWorker"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/zbworker/zbworker/" title="ZBWorker class" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/publish-message/" title="Publish a Message" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1507,3 +1577,4 @@
 
   </body>
 </html>
+

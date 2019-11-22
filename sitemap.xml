@@ -53,6 +53,21 @@
   </url>
   
   <url>
+    <loc>http://example.org/createwf/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/create-worker/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/publish-message/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://example.org/installation/install/install/</loc>
     <lastmod>2019-11-07T01:44:25+10:00</lastmod>
   </url>
@@ -109,6 +124,11 @@
   
   <url>
     <loc>http://example.org/connection/oauth/</loc>
+    <lastmod>2019-10-27T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/create-worker/overview/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   

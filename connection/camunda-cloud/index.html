@@ -12,20 +12,20 @@
     <title>Camunda Cloud :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574404388" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574404388" rel="stylesheet">
-    <link href="/css/hybrid.css?1574404388" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574404388" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574404388" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574404388" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574404388" rel="stylesheet">
-    <link href="/css/theme.css?1574404388" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574404388" rel="stylesheet">
-    <link href="/css/tabs.css?1574404388" rel="stylesheet">
+    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
+    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
+    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
+    <link href="/css/theme.css?1574430666" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
+    <link href="/css/tabs.css?1574430666" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574404388"></script>
+    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574404388"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574404388"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574404388"></script>
+<script type="text/javascript" src="/js/search.js?1574430666"></script>
 
     
   </div>
@@ -736,6 +736,101 @@
  
 
           
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/createwf/" title="Create (Start) a Workflow Instance" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/createwf/">
+          <b>9. </b>Create (Start) a Workflow Instance
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/create-worker/" title="Create a ZBWorker" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/create-worker/">
+          <b>10. </b>Create a ZBWorker
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/create-worker/overview/" title="Worker Overview" class="dd-item ">
+        <a href="/create-worker/overview/">
+        Worker Overview
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/publish-message/" title="Publish a Message" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/publish-message/">
+          <b>11. </b>Publish a Message
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
          
     </ul>
 
@@ -804,10 +899,7 @@
 <ul>
 <li><a href="#connect-to-camunda-cloud">Connect to Camunda Cloud</a>
 <ul>
-<li><a href="#client-version-0-22-and-above">Client version 0.22 and above</a></li>
-<li><a href="#environmentalizing-camunda-cloud-client-version-0-22">Environmentalizing Camunda Cloud (client version &gt;= 0.22)</a></li>
-<li><a href="#client-version-prior-to-0-22">Client version prior to 0.22</a></li>
-<li><a href="#environmentalizing-camunda-cloud-client-version-0-22-1">Environmentalizing Camunda Cloud (client version &lt; 0.22)</a></li>
+<li><a href="#environmentalizing-camunda-cloud">Environmentalizing Camunda Cloud</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -841,11 +933,9 @@
 
 <p><a href="https://zeebe.io/cloud/">Camunda Cloud</a> provides a fully managed Zeebe service with TLS and OAuth.</p>
 
-<h3 id="client-version-0-22-and-above">Client version 0.22 and above</h3>
+<p>The Zeebe Node client provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.</p>
 
-<p>The Zeebe Node client version 0.22 and above provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.</p>
-
-<p>To use with Camunda Cloud, set these values in code. Note that <code>cacheDir</code> is optional, and should be used when the directory <code>~</code> is not writable in your runtime environment, to set a custom token cache directory.</p>
+<p>To use with Camunda Cloud, set these values in code. Note that <code>cacheDir</code> is optional, and should be used when the directory <code>~/.camunda</code> is not writable in your runtime environment, to set a custom token cache directory (see the section on <a href="/connection/oauth/#oauth-jwt-caching">OAuth JWT caching</a>).</p>
 
 <!-- prettier-ignore -->
 
@@ -891,9 +981,9 @@
 </div>
 
 
-<h3 id="environmentalizing-camunda-cloud-client-version-0-22">Environmentalizing Camunda Cloud (client version &gt;= 0.22)</h3>
+<h3 id="environmentalizing-camunda-cloud">Environmentalizing Camunda Cloud</h3>
 
-<p>To use Camunda Cloud with clients version 0.22 and above, set the environment variables:</p>
+<p>To use Camunda Cloud, set the environment variables:</p>
 
 <pre><code class="language-bash">ZEEBE_ADDRESS  # Set with &quot;Zeebe Cluster Id&quot; value
 ZEEBE_CLIENT_ID # Set with &quot;clientId&quot; value
@@ -901,81 +991,6 @@ ZEEBE_CLIENT_SECRET # Set with &quot;clientSecret&quot; value
 </code></pre>
 
 <p>Setting only these three OAuth values is interpreted by the client as necessary and sufficient for Camunda Cloud, and it will enable TLS and correctly set the OAuth token audience and Authorization URL.</p>
-
-<p>Optionally, set a custom token cache directory:</p>
-
-<pre><code class="language-bash">ZEEBE_TOKEN_CACHE_DIR
-</code></pre>
-
-<h3 id="client-version-prior-to-0-22">Client version prior to 0.22</h3>
-
-<p>The OAuth authorization endpoint changed in November 2019. Client versions prior to 0.22 are hard-coded to use the previous authorization endpoint, so the convenience configuration will not work. You will need to provide all the configuration details.</p>
-
-<p>The <code>oAuth.url</code> is a constant - it&rsquo;s the Camunda Cloud token endpoint. The other values depend on your cluster, and come from your Camunda Cloud account. The <code>oAuth.audience</code> needs to be set to your cluster Id with the <code>.zeebe.camunda.io</code> domain added to it.</p>
-
-<p>The <code>oAuth.cacheDir</code> setting is optional, and should be set if the directory <code>~</code> is not writable in your run-time environment - for example, AWS Lambda with the default mounts.</p>
-
-<!-- prettier-ignore -->
-
-<div class="code-tabs">
-	<ul class="nav nav-tabs"></ul>
-	<div class="tab-content">
-  <div class="tab-pane" title="TypeScript">
-	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
-  <span style="color:#a6e22e">useTLS</span>: <span style="color:#66d9ef">true</span>,
-  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;@TODO my-oAuth-endpoint.com&#39;</span>,
-    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
-    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;yStuGvJ6a1RQhy8DQpeXJ80yEpar3pXh&#39;</span>,
-    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;WZahIGHjyj0-oQ7DZ_aH2wwNuZt5O8Sq0ZJTz0OaxfO7D6jaDBZxM_Q-BHRsiGO_&#39;</span>,
-    <span style="color:#a6e22e">clusterId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040&#39;</span>,
-    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/cache&#39;</span>
-  },
-  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
-  <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">443</span>
-})
-    </code></pre></div>
-  
-</div>
-
-  <div class="tab-pane" title="JavaScript (ES6)">
-	
-    <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javaScript" data-lang="javaScript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;zeebe-node&#39;</span>)
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
-  <span style="color:#a6e22e">useTLS</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-  <span style="color:#a6e22e">oAuth</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;@TODO my-oAuth-endpoint.com&#39;</span>,
-    <span style="color:#a6e22e">audience</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
-    <span style="color:#a6e22e">clientId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;yStuGvJ6a1RQhy8DQpeXJ80yEpar3pXh&#39;</span>,
-    <span style="color:#a6e22e">clientSecret</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;WZahIGHjyj0-oQ7DZ_aH2wwNuZt5O8Sq0ZJTz0OaxfO7D6jaDBZxM_Q-BHRsiGO_&#39;</span>,
-    <span style="color:#a6e22e">clusterId</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040&#39;</span>,
-    <span style="color:#a6e22e">cacheDir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/cache&#39;</span>
-  },
-  <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;103ca930-6da6-4df7-aa97-941eb1f85040.zeebe.camunda.io&#39;</span>,
-  <span style="color:#a6e22e">port</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">443</span>
-})
-    
-</code></pre></div>
-  
-</div>
-
-</div>
-</div>
-
-
-<h3 id="environmentalizing-camunda-cloud-client-version-0-22-1">Environmentalizing Camunda Cloud (client version &lt; 0.22)</h3>
-
-<p>For clients prior to 0.22, you need to set all the environment variables for oAuth, using the appropriate values for Camunda Cloud and your cluster. See above for how you get those.</p>
-
-<pre><code class="language-bash">ZEEBE_TOKEN_AUDIENCE
-ZEEBE_AUTHORIZATION_SERVER_URL=@TODO
-ZEEBE_CLIENT_ID
-ZEEBE_CLIENT_SECRET
-</code></pre>
 
 <p>Optionally, set a custom token cache directory:</p>
 
@@ -1473,6 +1488,70 @@ ZEEBE_CLIENT_SECRET
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
         
@@ -1495,21 +1574,21 @@ ZEEBE_CLIENT_SECRET
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574404388"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574404388"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574404388"></script>
-    <script src="/js/jquery.sticky.js?1574404388"></script>
-    <script src="/js/featherlight.min.js?1574404388"></script>
-    <script src="/js/highlight.pack.js?1574404388"></script>
+    <script src="/js/clipboard.min.js?1574430667"></script>
+    <script src="/js/perfect-scrollbar.min.js?1574430667"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1574430667"></script>
+    <script src="/js/jquery.sticky.js?1574430667"></script>
+    <script src="/js/featherlight.min.js?1574430667"></script>
+    <script src="/js/highlight.pack.js?1574430667"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574404388"></script>
-    <script src="/js/learn.js?1574404388"></script>
-    <script src="/js/hugo-learn.js?1574404388"></script>
-    <script src="/js/code-lang.js?1574404388"></script>
-    <script src="/js/tabs.js?1574404388"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1574430667"></script>
+    <script src="/js/learn.js?1574430667"></script>
+    <script src="/js/hugo-learn.js?1574430667"></script>
+    <script src="/js/code-lang.js?1574430667"></script>
+    <script src="/js/tabs.js?1574430667"></script>
 
-    <link href="/mermaid/mermaid.css?1574404388" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574404388"></script>
+    <link href="/mermaid/mermaid.css?1574430667" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1574430667"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

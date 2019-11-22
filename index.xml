@@ -140,6 +140,18 @@ If you are using OAuth, you are probably using TLS as well, so TLS is automatica
     </item>
     
     <item>
+      <title>Worker Overview</title>
+      <link>http://example.org/create-worker/overview/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/create-worker/overview/</guid>
+      <description>This section contains conceptual background and reference material that may be overwhelming initially. Feel free to continually refer back to this section as you need to.
+The ZBClient method createWorker creates a new ZBWorker to service jobs.
+A job is a specific, concrete instance of a task from a running workflow.
+A ZBWorker is created for a specific task type, and continuously polls the broker for jobs of that task type.</description>
+    </item>
+    
+    <item>
       <title>ZBClient class</title>
       <link>http://example.org/zbclient/zbclient/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
@@ -180,7 +192,7 @@ We divide failures into two categories:
       <description>The ZBWorker is the class used to create Zeebe Job workers.
 Your Workflow Definitions contain tasks. A task has a task type.
 When you create a workflow instance, the broker will create a job for a task. A job is a specific concrete instance of a task.
-An ZBWorker instance subscribes to the gateway for jobs of a specific task type, and continually polls the gateway for available jobs. When there is work for the worker to do, the gateway responds to the poll with a stream of jobs, and the worker&amp;rsquo;s job handler is invoked for each job.</description>
+An ZBWorker subscribes to the gateway for jobs of a specific task type, and continually polls the gateway for available jobs. When there is work for the worker to do, the gateway responds to the poll with a stream of jobs, and the worker&amp;rsquo;s job handler is invoked for each job.</description>
     </item>
     
     <item>
@@ -190,8 +202,8 @@ An ZBWorker instance subscribes to the gateway for jobs of a specific task type,
       
       <guid>http://example.org/connection/camunda-cloud/</guid>
       <description>Connect to Camunda Cloud Camunda Cloud provides a fully managed Zeebe service with TLS and OAuth.
-Client version 0.22 and above The Zeebe Node client version 0.22 and above provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.
-To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~ is not writable in your runtime environment, to set a custom token cache directory.</description>
+The Zeebe Node client provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.
+To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~/.camunda is not writable in your runtime environment, to set a custom token cache directory (see the section on OAuth JWT caching).</description>
     </item>
     
     <item>

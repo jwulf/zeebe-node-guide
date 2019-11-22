@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publish a Message on Zeebe Node.js Client Guide</title>
+    <link>http://example.org/publish-message/</link>
+    <description>Recent content in Publish a Message on Zeebe Node.js Client Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Oct 2019 16:49:55 +1000</lastBuildDate>
+    
+	<atom:link href="http://example.org/publish-message/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
