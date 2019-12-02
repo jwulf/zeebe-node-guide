@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Logging :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,17 +894,14 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#log-format">Log format</a></li>
-<li><a href="#log-message-levels">Log message levels</a></li>
-<li><a href="#set-the-logging-level">Set the logging level</a></li>
-<li><a href="#set-a-custom-log-namespace">Set a custom log namespace</a></li>
-<li><a href="#log-to-a-custom-stdout">Log to a custom stdout</a></li>
-<li><a href="#logging-in-zbworker">Logging in ZBWorker</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#log-format">Log format</a></li>
+    <li><a href="#log-message-levels">Log message levels</a></li>
+    <li><a href="#set-the-logging-level">Set the logging level</a></li>
+    <li><a href="#set-a-custom-log-namespace">Set a custom log namespace</a></li>
+    <li><a href="#log-to-a-custom-stdout">Log to a custom stdout</a></li>
+    <li><a href="#logging-in-zbworker">Logging in ZBWorker</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -929,20 +926,12 @@
 
 
 
-
-
 <h2 id="log-format">Log format</h2>
-
 <p>The Node client logs its messages using a structured JSON format - <a href="http://ndjson.org/">ndjson</a>. These messages are designed to be easily parsed by scripts.</p>
-
 <p>The messages are output to the console by default, and look like this:</p>
-
 <pre><code>{&quot;timestamp&quot;:&quot;2019-11-21T13:52:00.961Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;[topology]: Attempt 5 (max: 50).&quot;,&quot;time&quot;:&quot;2019 Nov-21 23:52:00PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
 {&quot;timestamp&quot;:&quot;2019-11-21T13:52:00.962Z&quot;,&quot;context&quot;:&quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&quot;,&quot;level&quot;:50,&quot;message&quot;:&quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&quot;,&quot;time&quot;:&quot;2019 Nov-21 23:52:00PM&quot;,&quot;pollInterval&quot;:30000,&quot;namespace&quot;:&quot;ZBClient&quot;}
-</code></pre>
-
-<p>To view log messages in a human-readable format, you can pipe your program&rsquo;s output through <a href="https://www.npmjs.com/package/pino-pretty"><code>pino-pretty</code></a>. This results in output like this:</p>
-
+</code></pre><p>To view log messages in a human-readable format, you can pipe your program's output through <a href="https://www.npmjs.com/package/pino-pretty"><code>pino-pretty</code></a>. This results in output like this:</p>
 <pre><code>[2019 Nov-21 23:52:54PM] ERROR:
     context: &quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&quot;
     message: &quot;[topology]: Attempt 5 (max: 50).&quot;
@@ -953,28 +942,18 @@
     message: &quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&quot;
     pollInterval: 30000
     namespace: &quot;ZBClient&quot;
-</code></pre>
-
-<h2 id="log-message-levels">Log message levels</h2>
-
+</code></pre><h2 id="log-message-levels">Log message levels</h2>
 <p>There are three levels of log messages:</p>
-
 <ul>
 <li>20 - DEBUG</li>
 <li>30 - INFO</li>
 <li>50 - ERROR</li>
 </ul>
-
 <h2 id="set-the-logging-level">Set the logging level</h2>
-
 <p>By default, the client logs at <code>INFO</code> level.</p>
-
 <p>Set the log level of the ZBClient to one of the log levels - <code>DEBUG</code>, <code>INFO</code>, <code>ERROR</code>; or to <code>NONE</code> to suppress all logging.</p>
-
 <p>You can set the logging level of the ZBClient via the ZBClient constructor:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -985,7 +964,8 @@
 <span style="color:#75715e">// Suppress all log messages except errors
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
   <span style="color:#a6e22e">loglevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>
-})</code></pre></div>
+})
+</code></pre></div>
 
 </div>
 
@@ -1003,21 +983,13 @@
 
 </div>
 </div>
-
 
 <p>And via the environment:</p>
-
-<pre><code class="language-bash">ZEEBE_NODE_LOG_LEVEL
-</code></pre>
-
-<p>Any environment setting will override the constructor setting. This is the only setting with this precedence.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ZEEBE_NODE_LOG_LEVEL
+</code></pre></div><p>Any environment setting will override the constructor setting. This is the only setting with this precedence.</p>
 <h2 id="set-a-custom-log-namespace">Set a custom log namespace</h2>
-
 <p>By default, the ZBClient logs with namespace &ldquo;ZBClient&rdquo;. If you have more than one ZBClient instance in your application, you can distinguish between them by setting a custom log namespace. Pass a string or array of strings to the ZBClient constructor as the <code>logNamespace</code> parameter.</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -1031,7 +1003,8 @@
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
   <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;zbc1&#39;</span>
-})</code></pre></div>
+})
+</code></pre></div>
 
 </div>
 
@@ -1053,13 +1026,9 @@
 </div>
 </div>
 
-
 <h2 id="log-to-a-custom-stdout">Log to a custom stdout</h2>
-
 <p>You can redirect the log output to somewhere other than the console by passing in an object with an <code>info</code> method that takes a string parameter.</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -1072,9 +1041,10 @@
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
   <span style="color:#a6e22e">loglevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
   <span style="color:#a6e22e">stdio</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">info</span>: <span style="color:#66d9ef">msg</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">msg</span>)
+    <span style="color:#a6e22e">info</span>: <span style="color:#66d9ef">msg</span> <span style="color:#f92672">=</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">msg</span>)
   }
-})</code></pre></div>
+})
+</code></pre></div>
 
 </div>
 
@@ -1097,17 +1067,11 @@
 </div>
 </div>
 
-
 <p>For an example of a custom logger, see the implementation in the <a href="https://github.com/pedesen/node-red-contrib-zeebe/blob/master/src/util/logger.js">Node-RED Zeebe package</a>.</p>
-
 <h2 id="logging-in-zbworker">Logging in ZBWorker</h2>
-
 <p>The ZBWorker inherits its log settings from the ZBClient that creates it. You can also override any of the settings in the <code>createWorker</code> method call.</p>
-
 <p>By default the ZBWorker logs with the namespace &ldquo;ZBWorker&rdquo;. If a custom namespace has been set for the ZBClient, the ZBWorker inherits it and prepends &ldquo;ZBWorker&rdquo; to it. If you override this with an explicit namespace, &ldquo;ZBWorker&rdquo; is prepended to that.</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -1123,7 +1087,8 @@
 <span style="color:#75715e">// Logs with namespace &#34;ZBWorker override-namespace&#34;
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">worker</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">createWorker</span>(<span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#39;get-user&#39;</span>, <span style="color:#a6e22e">jobhandler</span>, {
   <span style="color:#a6e22e">logNamespace</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;override-namespace&#39;</span>
-})</code></pre></div>
+})
+</code></pre></div>
 
 </div>
 
@@ -1722,21 +1687,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430667"></script>
-    <script src="/js/jquery.sticky.js?1574430667"></script>
-    <script src="/js/featherlight.min.js?1574430667"></script>
-    <script src="/js/highlight.pack.js?1574430667"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430667"></script>
-    <script src="/js/learn.js?1574430667"></script>
-    <script src="/js/hugo-learn.js?1574430667"></script>
-    <script src="/js/code-lang.js?1574430667"></script>
-    <script src="/js/tabs.js?1574430667"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430667" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430667"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>ZBClient gRPC channel events :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,15 +894,12 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#zbclient-grpc-channel-events">ZBClient gRPC channel events</a></li>
-<li><a href="#onready-and-onconnectionerror-callbacks">onReady and onConnectionError callbacks</a></li>
-<li><a href="#ready-and-connectionerror-events">&lsquo;ready&rsquo; and &lsquo;connectionError&rsquo; events</a></li>
-<li><a href="#grpc-status-jitter-and-connectiontolerance">gRPC status jitter and connectionTolerance</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#zbclient-grpc-channel-events">ZBClient gRPC channel events</a></li>
+    <li><a href="#onready-and-onconnectionerror-callbacks">onReady and onConnectionError callbacks</a></li>
+    <li><a href="#ready-and-connectionerror-events">ready and connectionError events</a></li>
+    <li><a href="#grpc-status-jitter-and-connectiontolerance">gRPC status jitter and connectionTolerance</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -927,30 +924,17 @@
 
 
 
-
-
 <h2 id="zbclient-grpc-channel-events">ZBClient gRPC channel events</h2>
-
 <p>The ZBClient notifies on gRPC channel connection failure and reconnection. In addition to wrapping every single operation, you can use this feature to write alerting or custom behavior based on the underlying connection status.</p>
-
 <p>One thing to bear in mind is that ZBClient operations will throw if they encounter an error. However, there is no opportunity to be alerted to a network failure until you try an operation.</p>
-
 <p>The ZBClient gRPC channel events allow you to detect and react to network disruption independent of operations.</p>
-
 <p>There are two interfaces to the ZBClient gRPC events: callbacks and events.</p>
-
 <h2 id="onready-and-onconnectionerror-callbacks">onReady and onConnectionError callbacks</h2>
-
 <p>The <code>onReady</code> callback is called when the ZBClient gRPC connection is initially established, and every time it is re-established after it is disconnected.</p>
-
 <p>Note that the ZBClient constructor immediately issues a <code>topology</code> command to the broker to provoke an error or prove the connection. Without this, the channel status is unknown until the first command is issued.</p>
-
 <p>The <code>onConnectionError</code> callback is called when the gRPC channel is disconnected.</p>
-
 <p>Pass in callbacks to the ZBClient constructor to react on these events:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -959,10 +943,11 @@
     <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
-  <span style="color:#a6e22e">onReady</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Ready for action!&#39;</span>),
-  <span style="color:#a6e22e">onConnectionError</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Boo! The gRPC connection failed!&#39;</span>)
+  <span style="color:#a6e22e">onReady</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Ready for action!&#39;</span>),
+  <span style="color:#a6e22e">onConnectionError</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Boo! The gRPC connection failed!&#39;</span>)
 })
-    </code></pre></div>
+    
+</code></pre></div>
   
 </div>
 
@@ -982,21 +967,13 @@
 </div>
 </div>
 
-
 <h2 id="ready-and-connectionerror-events">&lsquo;ready&rsquo; and &lsquo;connectionError&rsquo; events</h2>
-
 <p>The ZBClient class extends <a href="https://nodejs.org/docs/latest-v12.x/api/events.html#events_class_eventemitter"><code>EventEmitter</code></a>. As well as invoking any callback handlers passed to the constructor, the ZBClient emits the <code>ready</code> and <code>connectionError</code> events.</p>
-
 <p>This means that you can do things like attach <a href="https://nodejs.org/docs/latest-v12.x/api/events.html#events_emitter_once_eventname_listener">one-time listeners</a>, or write a module that contains reusable connection logic and wraps a ZBClient instance. For an example of this, see the <a href="https://www.npmjs.com/package/zeebe-canaryize">zeebe-canaryize</a> package.</p>
-
 <h2 id="grpc-status-jitter-and-connectiontolerance">gRPC status jitter and connectionTolerance</h2>
-
 <p>When the gRPC connection fails, as the gRPC channel tries to reconnect, it rapidly cycles between connected / disconnected before settling on disconnected. To avoid calling the onReady and onConnectionError callbacks rapidly in multiple succession and emitting a stream of events, the client debounces the channel status transitions, and requires the channel to be in the new state for 3 seconds before calling it.</p>
-
 <p>The default window of three seconds is based on observation of production systems using specific proxies. You might find that you need a different window for connection tolerance, in which case you can pass in another value for <code>connectionTolerance</code> in the ZBClient constructor:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -1007,7 +984,8 @@
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
   <span style="color:#a6e22e">connectionTolerance</span>: <span style="color:#66d9ef">3000</span>
 })
-    </code></pre></div>
+    
+</code></pre></div>
   
 </div>
 
@@ -1604,21 +1582,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430667"></script>
-    <script src="/js/jquery.sticky.js?1574430667"></script>
-    <script src="/js/featherlight.min.js?1574430667"></script>
-    <script src="/js/highlight.pack.js?1574430667"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430667"></script>
-    <script src="/js/learn.js?1574430667"></script>
-    <script src="/js/hugo-learn.js?1574430667"></script>
-    <script src="/js/code-lang.js?1574430667"></script>
-    <script src="/js/tabs.js?1574430667"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430667" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430667"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

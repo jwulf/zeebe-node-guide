@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>ZBClient gRPC retries :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,16 +894,13 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#failure-part-of-success">Failure - part of success</a></li>
-<li><a href="#automatic-retry-on-network-errors">Automatic retry on network errors</a></li>
-<li><a href="#disable-automatic-retries">Disable automatic retries</a></li>
-<li><a href="#configure-retries">Configure retries</a></li>
-<li><a href="#broker-backpressure">Broker backpressure</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#failure--part-of-success">Failure - part of success</a></li>
+    <li><a href="#automatic-retry-on-network-errors">Automatic retry on network errors</a></li>
+    <li><a href="#disable-automatic-retries">Disable automatic retries</a></li>
+    <li><a href="#configure-retries">Configure retries</a></li>
+    <li><a href="#broker-backpressure">Broker backpressure</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -928,43 +925,26 @@
 
 
 
-
-
-<h2 id="failure-part-of-success">Failure - part of success</h2>
-
+<h2 id="failure--part-of-success">Failure - part of success</h2>
 <p>All ZBClient methods that involve sending a gRPC command to the broker may fail.</p>
-
 <p>If you are using async/await that means they will throw. If you are using Promises, they will reject and take the <code>.catch</code> path.</p>
-
 <p>We divide failures into two categories:</p>
-
 <ul>
 <li>&ldquo;Business logic errors&rdquo; - for example, trying to create an instance of a workflow for which no workflow definition is deployed on the broker.</li>
 <li>&ldquo;Network errors&rdquo; - for example, the gRPC connection to the gateway is in a failed state while the gateway is being rescheduled by Kubernetes.</li>
 </ul>
-
 <p>Business errors will always throw / reject.</p>
-
 <p>The Node client can automatically retry on network errors, and does this by default.</p>
-
 <h2 id="automatic-retry-on-network-errors">Automatic retry on network errors</h2>
-
 <p>Network errors return <a href="https://github.com/grpc/grpc/blob/master/doc/statuscodes.md">gRPC error code 14</a>.</p>
-
 <p>According to the spec:</p>
-
 <blockquote>
 <p>The service is currently unavailable. This is most likely a transient condition, which can be corrected by retrying with a backoff. Note that it is not always safe to retry non-idempotent operations.</p>
 </blockquote>
-
 <p>To help you write robust applications that continue to operate around transient network failures and recover automatically as the network recovers, the Node client is configured by default to automatically retry operations on network failures, with a back-off.</p>
-
 <h2 id="disable-automatic-retries">Disable automatic retries</h2>
-
 <p>You can configure this, or disable it entirely if you want to code some other strategy. If you need your application to page you immediately on a network error, and <em>definitely do not try that again</em> (or some other custom handling), pass <code>retry: false</code> to the ZBClient constructor:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -976,7 +956,8 @@
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
   <span style="color:#a6e22e">retry</span>: <span style="color:#66d9ef">false</span>
 })
-    </code></pre></div>
+    
+</code></pre></div>
   
 </div>
 
@@ -996,19 +977,12 @@
 </div>
 </div>
 
-
 <p>Note that you can create more than one ZBClient in an application, each with its own retry configuration, and then use the retry strategy that makes sense for each operation.</p>
-
 <h2 id="configure-retries">Configure retries</h2>
-
 <p>If you have retries enabled, you can set the maximum number of retries that are attempted before an exception is thrown, and the maximum time between retries.</p>
-
 <p>The retry mechanism is implemented using the <a href="https://www.npmjs.com/package/promise-retry">promise-retry</a> module. The backoff is exponential by a factor of 2, and by default it retries 50 times, with a maximum of 5 seconds between retries.</p>
-
 <p>To change this, pass in values for <code>maxRetries</code> and <code>maxRetryTimeout</code> to the ZBClient constructor:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -1021,7 +995,8 @@
 	<span style="color:#a6e22e">maxRetries</span>: <span style="color:#66d9ef">50</span>
 	<span style="color:#a6e22e">maxRetryTimeout</span>: <span style="color:#66d9ef">5000</span>
 })
-    </code></pre></div>
+    
+</code></pre></div>
   
 </div>
 
@@ -1042,11 +1017,8 @@
 </div>
 </div>
 
-
 <h2 id="broker-backpressure">Broker backpressure</h2>
-
 <p>There is a third category of response that can be handled with automated retries. The Zeebe broker has an adaptive algorithm that detects growing latency in the system due to load, and produces backpressure. When the broker detects this, it responds to commands (other than completeJob) with gRPC error code <code>8 - RESOURCE EXHAUSTED</code>.</p>
-
 <p>If retries are enabled, in this situation the Node client applies the same retry strategy that is configured for transient network failures.</p>
 
 
@@ -1626,21 +1598,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430667"></script>
-    <script src="/js/jquery.sticky.js?1574430667"></script>
-    <script src="/js/featherlight.min.js?1574430667"></script>
-    <script src="/js/highlight.pack.js?1574430667"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430667"></script>
-    <script src="/js/learn.js?1574430667"></script>
-    <script src="/js/hugo-learn.js?1574430667"></script>
-    <script src="/js/code-lang.js?1574430667"></script>
-    <script src="/js/tabs.js?1574430667"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430667" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430667"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Zeebe client applications :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,12 +894,9 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#polling-model">Polling model</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#polling-model">Polling model</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -924,22 +921,13 @@
 
 
 
-
-
 <p>Zeebe is a highly-scalable, cloud-native microservices orchestration engine that uses BPMN to orchestrate microservices.</p>
-
 <h2 id="polling-model">Polling model</h2>
-
 <p>Zeebe clients communicate with a Zeebe broker cluster through a gateway. Communication between the JavaScript client code and the gateway is over gRPC. That means that <em>your client applications poll the gateway for available tasks</em>. The Zeebe broker does not invoke your microservices over REST. If you come from a REST architecture background, or have an existing REST microservices architecture that you want to orchestrate, you should take the time to understand the Zeebe model as it is, <em>before</em> trying to figure out how to use it with RESTful services. It is definitely possible, but you need to wire it up to work.</p>
-
-<p>Think of it like this: your Zeebe worker, written in JavaScript, subscribes to a task type on the gateway. It then runs in a loop, polling the gateway for that task type. When jobs of that task type are available, the gateway returns them to the worker. If you have an existing RESTful microservice that you want to invoke for jobs of that task type, then your Zeebe worker can invoke it. And that&rsquo;s how you wire up Zeebe with existing RESTful microservices.</p>
-
+<p>Think of it like this: your Zeebe worker, written in JavaScript, subscribes to a task type on the gateway. It then runs in a loop, polling the gateway for that task type. When jobs of that task type are available, the gateway returns them to the worker. If you have an existing RESTful microservice that you want to invoke for jobs of that task type, then your Zeebe worker can invoke it. And that's how you wire up Zeebe with existing RESTful microservices.</p>
 <p>You could do something like create a worker that subscribes to many task types and has a map for the task type to the REST endpoint that should be invoked for it.</p>
-
 <p>The important thing to understand is that workers subscribe to a task type, and poll for jobs of that task type. So it is a pull model, rather than the push model of REST, where the broker would invoke a REST service.</p>
-
 <p>The pull model means that you can scale the workers without configuring routing or load-balancing, as you would need to do if it were a push model.</p>
-
 <p>If you are writing a system from scratch, then you can put your business logic directly in a polling worker - or you can put the business logic in a REST endpoint if you need to reuse it from other places, and wrap the REST call in a Zeebe worker.</p>
 
 
@@ -1516,21 +1504,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430666"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430666"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430666"></script>
-    <script src="/js/jquery.sticky.js?1574430666"></script>
-    <script src="/js/featherlight.min.js?1574430666"></script>
-    <script src="/js/highlight.pack.js?1574430666"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430666"></script>
-    <script src="/js/learn.js?1574430666"></script>
-    <script src="/js/hugo-learn.js?1574430666"></script>
-    <script src="/js/code-lang.js?1574430666"></script>
-    <script src="/js/tabs.js?1574430666"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430666" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430666"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

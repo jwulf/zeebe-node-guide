@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Configuration Strategies :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,12 +894,9 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#zero-conf-constructor-vs-configuration-in-code">Zero-conf constructor vs configuration in code</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#zeroconf-constructor-vs-configuration-in-code">Zero-conf constructor vs configuration in code</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -924,18 +921,11 @@
 
 
 
-
-
-<h2 id="zero-conf-constructor-vs-configuration-in-code">Zero-conf constructor vs configuration in code</h2>
-
+<h2 id="zeroconf-constructor-vs-configuration-in-code">Zero-conf constructor vs configuration in code</h2>
 <p>You can provide configuration to the ZBClient explicitly in your code - via the constructor - or via environment variables.</p>
-
 <p>Explicit configuration in code is quick and easy, and makes sense when you are first experimenting with Zeebe.</p>
-
 <p>We recommend, however, that ultimately you use the zero-conf constructor, and provide all the configuration via environment variables, <code>docker-compose.yml</code>, or a K8s config map. This environmentalizes your configuration, making your code portable.</p>
-
 <p>When you deploy your application to a test, staging, or production environment, no changes are required in your code: you will be testing the exact code you run in production, and you can use configuration management tools to handle the different environments.</p>
-
 <p>Note that any explicit configuration in code overrides configuration from the environment - with one exception: the log level can be overridden from the environment.</p>
 
 
@@ -1515,21 +1505,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430666"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430666"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430666"></script>
-    <script src="/js/jquery.sticky.js?1574430666"></script>
-    <script src="/js/featherlight.min.js?1574430666"></script>
-    <script src="/js/highlight.pack.js?1574430666"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430666"></script>
-    <script src="/js/learn.js?1574430666"></script>
-    <script src="/js/hugo-learn.js?1574430666"></script>
-    <script src="/js/code-lang.js?1574430666"></script>
-    <script src="/js/tabs.js?1574430666"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430666" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430666"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zeebe Node.js Client Guide</title>
@@ -29,7 +29,8 @@ It is written in TypeScript, and can be used with TypeScript or JavaScript.</des
       
       <guid>http://example.org/installation/install/install/</guid>
       <description>The Zeebe Node client is available via npm.
-Add to an existing project npm i zeebe-node  Create a new Node.js project mkdir myproject cd myproject npm init -y npm i zeebe-node  Make it a TypeScript project npm i -g typescript tsc --init  Optional: zbctl The zbctl binary is a command-line client that you can use to send commands to a Zeebe broker cluster. It is useful for debugging and testing.</description>
+Add to an existing project npm i zeebe-node Create a new Node.js project mkdir myproject cd myproject npm init -y npm i zeebe-node Make it a TypeScript project npm i -g typescript tsc --init Optional: Zeebe Modeler The Zeebe Modeler is an Electron app that allows you to create, examine, and inspect BPMN files.
+You can download a release of the Zeebe Modeler from GitHub here.</description>
     </item>
     
     <item>
@@ -76,16 +77,6 @@ To enable TLS with the Node client and connect to a broker secured with TLS, set
     </item>
     
     <item>
-      <title>Zeebe Node Quickstart</title>
-      <link>http://example.org/quickstart/quickstart/</link>
-      <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
-      
-      <guid>http://example.org/quickstart/quickstart/</guid>
-      <description>What you will do in this Quickstart In this Quickstart you will establish a connection to a Zeebe broker cluster, deploy a workflow definition, create instances of that workflow, create a worker to service a task in the workflow, update the workflow variables via a worker, and await a workflow&amp;rsquo;s outcome.
-Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker documentation).  Import the Zeebe Node library Create an index.</description>
-    </item>
-    
-    <item>
       <title>Zeebe client applications</title>
       <link>http://example.org/introduction/not-rest/</link>
       <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
@@ -93,6 +84,16 @@ Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker
       <guid>http://example.org/introduction/not-rest/</guid>
       <description>Zeebe is a highly-scalable, cloud-native microservices orchestration engine that uses BPMN to orchestrate microservices.
 Polling model Zeebe clients communicate with a Zeebe broker cluster through a gateway. Communication between the JavaScript client code and the gateway is over gRPC. That means that your client applications poll the gateway for available tasks. The Zeebe broker does not invoke your microservices over REST. If you come from a REST architecture background, or have an existing REST microservices architecture that you want to orchestrate, you should take the time to understand the Zeebe model as it is, before trying to figure out how to use it with RESTful services.</description>
+    </item>
+    
+    <item>
+      <title>Zeebe Node Quickstart</title>
+      <link>http://example.org/quickstart/quickstart/</link>
+      <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
+      
+      <guid>http://example.org/quickstart/quickstart/</guid>
+      <description>What you will do in this Quickstart In this Quickstart you will establish a connection to a Zeebe broker cluster, deploy a workflow definition, create instances of that workflow, create a worker to service a task in the workflow, update the workflow variables via a worker, and await a workflow&#39;s outcome.
+This workflow will get the current weather in London, UK, and output a recommendation to take an umbrella out with you or leave your umbrella at home.</description>
     </item>
     
     <item>
@@ -126,7 +127,7 @@ Deploy workflow definition files The method ZBClient.deployWorkflow can take a s
       <guid>http://example.org/logging/logging/</guid>
       <description>Log format The Node client logs its messages using a structured JSON format - ndjson. These messages are designed to be easily parsed by scripts.
 The messages are output to the console by default, and look like this:
-{&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.961Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: Attempt 5 (max: 50).&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.962Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;}  To view log messages in a human-readable format, you can pipe your program&amp;rsquo;s output through pino-pretty.</description>
+{&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.961Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: Attempt 5 (max: 50).&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.962Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} To view log messages in a human-readable format, you can pipe your program&#39;s output through pino-pretty.</description>
     </item>
     
     <item>
@@ -136,7 +137,7 @@ The messages are output to the console by default, and look like this:
       
       <guid>http://example.org/connection/oauth/</guid>
       <description>Connect to a broker with OAuth You can secure a Zeebe cluster with OAuth using a proxy. In this case, the Node client can retrieve a JWT (JSON Web Token) from a token endpoint to use to authorize requests to the broker.
-If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&amp;rsquo;m kidding - this is for a development POC &amp;hellip;right?</description>
+If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&#39;m kidding - this is for a development POC &amp;hellip;right?</description>
     </item>
     
     <item>
@@ -158,7 +159,7 @@ A ZBWorker is created for a specific task type, and continuously polls the broke
       
       <guid>http://example.org/zbclient/zbclient/</guid>
       <description>The ZBClient is the main class in the Node client. It is used to connect to the broker, deploy workflow definitions, start workflow instances, publish messages, and to create workers (ZBWorker) that will service Zeebe tasks.
-The workers created from the Zeebe client inherit the client&amp;rsquo;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.</description>
+The workers created from the Zeebe client inherit the client&#39;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.</description>
     </item>
     
     <item>
@@ -180,7 +181,7 @@ We divide failures into two categories:
       
       <guid>http://example.org/logging/zblogger/</guid>
       <description>The ZBLogger class is available for you to use for logging in your application.
- import { ZBLogger } from &amp;#39;zeebe-node&amp;#39; const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)  const { ZBLogger } = require(&amp;#39;zeebe-node&amp;#39;) const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)     </description>
+ import { ZBLogger } from &amp;#39;zeebe-node&amp;#39; const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)   const { ZBLogger } = require(&amp;#39;zeebe-node&amp;#39;) const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)     </description>
     </item>
     
     <item>
@@ -192,7 +193,7 @@ We divide failures into two categories:
       <description>The ZBWorker is the class used to create Zeebe Job workers.
 Your Workflow Definitions contain tasks. A task has a task type.
 When you create a workflow instance, the broker will create a job for a task. A job is a specific concrete instance of a task.
-An ZBWorker subscribes to the gateway for jobs of a specific task type, and continually polls the gateway for available jobs. When there is work for the worker to do, the gateway responds to the poll with a stream of jobs, and the worker&amp;rsquo;s job handler is invoked for each job.</description>
+An ZBWorker subscribes to the gateway for jobs of a specific task type, and continually polls the gateway for available jobs. When there is work for the worker to do, the gateway responds to the poll with a stream of jobs, and the worker&#39;s job handler is invoked for each job.</description>
     </item>
     
     <item>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Installation on Zeebe Node.js Client Guide</title>
@@ -18,7 +18,8 @@
       
       <guid>http://example.org/installation/install/install/</guid>
       <description>The Zeebe Node client is available via npm.
-Add to an existing project npm i zeebe-node  Create a new Node.js project mkdir myproject cd myproject npm init -y npm i zeebe-node  Make it a TypeScript project npm i -g typescript tsc --init  Optional: zbctl The zbctl binary is a command-line client that you can use to send commands to a Zeebe broker cluster. It is useful for debugging and testing.</description>
+Add to an existing project npm i zeebe-node Create a new Node.js project mkdir myproject cd myproject npm init -y npm i zeebe-node Make it a TypeScript project npm i -g typescript tsc --init Optional: Zeebe Modeler The Zeebe Modeler is an Electron app that allows you to create, examine, and inspect BPMN files.
+You can download a release of the Zeebe Modeler from GitHub here.</description>
     </item>
     
   </channel>

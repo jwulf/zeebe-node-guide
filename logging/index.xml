@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Logging on Zeebe Node.js Client Guide</title>
@@ -19,7 +19,7 @@
       <guid>http://example.org/logging/logging/</guid>
       <description>Log format The Node client logs its messages using a structured JSON format - ndjson. These messages are designed to be easily parsed by scripts.
 The messages are output to the console by default, and look like this:
-{&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.961Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: Attempt 5 (max: 50).&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.962Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;}  To view log messages in a human-readable format, you can pipe your program&amp;rsquo;s output through pino-pretty.</description>
+{&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.961Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: Attempt 5 (max: 50).&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.962Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} To view log messages in a human-readable format, you can pipe your program&#39;s output through pino-pretty.</description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@ The messages are output to the console by default, and look like this:
       
       <guid>http://example.org/logging/zblogger/</guid>
       <description>The ZBLogger class is available for you to use for logging in your application.
- import { ZBLogger } from &amp;#39;zeebe-node&amp;#39; const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)  const { ZBLogger } = require(&amp;#39;zeebe-node&amp;#39;) const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)     </description>
+ import { ZBLogger } from &amp;#39;zeebe-node&amp;#39; const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)   const { ZBLogger } = require(&amp;#39;zeebe-node&amp;#39;) const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)     </description>
     </item>
     
   </channel>

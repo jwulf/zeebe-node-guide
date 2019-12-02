@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>OAuth :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,17 +894,15 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#connect-to-a-broker-with-oauth">Connect to a broker with OAuth</a>
-<ul>
-<li><a href="#environmentalizing-oauth-configuration">Environmentalizing OAuth configuration</a></li>
-<li><a href="#oauth-jwt-caching">OAuth JWT caching</a></li>
-<li><a href="#environmentalizing-jwt-cache">Environmentalizing JWT cache</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#connect-to-a-broker-with-oauth">Connect to a broker with OAuth</a>
+      <ul>
+        <li><a href="#environmentalizing-oauth-configuration">Environmentalizing OAuth configuration</a></li>
+        <li><a href="#oauth-jwt-caching">OAuth JWT caching</a></li>
+        <li><a href="#environmentalizing-jwt-cache">Environmentalizing JWT cache</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -929,18 +927,11 @@
 
 
 
-
-
 <h2 id="connect-to-a-broker-with-oauth">Connect to a broker with OAuth</h2>
-
 <p>You can secure a Zeebe cluster with OAuth using a proxy. In this case, the Node client can retrieve a JWT (JSON Web Token) from a token endpoint to use to authorize requests to the broker.</p>
-
-<p>If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&rsquo;m kidding - this is for a development POC &hellip;right??).</p>
-
+<p>If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I'm kidding - this is for a development POC &hellip;right??).</p>
 <p>In the following example, we enable OAuth:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -958,7 +949,8 @@
   <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
   <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">443</span>
 })
-    </code></pre></div>
+    
+</code></pre></div>
   
 </div>
 
@@ -984,29 +976,18 @@
 </div>
 </div>
 
-
 <h3 id="environmentalizing-oauth-configuration">Environmentalizing OAuth configuration</h3>
-
 <p>The following environment variables control OAuth configuration:</p>
-
-<pre><code class="language-bash">ZEEBE_TOKEN_AUDIENCE
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ZEEBE_TOKEN_AUDIENCE
 ZEEBE_AUTHORIZATION_SERVER_URL
 ZEEBE_CLIENT_ID
 ZEEBE_CLIENT_SECRET
-</code></pre>
-
-<h3 id="oauth-jwt-caching">OAuth JWT caching</h3>
-
-<p>The Node client caches the JWT in-memory, and only requests a new token when the current token expires. This is important for performance, as the client doesn&rsquo;t need to request a token for each request. This speeds up network requests to the gateway and reduces calls to your token-issuing endpoint.</p>
-
+</code></pre></div><h3 id="oauth-jwt-caching">OAuth JWT caching</h3>
+<p>The Node client caches the JWT in-memory, and only requests a new token when the current token expires. This is important for performance, as the client doesn't need to request a token for each request. This speeds up network requests to the gateway and reduces calls to your token-issuing endpoint.</p>
 <p>The Node client also caches the token on disk. This is important in development when you are restarting your application frequently, and also when running in a stateless environment like AWS Lambda.</p>
-
 <p>By default, the JWT is cached in the directory <code>~/.camunda</code>. In some environments (such as AWS Lambda) this directory is not writable. To avoid unbounded token requests, the ZBClient will throw in its constructor if it cannot write to the token cache directory.</p>
-
 <p>You can configure a custom token cache directory in the oAuth configuration using the optional <code>cacheDir</code> parameter, like this:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -1026,7 +1007,8 @@ ZEEBE_CLIENT_SECRET
   <span style="color:#a6e22e">hostname</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;my-secure-zeebe-gateway.com&#39;</span>,
   <span style="color:#a6e22e">port</span>: <span style="color:#66d9ef">443</span>
 })
-    </code></pre></div>
+    
+</code></pre></div>
   
 </div>
 
@@ -1054,14 +1036,10 @@ ZEEBE_CLIENT_SECRET
 </div>
 </div>
 
-
 <h3 id="environmentalizing-jwt-cache">Environmentalizing JWT cache</h3>
-
 <p>The following environment variable overrides the JWT cache directory:</p>
-
-<pre><code class="language-bash">ZEEBE_TOKEN_CACHE_DIR
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ZEEBE_TOKEN_CACHE_DIR
+</code></pre></div>
 
 <footer class=" footline" >
 	
@@ -1639,21 +1617,21 @@ ZEEBE_CLIENT_SECRET
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430667"></script>
-    <script src="/js/jquery.sticky.js?1574430667"></script>
-    <script src="/js/featherlight.min.js?1574430667"></script>
-    <script src="/js/highlight.pack.js?1574430667"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430667"></script>
-    <script src="/js/learn.js?1574430667"></script>
-    <script src="/js/hugo-learn.js?1574430667"></script>
-    <script src="/js/code-lang.js?1574430667"></script>
-    <script src="/js/tabs.js?1574430667"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430667" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430667"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

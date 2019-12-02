@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Prerequisites :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,15 +894,12 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#intended-audience">Intended Audience</a></li>
-<li><a href="#what-this-guide-covers">What this guide covers</a></li>
-<li><a href="#zeebe-broker">Zeebe Broker</a></li>
-<li><a href="#code-language">Code language</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#intended-audience">Intended Audience</a></li>
+    <li><a href="#what-this-guide-covers">What this guide covers</a></li>
+    <li><a href="#zeebe-broker">Zeebe Broker</a></li>
+    <li><a href="#code-language">Code language</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -927,38 +924,23 @@
 
 
 
-
-
 <h2 id="intended-audience">Intended Audience</h2>
-
 <p>This guide is intended for Node.js developers who want to develop Zeebe client applications in JavaScript or TypeScript.</p>
-
 <p>Familiarity with ES6 JavaScript or the <a href="https://www.typescriptlang.org/">TypeScript</a> programming language, <a href="https://nodejs.org/en/download/">Node.js</a>, and a working development environment are assumed.</p>
-
 <p>Configuring your TypeScript transpilation is out of scope. For that, consult the <a href="https://www.typescriptlang.org/docs/home.html">TypeScript documentation</a>.</p>
-
 <h2 id="what-this-guide-covers">What this guide covers</h2>
-
 <p>This guide walks you through using the JavaScript client for Zeebe, giving you the practical steps to write a fully-fledged Zeebe client application using either ES6 JavaScript or TypeScript.</p>
-
 <p>If you want to:</p>
-
 <ul>
 <li>Evaluate whether Zeebe is a good fit as a solution to your business problem.</li>
 <li>Build a POC using Zeebe and Node.js.</li>
 <li>Go to production with a Zeebe solution written in JavaScript / TypeScript.</li>
 </ul>
-
-<p>You&rsquo;ve come to the right place.</p>
-
+<p>You've come to the right place.</p>
 <h2 id="zeebe-broker">Zeebe Broker</h2>
-
 <p>You will need a running Zeebe broker during development. For instructions on installing a broker for local development and testing, consult the <a href="https://docs.zeebe.io/">Zeebe broker documentation</a>.</p>
-
 <h2 id="code-language">Code language</h2>
-
 <p>Code samples are presented in both JavaScript (ES6) and TypeScript, in tabs:</p>
-
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -966,7 +948,8 @@
 	
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ZBClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;zeebe-node&#39;</span>
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()</code></pre></div>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
+</code></pre></div>
 
 </div>
 
@@ -1557,21 +1540,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430667"></script>
-    <script src="/js/jquery.sticky.js?1574430667"></script>
-    <script src="/js/featherlight.min.js?1574430667"></script>
-    <script src="/js/highlight.pack.js?1574430667"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430667"></script>
-    <script src="/js/learn.js?1574430667"></script>
-    <script src="/js/hugo-learn.js?1574430667"></script>
-    <script src="/js/code-lang.js?1574430667"></script>
-    <script src="/js/tabs.js?1574430667"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430667" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430667"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

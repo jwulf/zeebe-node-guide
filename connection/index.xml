@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Connection on Zeebe Node.js Client Guide</title>
@@ -50,7 +50,7 @@ Basic Auth without TLS To enable Basic Auth without TLS:
       
       <guid>http://example.org/connection/oauth/</guid>
       <description>Connect to a broker with OAuth You can secure a Zeebe cluster with OAuth using a proxy. In this case, the Node client can retrieve a JWT (JSON Web Token) from a token endpoint to use to authorize requests to the broker.
-If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&amp;rsquo;m kidding - this is for a development POC &amp;hellip;right?</description>
+If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&#39;m kidding - this is for a development POC &amp;hellip;right?</description>
     </item>
     
     <item>

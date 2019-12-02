@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Install :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,15 +894,13 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#add-to-an-existing-project">Add to an existing project</a></li>
-<li><a href="#create-a-new-node-js-project">Create a new Node.js project</a></li>
-<li><a href="#make-it-a-typescript-project">Make it a TypeScript project</a></li>
-<li><a href="#optional-zbctl">Optional: zbctl</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#add-to-an-existing-project">Add to an existing project</a></li>
+    <li><a href="#create-a-new-nodejs-project">Create a new Node.js project</a></li>
+    <li><a href="#make-it-a-typescript-project">Make it a TypeScript project</a></li>
+    <li><a href="#optional-zeebe-modeler">Optional: Zeebe Modeler</a></li>
+    <li><a href="#optional-zbctl">Optional: zbctl</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -927,43 +925,27 @@
 
 
 
-
-
 <p>The Zeebe Node client is available via <a href="https://www.npmjs.com/package/zeebe-node">npm</a>.</p>
-
 <h2 id="add-to-an-existing-project">Add to an existing project</h2>
-
-<pre><code class="language-bash">npm i zeebe-node
-</code></pre>
-
-<h2 id="create-a-new-node-js-project">Create a new Node.js project</h2>
-
-<pre><code class="language-bash">mkdir myproject
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i zeebe-node
+</code></pre></div><h2 id="create-a-new-nodejs-project">Create a new Node.js project</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir myproject
 cd myproject
 npm init -y
 npm i zeebe-node
-</code></pre>
-
-<h2 id="make-it-a-typescript-project">Make it a TypeScript project</h2>
-
-<pre><code class="language-bash">npm i -g typescript
+</code></pre></div><h2 id="make-it-a-typescript-project">Make it a TypeScript project</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i -g typescript
 tsc --init
-</code></pre>
-
+</code></pre></div><h2 id="optional-zeebe-modeler">Optional: Zeebe Modeler</h2>
+<p>The Zeebe Modeler is an Electron app that allows you to create, examine, and inspect BPMN files.</p>
+<p>You can download a release of the Zeebe Modeler from GitHub <a href="https://github.com/zeebe-io/zeebe-modeler/releases">here</a>.</p>
 <h2 id="optional-zbctl">Optional: zbctl</h2>
-
 <p>The <code>zbctl</code> binary is a command-line client that you can use to send commands to a Zeebe broker cluster. It is useful for debugging and testing.</p>
-
 <p>To install <code>zbctl</code>:</p>
-
-<pre><code class="language-bash">npm i -g zbctl
-</code></pre>
-
-<p>After installation, you can run <code>zbctl</code> and see the available options with:</p>
-
-<pre><code class="language-bash">zbctl
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i -g zbctl
+</code></pre></div><p>After installation, you can run <code>zbctl</code> and see the available options with:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">zbctl
+</code></pre></div>
 
 <footer class=" footline" >
 	
@@ -1538,21 +1520,21 @@ tsc --init
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430666"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430666"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430666"></script>
-    <script src="/js/jquery.sticky.js?1574430666"></script>
-    <script src="/js/featherlight.min.js?1574430666"></script>
-    <script src="/js/highlight.pack.js?1574430666"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430666"></script>
-    <script src="/js/learn.js?1574430666"></script>
-    <script src="/js/hugo-learn.js?1574430666"></script>
-    <script src="/js/code-lang.js?1574430666"></script>
-    <script src="/js/tabs.js?1574430666"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430666" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430666"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

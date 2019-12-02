@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Quick Start on Zeebe Node.js Client Guide</title>
@@ -17,8 +17,8 @@
       <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
       
       <guid>http://example.org/quickstart/quickstart/</guid>
-      <description>What you will do in this Quickstart In this Quickstart you will establish a connection to a Zeebe broker cluster, deploy a workflow definition, create instances of that workflow, create a worker to service a task in the workflow, update the workflow variables via a worker, and await a workflow&amp;rsquo;s outcome.
-Prerequisites  Node.js / npm A Zeebe broker running locally (refer to the broker documentation).  Import the Zeebe Node library Create an index.</description>
+      <description>What you will do in this Quickstart In this Quickstart you will establish a connection to a Zeebe broker cluster, deploy a workflow definition, create instances of that workflow, create a worker to service a task in the workflow, update the workflow variables via a worker, and await a workflow&#39;s outcome.
+This workflow will get the current weather in London, UK, and output a recommendation to take an umbrella out with you or leave your umbrella at home.</description>
     </item>
     
   </channel>

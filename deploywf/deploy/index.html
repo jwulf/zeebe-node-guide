@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.60.0" />
     <meta name="description" content="">
 
 
@@ -12,20 +12,20 @@
     <title>Deploy Workflow Definitions :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1574430666" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1574430666" rel="stylesheet">
-    <link href="/css/hybrid.css?1574430666" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1574430666" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1574430666" rel="stylesheet">
-    <link href="/css/auto-complete.css?1574430666" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1574430666" rel="stylesheet">
-    <link href="/css/theme.css?1574430666" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1574430666" rel="stylesheet">
-    <link href="/css/tabs.css?1574430666" rel="stylesheet">
+    <link href="/css/nucleus.css?1575302239" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1575302239" rel="stylesheet">
+    <link href="/css/hybrid.css?1575302239" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1575302239" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1575302239" rel="stylesheet">
+    <link href="/css/auto-complete.css?1575302239" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1575302239" rel="stylesheet">
+    <link href="/css/theme.css?1575302239" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1575302239" rel="stylesheet">
+    <link href="/css/tabs.css?1575302239" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1574430666"></script>
+    <script src="/js/jquery-3.3.1.min.js?1575302239"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1574430666"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1574430666"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1575302239"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1575302239"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1574430666"></script>
+<script type="text/javascript" src="/js/search.js?1575302239"></script>
 
     
   </div>
@@ -894,14 +894,11 @@
                     <div class="progress">
     <div class="wrapper">
 <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#workflow-definitions">Workflow Definitions</a></li>
-<li><a href="#deploy-workflow-definition-files">Deploy workflow definition files</a></li>
-<li><a href="#deploy-a-workflow-definition-from-an-in-memory-buffer">Deploy a workflow definition from an in-memory buffer</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#workflow-definitions">Workflow Definitions</a></li>
+    <li><a href="#deploy-workflow-definition-files">Deploy workflow definition files</a></li>
+    <li><a href="#deploy-a-workflow-definition-from-an-inmemory-buffer">Deploy a workflow definition from an in-memory buffer</a></li>
+  </ul>
 </nav>
     </div>
 </div>
@@ -926,22 +923,13 @@
 
 
 
-
-
 <h2 id="workflow-definitions">Workflow Definitions</h2>
-
 <p><em>Workflow definitions</em> are XML files that specify a process using the BPMN (<a href="https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation">Business Process Model and Notation</a>) schema with Zeebe extensions.</p>
-
-<p><img src="/img/ecommerce.png"/></p>
-
+<!-- raw HTML omitted -->
 <p>You can create and edit these files using the graphical <a href="https://github.com/zeebe-io/zeebe-modeler">Zeebe modeler</a>.</p>
-
 <h2 id="deploy-workflow-definition-files">Deploy workflow definition files</h2>
-
 <p>The method <code>ZBClient.deployWorkflow</code> can take a string or an array of strings, where each string is a file path to a BPMN file containing a workflow definition to deploy:</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -964,7 +952,8 @@
     <span style="color:#e6db74">&#39;..&#39;</span>, 
     <span style="color:#e6db74">&#39;bpmn&#39;</span>, 
     <span style="color:#e6db74">&#39;my-workflow.bpmn&#39;</span>
-))</code></pre></div>
+))
+</code></pre></div>
 
 </div>
 
@@ -975,8 +964,8 @@
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
-<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepaths</span>) {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#a6e22e">filepaths</span>)
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepaths</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>(<span style="color:#a6e22e">filepaths</span>)
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>)
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>
 }
@@ -995,21 +984,13 @@
 </div>
 </div>
 
-
 <p>The deployWorkflow command returns a <code>DeployWorkflowResponse</code>. This has an array of <code>WorkflowMetadata</code>, containing information about the workflow definitions deployed.</p>
-
 <p>The method will throw if any of the workflow definitions are malformed - in this case none are deployed. @TODO - verify</p>
-
 <p><strong>Note on versioning:</strong> Re-deploying a workflow definition does not create a new version of that workflow definition in the broker cluster, unless the definition has been modified - in which case a new version is created.</p>
-
-<h2 id="deploy-a-workflow-definition-from-an-in-memory-buffer">Deploy a workflow definition from an in-memory buffer</h2>
-
+<h2 id="deploy-a-workflow-definition-from-an-inmemory-buffer">Deploy a workflow definition from an in-memory buffer</h2>
 <p><code>ZBClient.deployWorkflow</code> can also deploy a workflow definition from an in-memory buffer.</p>
-
 <p>This is useful if, for example, you perform template processing on a workflow definition after loading it from a file, before deploying it. See <a href="https://github.com/jwulf/zeebe-cloud-canary/blob/master/src/ZeebeCanary.ts#L58">here</a> for an example of doing that with micromustache.</p>
-
-<!-- prettier-ignore -->
-
+<!-- raw HTML omitted -->
 <div class="code-tabs">
 	<ul class="nav nav-tabs"></ul>
 	<div class="tab-content">
@@ -1039,7 +1020,8 @@
     <span style="color:#e6db74">&#39;..&#39;</span>, 
     <span style="color:#e6db74">&#39;bpmn&#39;</span>, 
     <span style="color:#e6db74">&#39;my-workflow.bpmn&#39;</span>
-))</code></pre></div>
+))
+</code></pre></div>
 
 </div>
 
@@ -1052,10 +1034,10 @@
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>()
 
-<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepath</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) {
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deployMyWorkflowDefinition</span>(<span style="color:#a6e22e">filepath</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">workflow</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">filepath</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>)
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xFormedWfd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">transformWfd</span>(<span style="color:#a6e22e">workflow</span>)
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>({
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">zbc</span>.<span style="color:#a6e22e">deployWorkflow</span>({
     <span style="color:#a6e22e">definition</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">xFormedWfd</span>),
     <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">basename</span>(<span style="color:#a6e22e">filepath</span>)
   })
@@ -1652,21 +1634,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.min.js?1574430667"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1574430667"></script>
-    <script src="/js/jquery.sticky.js?1574430667"></script>
-    <script src="/js/featherlight.min.js?1574430667"></script>
-    <script src="/js/highlight.pack.js?1574430667"></script>
+    <script src="/js/clipboard.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.min.js?1575302239"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1575302239"></script>
+    <script src="/js/jquery.sticky.js?1575302239"></script>
+    <script src="/js/featherlight.min.js?1575302239"></script>
+    <script src="/js/highlight.pack.js?1575302239"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1574430667"></script>
-    <script src="/js/learn.js?1574430667"></script>
-    <script src="/js/hugo-learn.js?1574430667"></script>
-    <script src="/js/code-lang.js?1574430667"></script>
-    <script src="/js/tabs.js?1574430667"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1575302239"></script>
+    <script src="/js/learn.js?1575302239"></script>
+    <script src="/js/hugo-learn.js?1575302239"></script>
+    <script src="/js/code-lang.js?1575302239"></script>
+    <script src="/js/tabs.js?1575302239"></script>
 
-    <link href="/mermaid/mermaid.css?1574430667" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1574430667"></script>
+    <link href="/mermaid/mermaid.css?1575302239" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1575302239"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

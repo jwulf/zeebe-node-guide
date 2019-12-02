@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ZBClient on Zeebe Node.js Client Guide</title>
@@ -18,7 +18,7 @@
       
       <guid>http://example.org/zbclient/zbclient/</guid>
       <description>The ZBClient is the main class in the Node client. It is used to connect to the broker, deploy workflow definitions, start workflow instances, publish messages, and to create workers (ZBWorker) that will service Zeebe tasks.
-The workers created from the Zeebe client inherit the client&amp;rsquo;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.</description>
+The workers created from the Zeebe client inherit the client&#39;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.</description>
     </item>
     
     <item>
