@@ -47,30 +47,42 @@ What this guide covers This guide walks you through using the JavaScript client 
     
     <item>
       <title>gRPC</title>
-      <link>http://example.org/grpc/grpc/</link>
+      <link>http://example.org/zbclient/grpc/grpc/</link>
       <pubDate>Mon, 28 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/grpc/grpc/</guid>
+      <guid>http://example.org/zbclient/grpc/grpc/</guid>
       <description>gRPC Communication between your application and the Zeebe broker gateway uses gRPC, a Remote Procedure Call framework that uses a highly efficient binary protocol that multiplexes requests over a persistent HTTP/2 connection.
 gRPC was originally developed at Google for use in their data centers, and is growing in popularity. Its main attractive features are its strong type safety and explicit interface definition through the .proto file, efficiency, and language agnosticism - an important factor in a large polyglot environment like Google, where services written in Go, Java, and C++ all need to talk to each other.</description>
     </item>
     
     <item>
+      <title>ZBWorker class</title>
+      <link>http://example.org/zbworker/zbworker/</link>
+      <pubDate>Mon, 28 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbworker/zbworker/</guid>
+      <description>The ZBWorker is the class used to create Zeebe Job workers. The detailed API documentation is available here.
+Your Workflow Definitions contain tasks. A task has a task type.
+When you create a workflow instance, the broker will create a job for a task. A job is a specific concrete instance of a task.
+An ZBWorker subscribes to the gateway for jobs of a specific task type, and continually polls the gateway for available jobs.</description>
+    </item>
+    
+    <item>
       <title>Connection to the Zeebe broker</title>
-      <link>http://example.org/connection/connection/</link>
+      <link>http://example.org/zbclient/connection/connection/</link>
       <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
       
-      <guid>http://example.org/connection/connection/</guid>
+      <guid>http://example.org/zbclient/connection/connection/</guid>
       <description>Broker Gateway address The ZBClient class establishes a connection to a Zeebe broker cluster, and is used to send commands to the broker.
 Conceptually, the ZBClient &amp;ldquo;talks to a broker&amp;rdquo;. In practice, the ZBClient talks to a gateway, which handles routing and load-balancing in the broker cluster. This means that you provide a gateway address to the ZBClient. In a development setup, you may have a single broker node with the embedded gateway enabled.</description>
     </item>
     
     <item>
       <title>TLS</title>
-      <link>http://example.org/connection/tls/</link>
+      <link>http://example.org/zbclient/connection/tls/</link>
       <pubDate>Mon, 28 Oct 2019 16:59:15 +1000</pubDate>
       
-      <guid>http://example.org/connection/tls/</guid>
+      <guid>http://example.org/zbclient/connection/tls/</guid>
       <description>Connect to a broker with TLS You can secure communication between your client applications and the Zeebe broker cluster using TLS (Transport Layer Security). This needs to be enabled in the broker, or in an reverse proxy, to use.
 By default, the broker does not secure the client connections with TLS, and the Node client does not use TLS for the connection.
 To enable TLS with the Node client and connect to a broker secured with TLS, set the option useTLS to true:</description>
@@ -98,13 +110,24 @@ This workflow will get the current weather in London, UK, and output a recommend
     
     <item>
       <title>Basic Auth</title>
-      <link>http://example.org/connection/basic-auth/</link>
+      <link>http://example.org/zbclient/connection/basic-auth/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/connection/basic-auth/</guid>
+      <guid>http://example.org/zbclient/connection/basic-auth/</guid>
       <description>Connect to a broker with Basic Auth You can secure a Zeebe cluster with Basic Auth using an reverse proxy. In this case you can use a username / password pair as effectively an API key for your client applications.
 Basic Auth without TLS To enable Basic Auth without TLS:
  import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient({ basicAuth: { username: &amp;#39;basicAuth-username&amp;#39;, password: &amp;#39;basicAuth-password&amp;#39;, }, hostname: &amp;#39;my-secure-zeebe-gateway.</description>
+    </item>
+    
+    <item>
+      <title>Create a Workflow Instance</title>
+      <link>http://example.org/createwf/createwf/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/createwf/createwf/</guid>
+      <description>Workflow Instances A Workflow instance (also known as a process instance) is a specific instance of a process. Each instance has its own variables and its own lifecycle.
+Create a Workflow Instance Creating and starting a workflow is a single operation:
+ import { ZBClient } from &amp;#39;zeebe-node&amp;#39; import type { CreateWorkflowInstanceResponse } from &amp;#39;zeebe-node&amp;#39; // TS 3.8+  const zbc = new ZBClient() async function startWorkflowInstance(bpmnProcessId: string, initialVariables = {}): Promise&amp;lt;ZB.</description>
     </item>
     
     <item>
@@ -121,10 +144,10 @@ Deploy workflow definition files The method ZBClient.deployWorkflow can take a s
     
     <item>
       <title>Logging</title>
-      <link>http://example.org/logging/logging/</link>
+      <link>http://example.org/zbclient/logging/logging/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/logging/logging/</guid>
+      <guid>http://example.org/zbclient/logging/logging/</guid>
       <description>Log format The Node client logs its messages using a structured JSON format - ndjson. These messages are designed to be easily parsed by scripts.
 The messages are output to the console by default, and look like this:
 {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.961Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:433&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: Attempt 5 (max: 50).&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} {&amp;quot;timestamp&amp;quot;:&amp;quot;2019-11-21T13:52:00.962Z&amp;quot;,&amp;quot;context&amp;quot;:&amp;quot;/Users/sitapati/workspace/Camunda/zeebe-client-node-js/src/zb/ZBClient.ts:441&amp;quot;,&amp;quot;level&amp;quot;:50,&amp;quot;message&amp;quot;:&amp;quot;[topology]: 14 UNAVAILABLE: failed to connect to all addresses&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;2019 Nov-21 23:52:00PM&amp;quot;,&amp;quot;pollInterval&amp;quot;:30000,&amp;quot;namespace&amp;quot;:&amp;quot;ZBClient&amp;quot;} To view log messages in a human-readable format, you can pipe your program&#39;s output through pino-pretty.</description>
@@ -132,20 +155,31 @@ The messages are output to the console by default, and look like this:
     
     <item>
       <title>OAuth</title>
-      <link>http://example.org/connection/oauth/</link>
+      <link>http://example.org/zbclient/connection/oauth/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/connection/oauth/</guid>
+      <guid>http://example.org/zbclient/connection/oauth/</guid>
       <description>Connect to a broker with OAuth You can secure a Zeebe cluster with OAuth using a proxy. In this case, the Node client can retrieve a JWT (JSON Web Token) from a token endpoint to use to authorize requests to the broker.
 If you are using OAuth, you are probably using TLS as well, so TLS is automatically enabled when OAuth is configured. You need to explicitly disable TLS if you are using OAuth without TLS, and re-examine your life choices (I&#39;m kidding - this is for a development POC &amp;hellip;right?</description>
     </item>
     
     <item>
-      <title>Worker Overview</title>
-      <link>http://example.org/create-worker/overview/</link>
+      <title>Type-safe Workflow Instances</title>
+      <link>http://example.org/createwf/typesafe/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/create-worker/overview/</guid>
+      <guid>http://example.org/createwf/typesafe/</guid>
+      <description>Type-safe applications Both the createWorkflowInstance and createWorkflowInstanceWithResult methods of the ZBClient have parameterised types, also known as generic types. These can provide a degree of type-checking and intellisense for the variables payload while coding.
+By default they are set to any, so you can ignore them and the variables in and out of these functions can be anything.
+Both createWorkflowInstance and createWorkflowInstanceWithResult take in the initial variable payload. This an arbitrarily shaped object that represents something in the business domain of your application.</description>
+    </item>
+    
+    <item>
+      <title>Worker Overview</title>
+      <link>http://example.org/zbworker/overview/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbworker/overview/</guid>
       <description>This section contains conceptual background and reference material that may be overwhelming initially. Feel free to continually refer back to this section as you need to.
 The ZBClient method createWorker creates a new ZBWorker to service jobs.
 A job is a specific, concrete instance of a task from a running workflow.
@@ -153,21 +187,11 @@ A ZBWorker is created for a specific task type, and continuously polls the broke
     </item>
     
     <item>
-      <title>ZBClient class</title>
-      <link>http://example.org/zbclient/zbclient/</link>
-      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
-      
-      <guid>http://example.org/zbclient/zbclient/</guid>
-      <description>The ZBClient is the main class in the Node client. It is used to connect to the broker, deploy workflow definitions, start workflow instances, publish messages, and to create workers (ZBWorker) that will service Zeebe tasks.
-The workers created from the Zeebe client inherit the client&#39;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.</description>
-    </item>
-    
-    <item>
       <title>ZBClient gRPC retries</title>
-      <link>http://example.org/grpc/grpc-config/</link>
+      <link>http://example.org/zbclient/grpc/grpc-config/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/grpc/grpc-config/</guid>
+      <guid>http://example.org/zbclient/grpc/grpc-config/</guid>
       <description>Failure - part of success All ZBClient methods that involve sending a gRPC command to the broker may fail.
 If you are using async/await that means they will throw. If you are using Promises, they will reject and take the .catch path.
 We divide failures into two categories:
@@ -176,32 +200,64 @@ We divide failures into two categories:
     
     <item>
       <title>ZBLogger</title>
-      <link>http://example.org/logging/zblogger/</link>
+      <link>http://example.org/zblogger/zblogger/</link>
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/logging/zblogger/</guid>
+      <guid>http://example.org/zblogger/zblogger/</guid>
       <description>The ZBLogger class is available for you to use for logging in your application.
  import { ZBLogger } from &amp;#39;zeebe-node&amp;#39; const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)   const { ZBLogger } = require(&amp;#39;zeebe-node&amp;#39;) const logger = new ZBLogger({ loglevel: &amp;#39;INFO&amp;#39;, namespace: &amp;#39;my-application-context&amp;#39;, }) logger.info(&amp;#39;Starting...&amp;#39;)     </description>
     </item>
     
     <item>
-      <title>ZBWorker class</title>
-      <link>http://example.org/zbworker/zbworker/</link>
-      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      <title>API Documentation</title>
+      <link>http://example.org/zbclient/overview/apidoc/</link>
+      <pubDate>Sat, 26 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/zbworker/zbworker/</guid>
-      <description>The ZBWorker is the class used to create Zeebe Job workers.
-Your Workflow Definitions contain tasks. A task has a task type.
-When you create a workflow instance, the broker will create a job for a task. A job is a specific concrete instance of a task.
-An ZBWorker subscribes to the gateway for jobs of a specific task type, and continually polls the gateway for available jobs. When there is work for the worker to do, the gateway responds to the poll with a stream of jobs, and the worker&#39;s job handler is invoked for each job.</description>
+      <guid>http://example.org/zbclient/overview/apidoc/</guid>
+      <description>The detailed API documentation for the ZBClient class is available here.</description>
+    </item>
+    
+    <item>
+      <title>Create a Job Worker</title>
+      <link>http://example.org/zbworker/create-worker/</link>
+      <pubDate>Sat, 26 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbworker/create-worker/</guid>
+      <description>To create a Job Worker, you must first create a ZBClient. The ZBClient defines the logging, connection, and retry configuration that will be inherited by any ZBWorkers that it creates.
+This allows you to consolidate configuration, and also create various configurations for different scenarios. Refer to the section on the ZBClientfor more information on the ZBClient class.
+Create a Job Worker Creating a job worker is simple:
+ import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient() zbc.</description>
+    </item>
+    
+    <item>
+      <title>Worker Options</title>
+      <link>http://example.org/zbworker/worker-options/</link>
+      <pubDate>Sat, 26 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbworker/worker-options/</guid>
+      <description>The ZBClient.createWorker() method takes an optional fourth parameter - an options object.
+ import { ZBClient } from &amp;#39;zeebe-node&amp;#39; const zbc = new ZBClient() const handler = (job, complete) =&amp;gt; complete.success() zbc.createWorker(null, &amp;#39;get-customer&amp;#39;, handler, { debug: false, failWorkflowOnException: false, maxJobsToActivate: 32, onConnectionErrorHandler: () =&amp;gt; console.log(&amp;#39;Disconnected!&amp;#39;), timeout: 60000 })   const { ZBClient } = require(&amp;#39;zeebe-node&amp;#39;) const zbc = new ZBClient() const handler = (job, complete) =&amp;gt; complete.success() zbc.createWorker(null, &amp;#39;get-customer&amp;#39;, handler, { debug: false, failWorkflowOnException: false, maxJobsToActivate: 32, onConnectionErrorHandler: () =&amp;gt; console.</description>
+    </item>
+    
+    <item>
+      <title>Writing Type-Safe Workers</title>
+      <link>http://example.org/zbworker/typesafety/</link>
+      <pubDate>Sat, 26 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbworker/typesafety/</guid>
+      <description>This section only applies if you are using TypeScript
+The job parameter that is passed to your worker handler is, by default, partially typed.
+The metadata from the broker is strongly typed, but the customHeaders and variables are typed as any.
+The argument that you pass to the complete.success() function is also typed as object.
+You can provide explicit type information for these fields to provide greater type-safety and Intellisense support in your IDE.</description>
     </item>
     
     <item>
       <title>Camunda Cloud</title>
-      <link>http://example.org/connection/camunda-cloud/</link>
+      <link>http://example.org/zbclient/connection/camunda-cloud/</link>
       <pubDate>Sat, 26 Oct 2019 16:59:15 +1000</pubDate>
       
-      <guid>http://example.org/connection/camunda-cloud/</guid>
+      <guid>http://example.org/zbclient/connection/camunda-cloud/</guid>
       <description>Connect to Camunda Cloud Camunda Cloud provides a fully managed Zeebe service with TLS and OAuth.
 The Zeebe Node client provides a convenience that handles the TLS and some of the OAuth configuration for Camunda Cloud.
 To use with Camunda Cloud, set these values in code. Note that cacheDir is optional, and should be used when the directory ~/.camunda is not writable in your runtime environment, to set a custom token cache directory (see the section on OAuth JWT caching).</description>
@@ -209,23 +265,32 @@ To use with Camunda Cloud, set these values in code. Note that cacheDir is optio
     
     <item>
       <title>Configuration Strategies</title>
-      <link>http://example.org/zbclient/configuration/</link>
+      <link>http://example.org/zbclient/overview/configuration/</link>
       <pubDate>Sat, 26 Oct 2019 16:59:15 +1000</pubDate>
       
-      <guid>http://example.org/zbclient/configuration/</guid>
-      <description>Zero-conf constructor vs configuration in code You can provide configuration to the ZBClient explicitly in your code - via the constructor - or via environment variables.
-Explicit configuration in code is quick and easy, and makes sense when you are first experimenting with Zeebe.
-We recommend, however, that ultimately you use the zero-conf constructor, and provide all the configuration via environment variables, docker-compose.yml, or a K8s config map. This environmentalizes your configuration, making your code portable.</description>
+      <guid>http://example.org/zbclient/overview/configuration/</guid>
+      <description>The workers created from the Zeebe client inherit the client&#39;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.
+Zero-conf constructor vs configuration in code You can provide configuration to the ZBClient explicitly in your code - via the constructor - or via environment variables.
+Explicit configuration in code is quick and easy, and makes sense when you are first experimenting with Zeebe.</description>
     </item>
     
     <item>
       <title>ZBClient gRPC channel events</title>
-      <link>http://example.org/grpc/grpc-events/</link>
+      <link>http://example.org/zbclient/grpc/grpc-events/</link>
       <pubDate>Fri, 25 Oct 2019 17:01:15 +1000</pubDate>
       
-      <guid>http://example.org/grpc/grpc-events/</guid>
+      <guid>http://example.org/zbclient/grpc/grpc-events/</guid>
       <description>ZBClient gRPC channel events The ZBClient notifies on gRPC channel connection failure and reconnection. In addition to wrapping every single operation, you can use this feature to write alerting or custom behavior based on the underlying connection status.
 One thing to bear in mind is that ZBClient operations will throw if they encounter an error. However, there is no opportunity to be alerted to a network failure until you try an operation.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://example.org/typesafety/examples/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/typesafety/examples/</guid>
+      <description>Building Type-safe applications  /** * This TypeScript example makes use of Generic typing to provide intellisense and type-safety * for the variables. If you don&amp;#39;t supply any Generic types (in angle brackets &amp;lt;&amp;gt;), * the type of variables will be `any`. That also works fine, just with less safety. */ import { ZBClient } from &amp;#39;zeebe-node&amp;#39; import type { CreateWorkflowInstanceWithResultResponse } from &amp;#39;zeebe-node&amp;#39; // TS 3.8+  const zbc = new ZBClient() interface UserRecord { userid: number name: string } interface FinalState extends UserRecord { approved: boolean } async function processUser(user: UserRecord): Promise&amp;lt;CreateWorkflowInstanceWithResultResponse&amp;lt;FinalState&amp;gt;&amp;gt; { try { const res = await zbc.</description>
     </item>
     
   </channel>

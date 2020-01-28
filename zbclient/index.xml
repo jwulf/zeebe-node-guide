@@ -11,26 +11,5 @@
 	<atom:link href="http://example.org/zbclient/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>ZBClient class</title>
-      <link>http://example.org/zbclient/zbclient/</link>
-      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
-      
-      <guid>http://example.org/zbclient/zbclient/</guid>
-      <description>The ZBClient is the main class in the Node client. It is used to connect to the broker, deploy workflow definitions, start workflow instances, publish messages, and to create workers (ZBWorker) that will service Zeebe tasks.
-The workers created from the Zeebe client inherit the client&#39;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.</description>
-    </item>
-    
-    <item>
-      <title>Configuration Strategies</title>
-      <link>http://example.org/zbclient/configuration/</link>
-      <pubDate>Sat, 26 Oct 2019 16:59:15 +1000</pubDate>
-      
-      <guid>http://example.org/zbclient/configuration/</guid>
-      <description>Zero-conf constructor vs configuration in code You can provide configuration to the ZBClient explicitly in your code - via the constructor - or via environment variables.
-Explicit configuration in code is quick and easy, and makes sense when you are first experimenting with Zeebe.
-We recommend, however, that ultimately you use the zero-conf constructor, and provide all the configuration via environment variables, docker-compose.yml, or a K8s config map. This environmentalizes your configuration, making your code portable.</description>
-    </item>
-    
   </channel>
 </rss>

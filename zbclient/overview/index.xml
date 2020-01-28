@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Overview on Zeebe Node.js Client Guide</title>
+    <link>http://example.org/zbclient/overview/</link>
+    <description>Recent content in Overview on Zeebe Node.js Client Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Oct 2019 16:49:55 +1000</lastBuildDate>
+    
+	<atom:link href="http://example.org/zbclient/overview/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>API Documentation</title>
+      <link>http://example.org/zbclient/overview/apidoc/</link>
+      <pubDate>Sat, 26 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient/overview/apidoc/</guid>
+      <description>The detailed API documentation for the ZBClient class is available here.</description>
+    </item>
+    
+    <item>
+      <title>Configuration Strategies</title>
+      <link>http://example.org/zbclient/overview/configuration/</link>
+      <pubDate>Sat, 26 Oct 2019 16:59:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient/overview/configuration/</guid>
+      <description>The workers created from the Zeebe client inherit the client&#39;s settings, allowing you to consolidate your configuration. At the same time, you can override those settings for any worker - so you have convenience and flexibility.
+Zero-conf constructor vs configuration in code You can provide configuration to the ZBClient explicitly in your code - via the constructor - or via environment variables.
+Explicit configuration in code is quick and easy, and makes sense when you are first experimenting with Zeebe.</description>
+    </item>
+    
+  </channel>
+</rss>

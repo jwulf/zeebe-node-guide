@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gRPC Configuration on Zeebe Node.js Client Guide</title>
+    <link>http://example.org/zbclient/grpc/</link>
+    <description>Recent content in gRPC Configuration on Zeebe Node.js Client Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Oct 2019 16:49:55 +1000</lastBuildDate>
+    
+	<atom:link href="http://example.org/zbclient/grpc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>gRPC</title>
+      <link>http://example.org/zbclient/grpc/grpc/</link>
+      <pubDate>Mon, 28 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient/grpc/grpc/</guid>
+      <description>gRPC Communication between your application and the Zeebe broker gateway uses gRPC, a Remote Procedure Call framework that uses a highly efficient binary protocol that multiplexes requests over a persistent HTTP/2 connection.
+gRPC was originally developed at Google for use in their data centers, and is growing in popularity. Its main attractive features are its strong type safety and explicit interface definition through the .proto file, efficiency, and language agnosticism - an important factor in a large polyglot environment like Google, where services written in Go, Java, and C++ all need to talk to each other.</description>
+    </item>
+    
+    <item>
+      <title>ZBClient gRPC retries</title>
+      <link>http://example.org/zbclient/grpc/grpc-config/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient/grpc/grpc-config/</guid>
+      <description>Failure - part of success All ZBClient methods that involve sending a gRPC command to the broker may fail.
+If you are using async/await that means they will throw. If you are using Promises, they will reject and take the .catch path.
+We divide failures into two categories:
+ &amp;ldquo;Business logic errors&amp;rdquo; - for example, trying to create an instance of a workflow for which no workflow definition is deployed on the broker.</description>
+    </item>
+    
+    <item>
+      <title>ZBClient gRPC channel events</title>
+      <link>http://example.org/zbclient/grpc/grpc-events/</link>
+      <pubDate>Fri, 25 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/zbclient/grpc/grpc-events/</guid>
+      <description>ZBClient gRPC channel events The ZBClient notifies on gRPC channel connection failure and reconnection. In addition to wrapping every single operation, you can use this feature to write alerting or custom behavior based on the underlying connection status.
+One thing to bear in mind is that ZBClient operations will throw if they encounter an error. However, there is no opportunity to be alerted to a network failure until you try an operation.</description>
+    </item>
+    
+  </channel>
+</rss>

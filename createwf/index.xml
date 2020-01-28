@@ -11,5 +11,27 @@
 	<atom:link href="http://example.org/createwf/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Create a Workflow Instance</title>
+      <link>http://example.org/createwf/createwf/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/createwf/createwf/</guid>
+      <description>Workflow Instances A Workflow instance (also known as a process instance) is a specific instance of a process. Each instance has its own variables and its own lifecycle.
+Create a Workflow Instance Creating and starting a workflow is a single operation:
+ import { ZBClient } from &amp;#39;zeebe-node&amp;#39; import type { CreateWorkflowInstanceResponse } from &amp;#39;zeebe-node&amp;#39; // TS 3.8+  const zbc = new ZBClient() async function startWorkflowInstance(bpmnProcessId: string, initialVariables = {}): Promise&amp;lt;ZB.</description>
+    </item>
+    
+    <item>
+      <title>Type-safe Workflow Instances</title>
+      <link>http://example.org/createwf/typesafe/</link>
+      <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
+      
+      <guid>http://example.org/createwf/typesafe/</guid>
+      <description>Type-safe applications Both the createWorkflowInstance and createWorkflowInstanceWithResult methods of the ZBClient have parameterised types, also known as generic types. These can provide a degree of type-checking and intellisense for the variables payload while coding.
+By default they are set to any, so you can ignore them and the variables in and out of these functions can be anything.
+Both createWorkflowInstance and createWorkflowInstanceWithResult take in the initial variable payload. This an arbitrarily shaped object that represents something in the business domain of your application.</description>
+    </item>
+    
   </channel>
 </rss>

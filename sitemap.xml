@@ -18,6 +18,11 @@
   </url>
   
   <url>
+    <loc>http://example.org/zbclient/overview/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://example.org/quickstart/</loc>
     <lastmod>2019-10-28T16:49:55+10:00</lastmod>
   </url>
@@ -28,22 +33,27 @@
   </url>
   
   <url>
+    <loc>http://example.org/zblogger/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/zbclient/connection/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://example.org/zbworker/</loc>
     <lastmod>2019-10-28T16:49:55+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/connection/</loc>
+    <loc>http://example.org/zbclient/logging/</loc>
     <lastmod>2019-10-28T16:49:55+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/logging/</loc>
-    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://example.org/grpc/</loc>
+    <loc>http://example.org/zbclient/grpc/</loc>
     <lastmod>2019-10-28T16:49:55+10:00</lastmod>
   </url>
   
@@ -68,6 +78,11 @@
   </url>
   
   <url>
+    <loc>http://example.org/typesafety/</loc>
+    <lastmod>2019-10-28T16:49:55+10:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://example.org/installation/install/install/</loc>
     <lastmod>2019-11-07T01:44:25+10:00</lastmod>
   </url>
@@ -83,17 +98,22 @@
   </url>
   
   <url>
-    <loc>http://example.org/grpc/grpc/</loc>
+    <loc>http://example.org/zbclient/grpc/grpc/</loc>
     <lastmod>2019-10-28T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/connection/connection/</loc>
+    <loc>http://example.org/zbworker/zbworker/</loc>
+    <lastmod>2019-10-28T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/zbclient/connection/connection/</loc>
     <lastmod>2019-10-28T16:59:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/connection/tls/</loc>
+    <loc>http://example.org/zbclient/connection/tls/</loc>
     <lastmod>2019-10-28T16:59:15+10:00</lastmod>
   </url>
   
@@ -108,7 +128,12 @@
   </url>
   
   <url>
-    <loc>http://example.org/connection/basic-auth/</loc>
+    <loc>http://example.org/zbclient/connection/basic-auth/</loc>
+    <lastmod>2019-10-27T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/createwf/createwf/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   
@@ -118,53 +143,73 @@
   </url>
   
   <url>
-    <loc>http://example.org/logging/logging/</loc>
+    <loc>http://example.org/zbclient/logging/logging/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/connection/oauth/</loc>
+    <loc>http://example.org/zbclient/connection/oauth/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/create-worker/overview/</loc>
+    <loc>http://example.org/createwf/typesafe/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/zbclient/zbclient/</loc>
+    <loc>http://example.org/zbworker/overview/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/grpc/grpc-config/</loc>
+    <loc>http://example.org/zbclient/grpc/grpc-config/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/logging/zblogger/</loc>
+    <loc>http://example.org/zblogger/zblogger/</loc>
     <lastmod>2019-10-27T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/zbworker/zbworker/</loc>
-    <lastmod>2019-10-27T17:01:15+10:00</lastmod>
+    <loc>http://example.org/zbclient/overview/apidoc/</loc>
+    <lastmod>2019-10-26T17:01:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/connection/camunda-cloud/</loc>
+    <loc>http://example.org/zbworker/create-worker/</loc>
+    <lastmod>2019-10-26T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/zbworker/worker-options/</loc>
+    <lastmod>2019-10-26T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/zbworker/typesafety/</loc>
+    <lastmod>2019-10-26T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/zbclient/connection/camunda-cloud/</loc>
     <lastmod>2019-10-26T16:59:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/zbclient/configuration/</loc>
+    <loc>http://example.org/zbclient/overview/configuration/</loc>
     <lastmod>2019-10-26T16:59:15+10:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/grpc/grpc-events/</loc>
+    <loc>http://example.org/zbclient/grpc/grpc-events/</loc>
     <lastmod>2019-10-25T17:01:15+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/typesafety/examples/</loc>
+    <priority>0</priority>
   </url>
   
   <url>

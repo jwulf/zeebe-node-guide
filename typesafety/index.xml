@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Type-safe Applications on Zeebe Node.js Client Guide</title>
+    <link>http://example.org/typesafety/</link>
+    <description>Recent content in Type-safe Applications on Zeebe Node.js Client Guide</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Oct 2019 16:49:55 +1000</lastBuildDate>
+    
+	<atom:link href="http://example.org/typesafety/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>http://example.org/typesafety/examples/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/typesafety/examples/</guid>
+      <description>Building Type-safe applications  /** * This TypeScript example makes use of Generic typing to provide intellisense and type-safety * for the variables. If you don&amp;#39;t supply any Generic types (in angle brackets &amp;lt;&amp;gt;), * the type of variables will be `any`. That also works fine, just with less safety. */ import { ZBClient } from &amp;#39;zeebe-node&amp;#39; import type { CreateWorkflowInstanceWithResultResponse } from &amp;#39;zeebe-node&amp;#39; // TS 3.8+  const zbc = new ZBClient() interface UserRecord { userid: number name: string } interface FinalState extends UserRecord { approved: boolean } async function processUser(user: UserRecord): Promise&amp;lt;CreateWorkflowInstanceWithResultResponse&amp;lt;FinalState&amp;gt;&amp;gt; { try { const res = await zbc.</description>
+    </item>
+    
+  </channel>
+</rss>
