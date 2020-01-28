@@ -169,7 +169,7 @@ If you are using OAuth, you are probably using TLS as well, so TLS is automatica
       <pubDate>Sun, 27 Oct 2019 17:01:15 +1000</pubDate>
       
       <guid>http://example.org/createwf/typesafe/</guid>
-      <description>Type-safe applications Both the createWorkflowInstance and createWorkflowInstanceWithResult methods of the ZBClient have parameterised types, also known as generic types. These can provide a degree of type-checking and intellisense for the variables payload while coding.
+      <description>Both the createWorkflowInstance and createWorkflowInstanceWithResult methods of the ZBClient have parameterised types, also known as generic types. These can provide a degree of type-checking and intellisense for the variables payload while coding.
 By default they are set to any, so you can ignore them and the variables in and out of these functions can be anything.
 Both createWorkflowInstance and createWorkflowInstanceWithResult take in the initial variable payload. This an arbitrarily shaped object that represents something in the business domain of your application.</description>
     </item>
