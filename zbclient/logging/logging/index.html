@@ -12,20 +12,20 @@
     <title>Logging :: Zeebe Node.js Client Guide</title>
 
     
-    <link href="/css/nucleus.css?1580223665" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1580223665" rel="stylesheet">
-    <link href="/css/hybrid.css?1580223665" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1580223665" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1580223665" rel="stylesheet">
-    <link href="/css/auto-complete.css?1580223665" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1580223665" rel="stylesheet">
-    <link href="/css/theme.css?1580223665" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1580223665" rel="stylesheet">
-    <link href="/css/tabs.css?1580223665" rel="stylesheet">
+    <link href="/css/nucleus.css?1582573892" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1582573892" rel="stylesheet">
+    <link href="/css/hybrid.css?1582573892" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1582573892" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1582573892" rel="stylesheet">
+    <link href="/css/auto-complete.css?1582573892" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1582573892" rel="stylesheet">
+    <link href="/css/theme.css?1582573892" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1582573892" rel="stylesheet">
+    <link href="/css/tabs.css?1582573892" rel="stylesheet">
 
     
 
-    <script src="/js/jquery-3.3.1.min.js?1580223665"></script>
+    <script src="/js/jquery-3.3.1.min.js?1582573892"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,14 +70,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1580223665"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1580223665"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1582573892"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1582573892"></script>
 <script type="text/javascript">
     
         var baseurl = "http:\/\/example.org\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1580223665"></script>
+<script type="text/javascript" src="/js/search.js?1582573892"></script>
 
     
   </div>
@@ -1266,7 +1266,7 @@
 <span style="color:#75715e">// Use a custom log sink
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">zbc</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ZBClient</span>({
   <span style="color:#a6e22e">loglevel</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
-  <span style="color:#a6e22e">stdio</span><span style="color:#f92672">:</span> {
+  <span style="color:#a6e22e">stdout</span><span style="color:#f92672">:</span> {
     <span style="color:#a6e22e">info</span>: <span style="color:#66d9ef">msg</span> <span style="color:#f92672">=</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">msg</span>)
   }
 })
@@ -1293,7 +1293,7 @@
 </div>
 </div>
 
-<p>For an example of a custom logger, see the implementation in the <a href="https://github.com/pedesen/node-red-contrib-zeebe/blob/master/src/util/logger.js">Node-RED Zeebe package</a>.</p>
+<p>For an example of a custom logger, see the implementation in the <a href="https://github.com/pedesen/node-red-contrib-zeebe/blob/master/src/util/logger.js">Node-RED Zeebe package</a>. For a more sophisticated example, see the implementation in the <a href="https://github.com/jwulf/zeebe-action/blob/master/src/log/logger.ts#L14">Zeebe GitHub Action</a>.</p>
 <h2 id="logging-in-zbworker">Logging in ZBWorker</h2>
 <p>The ZBWorker inherits its log settings from the ZBClient that creates it. You can also override any of the settings in the <code>createWorker</code> method call.</p>
 <p>By default the ZBWorker logs with the namespace &ldquo;ZBWorker&rdquo;. If a custom namespace has been set for the ZBClient, the ZBWorker inherits it and prepends &ldquo;ZBWorker&rdquo; to it. If you override this with an explicit namespace, &ldquo;ZBWorker&rdquo; is prepended to that.</p>
@@ -2063,21 +2063,21 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1580223665"></script>
-    <script src="/js/perfect-scrollbar.min.js?1580223665"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1580223665"></script>
-    <script src="/js/jquery.sticky.js?1580223665"></script>
-    <script src="/js/featherlight.min.js?1580223665"></script>
-    <script src="/js/highlight.pack.js?1580223665"></script>
+    <script src="/js/clipboard.min.js?1582573892"></script>
+    <script src="/js/perfect-scrollbar.min.js?1582573892"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1582573892"></script>
+    <script src="/js/jquery.sticky.js?1582573892"></script>
+    <script src="/js/featherlight.min.js?1582573892"></script>
+    <script src="/js/highlight.pack.js?1582573892"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1580223665"></script>
-    <script src="/js/learn.js?1580223665"></script>
-    <script src="/js/hugo-learn.js?1580223665"></script>
-    <script src="/js/code-lang.js?1580223665"></script>
-    <script src="/js/tabs.js?1580223665"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1582573892"></script>
+    <script src="/js/learn.js?1582573892"></script>
+    <script src="/js/hugo-learn.js?1582573892"></script>
+    <script src="/js/code-lang.js?1582573892"></script>
+    <script src="/js/tabs.js?1582573892"></script>
 
-    <link href="/mermaid/mermaid.css?1580223665" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1580223665"></script>
+    <link href="/mermaid/mermaid.css?1582573892" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1582573892"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
